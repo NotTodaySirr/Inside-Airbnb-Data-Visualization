@@ -1,0 +1,43 @@
+:root {
+  --bg: #f5f0e6;
+  --panel: rgba(255, 252, 244, 0.88);
+  --chart-bg: #fff8ea;
+  --border: rgba(54, 66, 88, 0.16);
+  --text: #293241;
+  --text-muted: #667085;
+  --text-strong: #121826;
+  --accent: #c45a18;
+  --bar: #235789;
+  --bar-hover: #f2921d;
+  --shadow: 0 24px 70px rgba(56, 43, 24, 0.13);
+
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(242, 146, 29, 0.2), transparent 36rem),
+    radial-gradient(circle at 86% 12%, rgba(35, 87, 137, 0.14), transparent 30rem),
+    linear-gradient(135deg, #f7efe1 0%, #eef2ed 100%);
+  font-family:
+    Avenir Next, Avenir, Montserrat, Trebuchet MS, sans-serif;
+  font-synthesis: none;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
