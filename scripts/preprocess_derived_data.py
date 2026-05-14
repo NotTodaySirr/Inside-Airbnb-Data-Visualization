@@ -139,20 +139,42 @@ t2_legacy.to_csv(OUT / 'task2_review_month_room_type.csv', index=False)
 
 # Tasks 3/4 calendar aggregation in chunks
 print('Tasks 3/4 calendar chunks...')
+
+# Task 4 meta: keep 'Multi-listing host' label so Task4VacancyBoxPlot is unaffected
 listing_meta = listings[['id','calculated_host_listings_count','minimum_nights']].copy()
 listing_meta['host_group'] = pd.to_numeric(listing_meta['calculated_host_listings_count'], errors='coerce').fillna(0).apply(lambda x: 'Individual host' if x == 1 else 'Multi-listing host')
 listing_meta['minimum_nights_group'] = pd.to_numeric(listing_meta['minimum_nights'], errors='coerce').apply(min_nights_group)
 meta = listing_meta.set_index('id')[['host_group','minimum_nights_group']]
+
+# Task 3 meta: use 'Commercial host' label as specified in the refactor plan
+listing_meta_t3 = listings[['id','calculated_host_listings_count']].copy()
+listing_meta_t3['host_group'] = pd.to_numeric(listing_meta_t3['calculated_host_listings_count'], errors='coerce').fillna(0).apply(lambda x: 'Individual host' if x == 1 else 'Commercial host')
+meta_t3 = listing_meta_t3.set_index('id')[['host_group']]
+
 month_parts = []
 listing_parts = []
-for chunk in pd.read_csv(CALENDAR, usecols=['listing_id','date','available','room_type'], chunksize=1_000_000, low_memory=False):
+t3_daily_parts = []
+
+for chunk in pd.read_csv(CALENDAR, usecols=['listing_id','date','available','price_used','room_type'], chunksize=1_000_000, low_memory=False):
     chunk['listing_id'] = chunk['listing_id'].astype(str)
-    chunk['date_month'] = pd.to_datetime(chunk['date'], errors='coerce').dt.to_period('M').astype(str)
     chunk['available_num'] = bool_series(chunk['available']).astype(int)
-    chunk = chunk.join(meta, on='listing_id')
-    chunk = chunk.dropna(subset=['host_group'])
-    month_parts.append(chunk.groupby(['date_month','host_group','room_type'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
-    listing_parts.append(chunk.groupby(['listing_id','host_group','minimum_nights_group'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
+
+    # --- Task 4 aggregation (unchanged logic) ---
+    chunk_t4 = chunk.copy()
+    chunk_t4['date_month'] = pd.to_datetime(chunk_t4['date'], errors='coerce').dt.to_period('M').astype(str)
+    chunk_t4 = chunk_t4.join(meta, on='listing_id')
+    chunk_t4 = chunk_t4.dropna(subset=['host_group'])
+    month_parts.append(chunk_t4.groupby(['date_month','host_group','room_type'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
+    listing_parts.append(chunk_t4.groupby(['listing_id','host_group','minimum_nights_group'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
+
+    # --- Task 3 daily aggregation (new) ---
+    chunk_t3 = chunk[['listing_id','date','available_num','price_used','room_type']].copy()
+    chunk_t3['price_used'] = pd.to_numeric(chunk_t3['price_used'], errors='coerce')
+    chunk_t3 = chunk_t3.join(meta_t3, on='listing_id')
+    chunk_t3 = chunk_t3.dropna(subset=['host_group'])
+    t3_daily_parts.append(chunk_t3)
+
+# --- Task 4 outputs (unchanged) ---
 month = pd.concat(month_parts).groupby(['date_month','host_group','room_type'], as_index=False).sum()
 month['vacancy_rate'] = month['available_days'] / month['total_days']
 month[['date_month','host_group','room_type','vacancy_rate','available_days','total_days']].to_csv(OUT / 'task3_vacancy_month_host_group.csv', index=False)
@@ -169,20 +191,92 @@ for (mn, hg), g in listing_v.dropna(subset=['minimum_nights_group']).groupby(['m
 pd.DataFrame(box_rows).to_csv(OUT / 'task4_min_nights_vacancy_box.csv', index=False)
 pd.concat(out_rows, ignore_index=True).to_csv(OUT / 'task4_min_nights_vacancy_outliers.csv', index=False)
 
-# Task 5 — Neighbourhood Opportunity Heatmap
+# --- Task 3 new outputs ---
+print('Task 3 daily aggregation...')
+t3_full = pd.concat(t3_daily_parts, ignore_index=True)
+
+# Restrict to first 365 calendar dates
+all_dates_sorted = sorted(t3_full['date'].dropna().unique())
+horizon_dates = set(all_dates_sorted[:365])
+t3_365 = t3_full[t3_full['date'].isin(horizon_dates)].copy()
+
+# File 1: daily host-group summary
+grp_cols = ['date', 'host_group', 'room_type']
+t3_summary_base = t3_365.groupby(grp_cols, dropna=True).agg(
+    total_listing_days=('available_num', 'size'),
+    available_days=('available_num', 'sum'),
+).reset_index()
+t3_summary_base['unavailable_days'] = t3_summary_base['total_listing_days'] - t3_summary_base['available_days']
+t3_summary_base['availability_rate'] = (t3_summary_base['available_days'] / t3_summary_base['total_listing_days']).round(6)
+t3_summary_base['estimated_occupancy_rate'] = (1 - t3_summary_base['availability_rate']).round(6)
+
+# Price stats from non-null price_used only
+t3_price = t3_365.dropna(subset=['price_used']).groupby(grp_cols, dropna=True).agg(
+    avg_price_used=('price_used', 'mean'),
+    median_price_used=('price_used', 'median'),
+    price_sample_size=('price_used', 'count'),
+).reset_index()
+t3_price['avg_price_used'] = t3_price['avg_price_used'].round(2)
+t3_price['median_price_used'] = t3_price['median_price_used'].round(2)
+
+t3_summary = t3_summary_base.merge(t3_price, on=grp_cols, how='left')
+t3_summary['price_sample_size'] = t3_summary['price_sample_size'].fillna(0).astype(int)
+t3_summary = t3_summary.sort_values(['date', 'host_group', 'room_type'])
+t3_summary.to_csv(OUT / 'task3_daily_host_group_summary.csv', index=False)
+print(f'  Task 3 daily summary: {len(t3_summary)} rows, {t3_summary["date"].nunique()} dates')
+
+# File 2: listing-level intervention candidates (non-Monitor rows only for browser perf)
+t3_cands = t3_365.merge(
+    t3_summary[grp_cols + ['median_price_used']].rename(columns={'median_price_used': 'group_median_price'}),
+    on=grp_cols,
+    how='left'
+)
+t3_cands['price_gap_pct'] = (
+    (t3_cands['price_used'] - t3_cands['group_median_price'])
+    / t3_cands['group_median_price'].replace(0, float('nan'))
+).round(4)
+
+THRESHOLD = 0.10
+
+def pricing_signal(row):
+    avail = bool(row['available_num'])
+    gap = row['price_gap_pct']
+    if pd.isna(gap):
+        return 'Monitor'
+    if avail and gap > THRESHOLD:
+        return 'Consider discount'
+    if not avail and gap < -THRESHOLD:
+        return 'Consider increase'
+    return 'Monitor'
+
+t3_cands['pricing_signal'] = t3_cands.apply(pricing_signal, axis=1)
+t3_cands['available'] = t3_cands['available_num'].astype(bool)
+
+# Cap to top 20 per (date, host_group, room_type) by absolute price_gap_pct
+# This keeps the file browser-safe (tens of thousands of rows, not millions)
+t3_actionable = t3_cands[t3_cands['pricing_signal'] != 'Monitor'].copy()
+t3_actionable = t3_actionable[[
+    'date', 'listing_id', 'host_group', 'room_type',
+    'available', 'price_used', 'group_median_price', 'price_gap_pct', 'pricing_signal'
+]].copy()
+t3_actionable['abs_gap'] = t3_actionable['price_gap_pct'].abs()
+t3_actionable = (
+    t3_actionable
+    .sort_values(['date', 'host_group', 'room_type', 'pricing_signal', 'abs_gap'],
+                 ascending=[True, True, True, True, False])
+    .groupby(['date', 'host_group', 'room_type'], group_keys=False)
+    .head(20)
+    .drop(columns=['abs_gap'])
+    .sort_values(['date', 'pricing_signal', 'price_gap_pct'], ascending=[True, True, True])
+)
+t3_actionable.to_csv(OUT / 'task3_intervention_candidates.csv', index=False)
+print(f'  Task 3 intervention candidates: {len(t3_actionable)} rows (capped top-20 per group/date)')
+
+# Task 5 — Superhost Spatial Density Heatmap
 print('Task 5...')
-
-# --- 5a. Listing-level base metrics ---
-t5_listings = listings[['id', 'neighbourhood_cleansed', 'room_type', 'price',
-                         'number_of_reviews_ltm', 'calculated_host_listings_count']].copy()
-t5_listings['id'] = t5_listings['id'].astype(str)
-t5_listings['price_clean'] = pd.to_numeric(t5_listings['price'], errors='coerce')
-t5_listings['reviews_ltm'] = pd.to_numeric(t5_listings['number_of_reviews_ltm'], errors='coerce').fillna(0)
-t5_listings['host_count'] = pd.to_numeric(t5_listings['calculated_host_listings_count'], errors='coerce').fillna(1)
-t5_listings['host_group'] = t5_listings['host_count'].apply(lambda x: 'Commercial host' if x > 1 else 'Individual host')
-
-# --- 5b. Derive borough from GeoJSON properties ---
 import json
+
+# --- 5a. Derive borough from GeoJSON properties ---
 geo_path = DATA / 'neighbourhoods.geojson'
 with open(geo_path, encoding='utf-8') as f:
     geo = json.load(f)
@@ -193,104 +287,58 @@ for feat in geo.get('features', []):
     g = props.get('neighbourhood_group') or props.get('neighbourhood_group_cleansed') or 'Unknown'
     if n:
         borough_map[n] = g
-t5_listings['borough'] = t5_listings['neighbourhood_cleansed'].map(borough_map).fillna('Unknown')
 
-# --- 5c. Availability from calendar (365-day window, chunked) ---
-print('  Task 5 – reading calendar for availability...')
-avail_parts = []
-for chunk in pd.read_csv(CALENDAR, usecols=['listing_id', 'available'], chunksize=1_000_000, low_memory=False):
-    chunk['listing_id'] = chunk['listing_id'].astype(str)
-    chunk['avail_num'] = bool_series(chunk['available']).astype(int)
-    avail_parts.append(chunk.groupby('listing_id').agg(
-        avail_days=('avail_num', 'sum'),
-        total_days=('avail_num', 'size')
-    ))
-avail_df = pd.concat(avail_parts).groupby('listing_id').sum()
-avail_df['availability_pct'] = avail_df['avail_days'] / avail_df['total_days'].clip(lower=1)
-t5_listings = t5_listings.join(avail_df[['availability_pct']], on='id')
-t5_listings['availability_pct'] = t5_listings['availability_pct'].fillna(0)
+# --- 5b. Filter to active listings only ---
+t5 = listings.copy()
+t5['is_active'] = bool_series(t5['is_active_listing'])
+t5 = t5[t5['is_active']].copy()
+print(f'  Task 5 – active listings: {len(t5)}')
 
-# --- 5c. Aggregate to neighbourhood level ---
-def dominant(s):
-    return s.value_counts().idxmax() if len(s) else 'Unknown'
+# --- 5c. Coerce required columns ---
+t5['listing_id'] = t5['id'].astype(str)
+t5['latitude'] = pd.to_numeric(t5['latitude'], errors='coerce')
+t5['longitude'] = pd.to_numeric(t5['longitude'], errors='coerce')
+t5['number_of_reviews_ltm'] = pd.to_numeric(t5['number_of_reviews_ltm'], errors='coerce').fillna(0)
+t5['review_scores_rating'] = pd.to_numeric(t5['review_scores_rating'], errors='coerce')
+t5['price'] = pd.to_numeric(t5['price'], errors='coerce')
+t5['host_is_superhost_bool'] = bool_series(t5['host_is_superhost'])
+t5['host_group'] = t5['host_is_superhost_bool'].map({True: 'Superhost', False: 'Regular host'})
+t5['borough'] = t5['neighbourhood_cleansed'].map(borough_map).fillna('Unknown')
 
-t5_agg = t5_listings.groupby('neighbourhood_cleansed', dropna=True).agg(
-    borough=('borough', dominant),
-    listing_count=('id', 'count'),
-    avg_price=('price_clean', 'mean'),
-    avg_reviews_ltm=('reviews_ltm', 'mean'),
-    total_reviews=('reviews_ltm', 'sum'),
-    avg_availability_pct=('availability_pct', 'mean'),
-    dominant_room_type=('room_type', dominant),
-).reset_index()
+# Include name if available
+name_col = 'name' if 'name' in t5.columns else None
 
-t5_agg['avg_price'] = t5_agg['avg_price'].fillna(0)
+# --- 5d. Drop rows missing spatial or key fields ---
+t5 = t5.dropna(subset=['latitude', 'longitude', 'number_of_reviews_ltm'])
+print(f'  Task 5 – after dropping missing lat/lng/reviews: {len(t5)}')
 
-# --- 5d. Normalize components to [0, 1] ---
-def norm(s):
-    mn, mx = s.min(), s.max()
-    return (s - mn) / (mx - mn) if mx > mn else pd.Series(0.0, index=s.index)
+# --- 5e. Select and export columns ---
+export_cols = ['listing_id', 'latitude', 'longitude', 'neighbourhood_cleansed',
+               'borough', 'room_type', 'price', 'review_scores_rating',
+               'number_of_reviews_ltm', 'host_is_superhost_bool', 'host_group']
+if name_col:
+    export_cols = ['listing_id', 'name', 'latitude', 'longitude', 'neighbourhood_cleansed',
+                   'borough', 'room_type', 'price', 'review_scores_rating',
+                   'number_of_reviews_ltm', 'host_is_superhost_bool', 'host_group']
 
-t5_agg['norm_demand']       = norm(t5_agg['avg_reviews_ltm'])
-t5_agg['norm_price']        = norm(t5_agg['avg_price'])
-t5_agg['norm_availability'] = norm(t5_agg['avg_availability_pct'])
-t5_agg['norm_competition']  = norm(t5_agg['listing_count'])
+t5_out = t5[export_cols].copy()
+t5_out = t5_out.rename(columns={'host_is_superhost_bool': 'host_is_superhost'})
+# d3.autoType only parses lowercase "true"/"false" as booleans
+t5_out['host_is_superhost'] = t5_out['host_is_superhost'].map({True: 'true', False: 'false'})
+t5_out['price'] = t5_out['price'].round(2)
+t5_out['review_scores_rating'] = t5_out['review_scores_rating'].round(2)
+t5_out['latitude'] = t5_out['latitude'].round(6)
+t5_out['longitude'] = t5_out['longitude'].round(6)
 
-# --- 5e. Opportunity score ---
-t5_agg['opportunity_score'] = (
-    t5_agg['norm_demand'] +
-    t5_agg['norm_price'] +
-    t5_agg['norm_availability'] -
-    t5_agg['norm_competition']
-).round(4)
+t5_out.to_csv(OUT / 'task5_spatial_listings.csv', index=False)
 
-# Drop helper columns
-t5_agg = t5_agg.drop(columns=['norm_demand', 'norm_price', 'norm_availability', 'norm_competition'])
-
-# Round floats for readability
-t5_agg['avg_price'] = t5_agg['avg_price'].round(2)
-t5_agg['avg_reviews_ltm'] = t5_agg['avg_reviews_ltm'].round(2)
-t5_agg['avg_availability_pct'] = (t5_agg['avg_availability_pct'] * 100).round(2)  # store as %
-
-t5_agg.sort_values('opportunity_score', ascending=False).to_csv(
-    OUT / 'task5_neighbourhood_opportunity.csv', index=False
-)
-print(f'  Task 5 done: {len(t5_agg)} neighbourhoods written.')
-
-# Keep legacy files so existing imports don't break
-t5_legacy = listings[['id', 'number_of_reviews_ltm', 'host_is_superhost', 'neighbourhood_cleansed']].copy()
-t5_legacy['id'] = t5_legacy['id'].astype(str)
-t5_legacy['number_of_reviews_ltm'] = pd.to_numeric(t5_legacy['number_of_reviews_ltm'], errors='coerce').fillna(0)
-t5_legacy['host_is_superhost_bool'] = bool_series(t5_legacy['host_is_superhost'])
-for c in ['latitude', 'longitude']:
-    if c in listings.columns:
-        t5_legacy[c] = listings[c]
-    else:
-        t5_legacy[c] = None
-threshold = t5_legacy['number_of_reviews_ltm'].quantile(.9)
-t5_legacy['is_top_tier'] = t5_legacy['number_of_reviews_ltm'] >= threshold
-t5_top = t5_legacy[t5_legacy['is_top_tier']].rename(columns={'id': 'listing_id'})
-t5_top[['listing_id', 'latitude', 'longitude', 'number_of_reviews_ltm', 'host_is_superhost', 'neighbourhood_cleansed']].to_csv(OUT / 'task5_top_tier_locations.csv', index=False)
-gap_rows = []
-for neighbourhood, group in t5_legacy.groupby('neighbourhood_cleansed', dropna=True):
-    top_tier = group[group['is_top_tier']]
-    superhost_count = int(top_tier['host_is_superhost_bool'].sum())
-    total_top_tier = int(len(top_tier))
-    regular_count = int(total_top_tier - superhost_count)
-    superhost_share = superhost_count / total_top_tier if total_top_tier else 0
-    gap_score = regular_count * (1 - superhost_share) if total_top_tier else 0
-    gap_rows.append({
-        'neighbourhood_cleansed': neighbourhood,
-        'total_listings': int(len(group)),
-        'top_tier_threshold_ltm': threshold,
-        'total_top_tier_listings': total_top_tier,
-        'top_tier_superhost_count': superhost_count,
-        'top_tier_regular_count': regular_count,
-        'superhost_share': superhost_share,
-        'gap_score': gap_score,
-        'avg_top_tier_reviews_ltm': top_tier['number_of_reviews_ltm'].mean() if total_top_tier else 0,
-    })
-pd.DataFrame(gap_rows).sort_values(['gap_score', 'top_tier_regular_count'], ascending=[False, False]).to_csv(OUT / 'task5_neighbourhood_gap.csv', index=False)
+# Sanity check: 90th-percentile threshold and Superhost/candidate split
+_threshold_90 = t5_out['number_of_reviews_ltm'].quantile(0.9)
+_top_tier = t5_out[t5_out['number_of_reviews_ltm'] >= _threshold_90]
+_sh_count = int((_top_tier['host_is_superhost'] == True).sum())
+_cand_count = int((_top_tier['host_is_superhost'] == False).sum())
+print(f'  Task 5 done: {len(t5_out)} active listings written.')
+print(f'  90th-pct threshold: {_threshold_90:.0f} reviews LTM -> {len(_top_tier)} top-tier ({_sh_count} Superhosts, {_cand_count} candidates)')
 
 # Task 6
 print('Task 6...')

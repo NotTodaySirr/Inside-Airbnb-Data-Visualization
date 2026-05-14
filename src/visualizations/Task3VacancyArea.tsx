@@ -1,158 +1,343 @@
 import * as d3 from 'd3'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
 import { useCsvData } from '../data/useCsvData'
-import type { Task3VacancyMonthHostGroupRow } from '../types/charts'
+import type { Task3DailyHostGroupRow } from '../types/charts'
 import { EmptyState, HoverCard, Legend } from './chartHelpers'
 import type { HoverCardProps } from './chartHelpers'
-import { chartMargins, formatPercent, hostGroupColor, uniqueValues, wideChart } from './chartScales'
+import { chartMargins, formatPercent, hostGroupColor, uniqueValues } from './chartScales'
 
-function monthKey(value: Task3VacancyMonthHostGroupRow['date_month']): string {
-  if (value instanceof Date) return d3.timeFormat('%Y-%m')(value)
-  return String(value)
+// ─── layout constants ────────────────────────────────────────────────────────
+const W = 980
+const CHART_TOP = chartMargins.top
+const CHART_BOT = 480
+const AXIS_Y = 510
+const H = 540
+const ML = chartMargins.left
+const MR = chartMargins.right
+
+const DATE_PRESETS: { label: string; days: number }[] = [
+  { label: 'Next 30 days', days: 30 },
+  { label: 'Next 90 days', days: 90 },
+  { label: 'Full 365 days', days: 365 },
+]
+
+type Metric = 'occupancy' | 'availability' | 'price'
+
+const METRIC_LABELS: Record<Metric, string> = {
+  occupancy: 'Estimated Occupancy Rate',
+  availability: 'Availability Rate',
+  price: 'Median Price (USD)',
 }
 
 type HoverCardState = HoverCardProps
 
+function fmt$(v: number | null | undefined): string {
+  if (v == null || isNaN(v as number)) return 'N/A'
+  return `$${d3.format(',.2f')(v as number)}`
+}
+
+function fmtPct(v: number | null | undefined): string {
+  if (v == null || isNaN(v as number)) return 'N/A'
+  return formatPercent(v as number)
+}
+
+// useCsvData applies d3.autoType which converts ISO date strings to Date objects.
+// Coerce back to a stable YYYY-MM-DD string for grouping, sorting, and tooltip display.
+const dateFmt = d3.timeFormat('%Y-%m-%d')
+function toDateStr(v: unknown): string {
+  if (v instanceof Date) return dateFmt(v)
+  return String(v).slice(0, 10)
+}
+
+// ─── component ───────────────────────────────────────────────────────────────
 export function Task3VacancyArea() {
-  const state = useCsvData<Task3VacancyMonthHostGroupRow>('/data/derived/task3_vacancy_month_host_group.csv')
+  const summaryState = useCsvData<Task3DailyHostGroupRow>(
+    '/data/derived/task3_daily_host_group_summary.csv'
+  )
+
   const [room, setRoom] = useState('')
-  const [hiddenHostGroups, setHiddenHostGroups] = useState<string[]>([])
+  const [hiddenGroups, setHiddenGroups] = useState<string[]>([])
+  const [metric, setMetric] = useState<Metric>('occupancy')
+  const [datePreset, setDatePreset] = useState<number>(365)
   const [hoverCard, setHoverCard] = useState<HoverCardState | null>(null)
 
-  if (state.status === 'loading') return <div className="loading-state">Loading vacancy trends...</div>
-  if (state.status === 'error') return <EmptyState title="Could not load Task 3" message={state.error} />
+  // ── derive data — always run before any early return ────────────────────
+  const allRows = (summaryState.status === 'loaded' ? summaryState.data : []).map(r => ({
+    ...r,
+    date: toDateStr(r.date),
+  }))
 
-  const normalizedRows = state.data.map((row) => ({ ...row, date_month: monthKey(row.date_month) }))
-  const rooms = uniqueValues(normalizedRows, d => d.room_type)
-  const selected = room || rooms[0] || ''
-  const data = normalizedRows.filter(d => d.room_type === selected)
-  const groups = uniqueValues(data, d => d.host_group)
-  const visibleGroups = groups.filter(group => !hiddenHostGroups.includes(group))
-  const visibleData = data.filter(d => visibleGroups.includes(d.host_group))
-  const groupSummary = visibleGroups.length === groups.length ? 'All host groups' : `${visibleGroups.length}/${groups.length} host groups`
-  const activeSummary = `${selected || 'No room type'} - ${groupSummary}`
+  const rooms = uniqueValues(allRows, d => d.room_type)
+  const selectedRoom = room || rooms[0] || ''
+  const roomRows = allRows.filter(d => d.room_type === selectedRoom)
 
-  const toggleHostGroup = (group: string) => {
-    setHiddenHostGroups((current) => (
-      current.includes(group) ? current.filter(item => item !== group) : [...current, group]
-    ))
+  const allDates = useMemo(
+    () => Array.from(new Set(roomRows.map(d => d.date))).sort(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedRoom, allRows]
+  )
+  const visibleDates = allDates.slice(0, datePreset)
+  const groups = uniqueValues(roomRows, d => d.host_group)
+  const visibleGroups = groups.filter(g => !hiddenGroups.includes(g))
+  const filteredRows = roomRows.filter(
+    d => visibleDates.includes(d.date) && visibleGroups.includes(d.host_group)
+  )
+
+  // ── loading / error guards (after all hooks) ────────────────────────────
+  if (summaryState.status === 'loading')
+    return <div className="loading-state">Loading daily pricing monitor…</div>
+  if (summaryState.status === 'error')
+    return <EmptyState title="Could not load summary" message={summaryState.error} />
+
+  // ── scales ──────────────────────────────────────────────────────────────
+  const parsedDates = visibleDates.map(d => new Date(d))
+  const xScale = d3.scaleTime(
+    [parsedDates[0] ?? new Date(), parsedDates[parsedDates.length - 1] ?? new Date()],
+    [ML, W - MR]
+  )
+
+  type Row = Task3DailyHostGroupRow
+
+  function metricValue(d: Row): number | null {
+    if (metric === 'occupancy') return d.estimated_occupancy_rate
+    if (metric === 'availability') return d.availability_rate
+    return d.median_price_used
   }
+
+  const definedRows = filteredRows.filter(d => metricValue(d) != null)
+  const rawMax = d3.max(definedRows, d => metricValue(d) as number) ?? 1
+  const yMax = metric === 'price' ? rawMax * 1.1 : Math.min(1, rawMax * 1.1)
+  const yScale = d3.scaleLinear([0, yMax], [CHART_BOT, CHART_TOP]).nice()
+
+  const areaGen = d3
+    .area<Row>()
+    .defined(d => metricValue(d) != null)
+    .x(d => xScale(new Date(d.date)))
+    .y0(CHART_BOT)
+    .y1(d => yScale(metricValue(d) as number))
+    .curve(d3.curveMonotoneX)
+
+  const lineGen = d3
+    .line<Row>()
+    .defined(d => metricValue(d) != null)
+    .x(d => xScale(new Date(d.date)))
+    .y(d => yScale(metricValue(d) as number))
+    .curve(d3.curveMonotoneX)
+
+  // ── helpers ─────────────────────────────────────────────────────────────
+  const toggleGroup = (g: string) =>
+    setHiddenGroups(cur => (cur.includes(g) ? cur.filter(x => x !== g) : [...cur, g]))
 
   const resetFilters = () => {
     setRoom('')
-    setHiddenHostGroups([])
+    setHiddenGroups([])
+    setMetric('occupancy')
+    setDatePreset(365)
   }
 
+  const activeSummary = `${selectedRoom} · ${METRIC_LABELS[metric]} · ${
+    visibleGroups.length === groups.length ? 'All host groups' : `${visibleGroups.length}/${groups.length} groups`
+  } · ${DATE_PRESETS.find(p => p.days === datePreset)?.label ?? 'Custom'}`
+
+  // ── hover overlay handler ────────────────────────────────────────────────
+  function handleOverlayMove(e: React.MouseEvent<SVGRectElement>) {
+    const svgEl = e.currentTarget.ownerSVGElement
+    if (!svgEl) return
+    const rect = svgEl.getBoundingClientRect()
+    const svgX = ((e.clientX - rect.left) / rect.width) * W
+    const hovDate = xScale.invert(svgX)
+    const closest = visibleDates.reduce((best, d) => {
+      const diff = Math.abs(new Date(d).getTime() - hovDate.getTime())
+      const bestDiff = Math.abs(new Date(best).getTime() - hovDate.getTime())
+      return diff < bestDiff ? d : best
+    }, visibleDates[0])
+    if (!closest) return
+
+    const dayRows = filteredRows.filter(d => d.date === closest)
+    const rows: { label: string; value: string }[] = [
+      { label: 'Date', value: closest },
+      { label: 'Room type', value: selectedRoom },
+    ]
+    for (const g of visibleGroups) {
+      const r = dayRows.find(d => d.host_group === g)
+      if (!r) continue
+      if (metric === 'occupancy') {
+        rows.push({ label: `${g} — Est. occupancy`, value: fmtPct(r.estimated_occupancy_rate) })
+        rows.push({ label: `${g} — Available days`, value: `${r.available_days} / ${r.total_listing_days}` })
+      } else if (metric === 'availability') {
+        rows.push({ label: `${g} — Availability`, value: fmtPct(r.availability_rate) })
+        rows.push({ label: `${g} — Available days`, value: `${r.available_days} / ${r.total_listing_days}` })
+      } else {
+        rows.push({ label: `${g} — Median price`, value: fmt$(r.median_price_used) })
+        rows.push({ label: `${g} — Price sample`, value: String(r.price_sample_size) })
+        rows.push({ label: `${g} — Est. occupancy`, value: fmtPct(r.estimated_occupancy_rate) })
+      }
+    }
+
+    setHoverCard({
+      title: closest,
+      rows,
+      x: e.clientX - rect.left + 16,
+      y: e.clientY - rect.top - 18,
+    })
+  }
+
+  // ── x-axis ticks ────────────────────────────────────────────────────────
+  const xTicks = xScale.ticks(datePreset <= 30 ? 10 : datePreset <= 90 ? 8 : 12)
+
+  // ── y-axis formatter ─────────────────────────────────────────────────────
+  const yFmt = (t: number) => metric === 'price' ? fmt$(t) : fmtPct(t)
+
+  // ── toolbox ─────────────────────────────────────────────────────────────
   const toolbox = (
     <>
       <ToolboxSection title="Data Filters">
         <ToolboxControl label="Room type">
-          <select id="task3-room-type" value={selected} onChange={e => setRoom(e.target.value)}>
+          <select
+            id="task3-room-type"
+            value={selectedRoom}
+            onChange={e => setRoom(e.target.value)}
+          >
             {rooms.map(r => <option key={r}>{r}</option>)}
           </select>
         </ToolboxControl>
       </ToolboxSection>
 
-      <ToolboxSection title="Display">
+      <ToolboxSection title="Chart Metric">
         <div className="toolbox-check-list">
-          {groups.map((group) => (
-            <label key={group} className="toolbox-check">
-              <input type="checkbox" checked={!hiddenHostGroups.includes(group)} onChange={() => toggleHostGroup(group)} />
-              <span>{group}</span>
+          {(['occupancy', 'availability', 'price'] as Metric[]).map(m => (
+            <label key={m} className="toolbox-check">
+              <input
+                type="radio"
+                name="task3-metric"
+                checked={metric === m}
+                onChange={() => setMetric(m)}
+              />
+              <span>{METRIC_LABELS[m]}</span>
             </label>
           ))}
         </div>
       </ToolboxSection>
 
-      <button className="toolbox-reset" type="button" onClick={resetFilters}>Reset filters</button>
+      <ToolboxSection title="Date Range">
+        <div className="toolbox-check-list">
+          {DATE_PRESETS.map(p => (
+            <label key={p.days} className="toolbox-check">
+              <input
+                type="radio"
+                name="task3-date-preset"
+                checked={datePreset === p.days}
+                onChange={() => setDatePreset(p.days)}
+              />
+              <span>{p.label}</span>
+            </label>
+          ))}
+        </div>
+      </ToolboxSection>
+
+      <ToolboxSection title="Host Groups">
+        <div className="toolbox-check-list">
+          {groups.map(g => (
+            <label key={g} className="toolbox-check">
+              <input
+                type="checkbox"
+                checked={!hiddenGroups.includes(g)}
+                onChange={() => toggleGroup(g)}
+              />
+              <span style={{ color: hostGroupColor(g) }}>{g}</span>
+            </label>
+          ))}
+        </div>
+      </ToolboxSection>
+
+      <button className="toolbox-reset" type="button" onClick={resetFilters}>
+        Reset filters
+      </button>
     </>
   )
 
-  if (!data.length) {
+  if (!filteredRows.length) {
     return (
-      <ChartWorkspace toolbox={toolbox} activeSummary={activeSummary} caption="No vacancy rows are available for the selected room type.">
-        <EmptyState title="No vacancy data" message="Choose another room type or rerun preprocessing." />
+      <ChartWorkspace toolbox={toolbox} activeSummary={activeSummary} caption="No data for the current filters.">
+        <EmptyState title="No data" message="Adjust room type or host group filters." />
       </ChartWorkspace>
     )
   }
 
-  if (!visibleGroups.length) {
-    return (
-      <ChartWorkspace toolbox={toolbox} activeSummary={activeSummary} caption="No host groups are currently visible. Re-enable at least one host group to draw the trend.">
-        <EmptyState title="No visible host groups" message="Use the toolbox to turn a host group back on." />
-      </ChartWorkspace>
-    )
-  }
-
-  const months = uniqueValues(data, d => d.date_month)
-  const { width, height } = wideChart
-  const x = d3.scalePoint(months, [chartMargins.left, width - chartMargins.right])
-  const y = d3.scaleLinear([0, Math.min(1, d3.max(visibleData, d => d.vacancy_rate) ?? 1)], [height - chartMargins.bottom, chartMargins.top]).nice()
-  const area = d3.area<typeof visibleData[number]>().x(d => x(d.date_month) ?? 0).y0(height - chartMargins.bottom).y1(d => y(d.vacancy_rate)).curve(d3.curveMonotoneX)
-  const line = d3.line<typeof visibleData[number]>().x(d => x(d.date_month) ?? 0).y(d => y(d.vacancy_rate)).curve(d3.curveMonotoneX)
-
+  // ── render ───────────────────────────────────────────────────────────────
   return (
     <ChartWorkspace
       toolbox={toolbox}
       activeSummary={activeSummary}
-      caption={`Showing vacancy-rate trends for ${selected}, split by visible host groups.`}
+      caption={`Unavailable days are treated as estimated occupancy — not confirmed bookings. Showing ${visibleDates.length} days for ${selectedRoom}.`}
     >
       <div className="task-chart-shell">
         <Legend items={visibleGroups} color={hostGroupColor} />
-        <div className="task-plot-wrap">
-          <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Vacancy rate area chart">
-            {y.ticks(5).map(t => (
+
+        <div className="task-plot-wrap" style={{ position: 'relative' }}>
+          <svg
+            viewBox={`0 0 ${W} ${H}`}
+            role="img"
+            aria-label={`Daily ${METRIC_LABELS[metric]} area chart by host group`}
+            style={{ overflow: 'visible' }}
+          >
+            {/* ── y-axis label ── */}
+            <text className="axis-label" x={ML} y={CHART_TOP - 8} fontWeight={600} fontSize={11}>
+              {METRIC_LABELS[metric]}
+            </text>
+
+            {/* ── grid + y-axis ── */}
+            {yScale.ticks(6).map(t => (
               <g key={t}>
-                <line className="grid-line" x1={chartMargins.left} x2={width - chartMargins.right} y1={y(t)} y2={y(t)} />
-                <text className="axis-label" x={chartMargins.left - 10} y={y(t) + 4} textAnchor="end">{formatPercent(t)}</text>
+                <line className="grid-line" x1={ML} x2={W - MR} y1={yScale(t)} y2={yScale(t)} />
+                <text className="axis-label" x={ML - 8} y={yScale(t) + 4} textAnchor="end">
+                  {yFmt(t)}
+                </text>
               </g>
             ))}
+
+            {/* ── area series per host group ── */}
             {visibleGroups.map(g => {
-              const series = visibleData.filter(d => d.host_group === g).sort((a, b) => a.date_month.localeCompare(b.date_month))
+              const series = filteredRows
+                .filter(d => d.host_group === g)
+                .sort((a, b) => String(a.date).localeCompare(String(b.date)))
+              const color = hostGroupColor(g)
               return (
                 <g key={g}>
-                  <path d={area(series) ?? ''} fill={hostGroupColor(g)} opacity=".18" />
-                  <path d={line(series) ?? ''} fill="none" stroke={hostGroupColor(g)} strokeWidth="3" />
-                  {series.map(d => {
-                    const hover = {
-                      title: `${d.date_month} - ${g}`,
-                      rows: [
-                        { label: 'Month', value: d.date_month },
-                        { label: 'Host group', value: g },
-                        { label: 'Room type', value: d.room_type },
-                        { label: 'Vacancy rate', value: formatPercent(d.vacancy_rate) },
-                        { label: 'Available days', value: `${d.available_days}/${d.total_days}` },
-                      ],
-                    }
-
-                    return (
-                      <circle
-                        key={`${g}-${d.date_month}`}
-                        cx={x(d.date_month)}
-                        cy={y(d.vacancy_rate)}
-                        r="4"
-                        fill={hostGroupColor(g)}
-                        onMouseEnter={e => {
-                          const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
-                          setHoverCard({ x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18, ...hover })
-                        }}
-                        onMouseMove={e => {
-                          const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
-                          setHoverCard(current => current ? { ...current, x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18, ...hover } : null)
-                        }}
-                        onMouseLeave={() => setHoverCard(null)}
-                      />
-                    )
-                  })}
+                  <path d={areaGen(series) ?? ''} fill={color} opacity={0.18} />
+                  <path d={lineGen(series) ?? ''} fill="none" stroke={color} strokeWidth={2.5} />
                 </g>
               )
             })}
-            {months.filter((_, i) => i % 2 === 0).map(m => (
-              <text key={m} className="axis-label" x={x(m)} y={height - 42} textAnchor="middle">{m}</text>
+
+            {/* ── x-axis ── */}
+            <line className="grid-line" x1={ML} x2={W - MR} y1={AXIS_Y} y2={AXIS_Y} />
+            {xTicks.map(t => (
+              <text
+                key={t.toISOString()}
+                className="axis-label"
+                x={xScale(t)}
+                y={AXIS_Y + 16}
+                textAnchor="middle"
+              >
+                {d3.timeFormat(datePreset <= 30 ? '%b %d' : '%b %Y')(t)}
+              </text>
             ))}
+
+            {/* ── transparent overlay for hover ── */}
+            <rect
+              x={ML} y={CHART_TOP}
+              width={W - ML - MR}
+              height={CHART_BOT - CHART_TOP}
+              fill="transparent"
+              style={{ cursor: 'crosshair' }}
+              onMouseMove={handleOverlayMove}
+              onMouseLeave={() => setHoverCard(null)}
+            />
           </svg>
-          {hoverCard ? <HoverCard {...hoverCard} /> : null}
+
+          {hoverCard && <HoverCard x={hoverCard.x} y={hoverCard.y} title={hoverCard.title} rows={hoverCard.rows} />}
         </div>
       </div>
     </ChartWorkspace>

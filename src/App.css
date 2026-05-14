@@ -234,6 +234,103 @@ svg { width: 100%; height: auto; display: block; border-radius: 26px; background
 /* task-chart-shell already exists but ensure it stacks */
 .task-chart-shell { display: grid; gap: 0; }
 
+/* ── Task 3 Daily Pricing Monitor ──────────────────────────────── */
+.task3-intervention-section {
+  margin-top: 28px;
+  border: 1px solid rgba(125,211,252,.18);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(15,23,42,.72), rgba(2,6,23,.52));
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+}
+.task3-intervention-title {
+  margin: 0;
+  padding: 18px 22px 16px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  letter-spacing: -.02em;
+  border-bottom: 1px solid rgba(148,163,184,.14);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.task3-date-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(14,165,233,.18);
+  border: 1px solid rgba(125,211,252,.28);
+  color: #7dd3fc;
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.task3-no-candidates {
+  margin: 0;
+  padding: 28px 22px;
+  color: #64748b;
+  font-style: italic;
+  font-size: .92rem;
+}
+.task3-table-wrap {
+  overflow-x: auto;
+}
+.task3-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .86rem;
+  color: #cbd5e1;
+}
+.task3-table thead tr {
+  background: rgba(15,23,42,.74);
+}
+.task3-table th {
+  padding: 9px 13px;
+  text-align: left;
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #93c5fd;
+  border-bottom: 1px solid rgba(148,163,184,.18);
+  white-space: nowrap;
+}
+.task3-table td {
+  padding: 9px 13px;
+  border-bottom: 1px solid rgba(148,163,184,.1);
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+}
+.task3-table tbody tr:last-child td { border-bottom: none; }
+.task3-table tbody tr { transition: background .15s ease; }
+.task3-table tbody tr:hover { background: rgba(14,165,233,.08); }
+.task3-listing-id {
+  font-family: monospace;
+  font-size: .82rem;
+  color: #94a3b8;
+}
+.task3-signal-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+.task3-disclaimer {
+  margin: 0;
+  padding: 14px 22px 18px;
+  color: #475569;
+  font-size: .82rem;
+  font-style: italic;
+  border-top: 1px solid rgba(148,163,184,.1);
+}
+.task3-disclaimer em { color: #64748b; font-style: normal; font-weight: 700; }
+
 @media (max-width: 1000px) { .chart-workspace { grid-template-columns: 1fr; } .chart-toolbox { order: -1; } }
-@media (max-width: 900px) { .chart-tabs { grid-template-columns: repeat(2, 1fr); } .chart-heading { flex-direction: column; } .chart-heading code { white-space: normal; } .task5-opportunity-table { overflow-x: auto; } .task5-opp-row { min-width: 820px; } .t2-rec-table { display: block; overflow-x: auto; } }
+@media (max-width: 900px) { .chart-tabs { grid-template-columns: repeat(2, 1fr); } .chart-heading { flex-direction: column; } .chart-heading code { white-space: normal; } .task5-opportunity-table { overflow-x: auto; } .task5-opp-row { min-width: 820px; } .t2-rec-table { display: block; overflow-x: auto; } .task3-table { min-width: 760px; } }
 @media (max-width: 560px) { .app-shell { width: min(100% - 20px, 1180px); padding-top: 18px; } .chart-tabs { grid-template-columns: 1fr; } .hover-card { width: min(240px, calc(100vw - 32px)); transform: translate(10px, -16px); } .opportunity-legend .legend-gradient { width: 100px; } .t2-peak-stats { flex-direction: column; } }

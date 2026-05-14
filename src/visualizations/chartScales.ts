@@ -11,12 +11,16 @@ export const roomTypeColor = d3.scaleOrdinal<string, string>()
   .range(['#7c3aed', '#06b6d4', '#f97316', '#22c55e', '#ec4899'])
 
 export const hostGroupColor = d3.scaleOrdinal<string, string>()
-  .domain(['Individual host', 'Multi-listing host', 'Superhost', 'Regular host'])
-  .range(['#14b8a6', '#f59e0b', '#8b5cf6', '#64748b'])
+  .domain(['Individual host', 'Commercial host', 'Multi-listing host', 'Superhost', 'Regular host'])
+  .range(['#14b8a6', '#f59e0b', '#a78bfa', '#8b5cf6', '#64748b'])
 
 export const superhostColor = d3.scaleOrdinal<string, string>()
   .domain(['Superhost', 'Regular host'])
   .range(['#facc15', '#38bdf8'])
+
+export const priceSettingColor = d3.scaleOrdinal<string, string>()
+  .domain(['Normal/lower fixed price', 'High fixed price'])
+  .range(['#14b8a6', '#ef4444'])
 
 export const correlationColor = d3.scaleDiverging<string>()
   .domain([-1, 0, 1])

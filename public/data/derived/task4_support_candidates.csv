@@ -1,0 +1,774 @@
+support_priority_rank,listing_id,name,neighbourhood_cleansed,room_type,minimum_nights,price,peer_median_price,price_gap_pct,available_days,total_days,vacancy_rate,support_reason
+1,1299452778704619691,Amazing Apartment in NYC,Harlem,Private room,31,537.5,111.0,3.8423,365,365,1.0,Strict 31+ night minimum AND price 384% above peer median; 100% vacant.
+2,276317,"The Carlton, Brooklyn brownstone Duplex w/ garden",Prospect Heights,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+3,42662526,Experience paradise on earth in midtown,Upper West Side,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+4,49920227,WELCOME HOME 15 MINUTES  TO MANHATTAN  BOOK TODAY,Longwood,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+5,877469016958154685,"Gorgeous Clinton Hill Townhouse Share, Apt #1",Clinton Hill,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+6,1029692543095350940,Lovely townhouse by Park Avenue,Upper East Side,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+7,1211758820311009120,Times Square Luxury Retreat,Hell's Kitchen,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+8,1268970552899584835,Charming Private Room in NYC,Upper West Side,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+9,1343056791455833489,Hell's Kitchen apartment,Hell's Kitchen,Private room,30,537.5,111.0,3.8423,365,365,1.0,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+10,13016783,Bedroom in large Williamsburg apt.,Greenpoint,Private room,30,500.0,111.0,3.5045,365,365,1.0,Strict 30+ night minimum AND price 350% above peer median; 100% vacant.
+11,777572930730588568,1 private Bedroom. With Bathroom,Allerton,Private room,30,500.0,111.0,3.5045,365,365,1.0,Strict 30+ night minimum AND price 350% above peer median; 100% vacant.
+12,792250086445040724,Cozy single bedroom In the house,Allerton,Private room,30,500.0,111.0,3.5045,365,365,1.0,Strict 30+ night minimum AND price 350% above peer median; 100% vacant.
+13,54093527,Incredible Midtown Loft,Midtown,Private room,30,496.0,111.0,3.4685,365,365,1.0,Strict 30+ night minimum AND price 347% above peer median; 100% vacant.
+14,48404504,Lovely Private Room with Office in Heart of Brooke,Bedford-Stuyvesant,Private room,30,484.0,111.0,3.3604,365,365,1.0,Strict 30+ night minimum AND price 336% above peer median; 100% vacant.
+15,1231957944915161552,Private NYC Quarters - Shared Apt,Sunnyside,Private room,30,456.0,111.0,3.1081,365,365,1.0,Strict 30+ night minimum AND price 311% above peer median; 100% vacant.
+16,1542771445085221006,Private Room in Shared apartment,Prospect-Lefferts Gardens,Private room,30,402.0,111.0,2.6216,365,365,1.0,Strict 30+ night minimum AND price 262% above peer median; 100% vacant.
+17,699168737421368390,Your home in Manhattan - Midtown West,Hell's Kitchen,Private room,30,400.0,111.0,2.6036,365,365,1.0,Strict 30+ night minimum AND price 260% above peer median; 100% vacant.
+18,1299502297252861385,Room In Brooklyn,Cypress Hills,Private room,30,400.0,111.0,2.6036,365,365,1.0,Strict 30+ night minimum AND price 260% above peer median; 100% vacant.
+19,557912715961485952,Beautiful Shared Space  In Flatbush,East Flatbush,Private room,30,381.0,111.0,2.4324,365,365,1.0,Strict 30+ night minimum AND price 243% above peer median; 100% vacant.
+20,1188405272107891640,Brownstone Brooklyn Suite,Fort Greene,Private room,32,360.0,111.0,2.2432,365,365,1.0,Strict 32+ night minimum AND price 224% above peer median; 100% vacant.
+21,979006571228615807,Luxurious Room With Private Yard,Williamsburg,Private room,30,360.0,111.0,2.2432,365,365,1.0,Strict 30+ night minimum AND price 224% above peer median; 100% vacant.
+22,6520350,Rockaways BEST Summer House,Arverne,Shared room,30,537.5,167.0,2.2186,365,365,1.0,Strict 30+ night minimum AND price 222% above peer median; 100% vacant.
+23,905310919641298879,2 bedroom in NY,Crown Heights,Private room,30,356.0,111.0,2.2072,365,365,1.0,Strict 30+ night minimum AND price 221% above peer median; 100% vacant.
+24,806772034013586078,Flirty & Fun Private Room,Harlem,Private room,30,350.0,111.0,2.1532,365,365,1.0,Strict 30+ night minimum AND price 215% above peer median; 100% vacant.
+25,1308780466970105207,A Place To Call Home,Crown Heights,Shared room,30,499.0,167.0,1.988,365,365,1.0,Strict 30+ night minimum AND price 199% above peer median; 100% vacant.
+26,52466688,Farmhouse-chic Oasis in the City,Glendale,Entire home/apt,30,536.0,180.0,1.9778,365,365,1.0,Strict 30+ night minimum AND price 198% above peer median; 100% vacant.
+27,260755,Tribeca Artist Loft 1000 sq/feet,Tribeca,Entire home/apt,30,531.0,180.0,1.95,365,365,1.0,Strict 30+ night minimum AND price 195% above peer median; 100% vacant.
+28,932658646851116915,Discover a Hidden Gem,Bergen Beach,Entire home/apt,30,530.0,180.0,1.9444,365,365,1.0,Strict 30+ night minimum AND price 194% above peer median; 100% vacant.
+29,1526278815485673713,Luxury NYC stay,Theater District,Private room,30,323.0,111.0,1.9099,365,365,1.0,Strict 30+ night minimum AND price 191% above peer median; 100% vacant.
+30,780897141519639753,The Gem Of Brooklyn,Bushwick,Entire home/apt,30,520.0,180.0,1.8889,365,365,1.0,Strict 30+ night minimum AND price 189% above peer median; 100% vacant.
+31,1270917903320485839,Full Floor SoHo Loft (Spring St),SoHo,Entire home/apt,30,520.0,180.0,1.8889,365,365,1.0,Strict 30+ night minimum AND price 189% above peer median; 100% vacant.
+32,817650219257594527,Home away from home space in Brooklyn,Midwood,Entire home/apt,30,502.0,180.0,1.7889,365,365,1.0,Strict 30+ night minimum AND price 179% above peer median; 100% vacant.
+33,39603229,Amazing 2 Bedroom in Midtown East & Close to UN,Midtown,Entire home/apt,30,501.0,180.0,1.7833,365,365,1.0,Strict 30+ night minimum AND price 178% above peer median; 100% vacant.
+34,690934,*Available 1 year* 5BR Multi-Terrace Sunny Apt!,Park Slope,Entire home/apt,365,500.0,180.0,1.7778,365,365,1.0,Strict 365+ night minimum AND price 178% above peer median; 100% vacant.
+35,887355,2 bedrooms 5-star building midtown,Murray Hill,Entire home/apt,30,500.0,180.0,1.7778,365,365,1.0,Strict 30+ night minimum AND price 178% above peer median; 100% vacant.
+36,572620870722180872,Space,East Flatbush,Entire home/apt,30,500.0,180.0,1.7778,365,365,1.0,Strict 30+ night minimum AND price 178% above peer median; 100% vacant.
+37,627371470100795624,2 BDRM penthouse in the heart of the LES,Lower East Side,Entire home/apt,30,490.0,180.0,1.7222,365,365,1.0,Strict 30+ night minimum AND price 172% above peer median; 100% vacant.
+38,47281460,One bedroom suite in Classic NYC Brownstone,East Harlem,Private room,30,302.0,111.0,1.7207,365,365,1.0,Strict 30+ night minimum AND price 172% above peer median; 100% vacant.
+39,747128578147440471,Cozy NYC Apt Private Patio Msg For Short Term,East Village,Shared room,30,452.0,167.0,1.7066,365,365,1.0,Strict 30+ night minimum AND price 171% above peer median; 100% vacant.
+40,903068061959225269,107Studio Events/Theater/Karaoke,East Harlem,Entire home/apt,30,483.0,180.0,1.6833,365,365,1.0,Strict 30+ night minimum AND price 168% above peer median; 100% vacant.
+41,746448940630442819,Monthly 2bed furnished,Midtown,Entire home/apt,30,481.0,180.0,1.6722,365,365,1.0,Strict 30+ night minimum AND price 167% above peer median; 100% vacant.
+42,37494611,2 Bedroom 1.5 Bathroom Duplex Apt with Backyard,Ridgewood,Private room,30,295.0,111.0,1.6577,365,365,1.0,Strict 30+ night minimum AND price 166% above peer median; 100% vacant.
+43,47276861,Cozy ridgewood 1 bed room apt,Ridgewood,Entire home/apt,30,476.0,180.0,1.6444,365,365,1.0,Strict 30+ night minimum AND price 164% above peer median; 100% vacant.
+44,38640810,Midtown Manhattan Junior Suite.  Sleeps 4.,Midtown,Private room,30,290.0,111.0,1.6126,365,365,1.0,Strict 30+ night minimum AND price 161% above peer median; 100% vacant.
+45,903027129454197865,Beautiful Wall Street and Trinity Church One Bed,Financial District,Entire home/apt,30,465.0,180.0,1.5833,365,365,1.0,Strict 30+ night minimum AND price 158% above peer median; 100% vacant.
+46,47577248,Beach lovers Dream Choice  with City Nightlife,Sheepshead Bay,Private room,30,281.0,111.0,1.5315,365,365,1.0,Strict 30+ night minimum AND price 153% above peer median; 100% vacant.
+47,1212276901648969170,Williamsburg Bedroom For 2,Williamsburg,Private room,30,280.0,111.0,1.5225,365,365,1.0,Strict 30+ night minimum AND price 152% above peer median; 100% vacant.
+48,52775347,"Beautiful  Appt, Soho/Nolita Book Now!",Nolita,Entire home/apt,30,451.0,180.0,1.5056,365,365,1.0,Strict 30+ night minimum AND price 151% above peer median; 100% vacant.
+49,8709068,Great UWS apt with amazing terrace!,Upper West Side,Entire home/apt,30,450.0,180.0,1.5,365,365,1.0,Strict 30+ night minimum AND price 150% above peer median; 100% vacant.
+50,15549056,Stay on Madison,East Harlem,Private room,30,276.0,111.0,1.4865,365,365,1.0,Strict 30+ night minimum AND price 149% above peer median; 100% vacant.
+51,810121182812488899,UIA x Ubl,Mill Basin,Entire home/apt,30,444.0,180.0,1.4667,365,365,1.0,Strict 30+ night minimum AND price 147% above peer median; 100% vacant.
+52,885767130763705756,Large 2 bedroom heart of Chelsea,Chelsea,Entire home/apt,30,440.0,180.0,1.4444,365,365,1.0,Strict 30+ night minimum AND price 144% above peer median; 100% vacant.
+53,39858506,One Bedroom in Time Square:),Midtown,Private room,30,270.0,111.0,1.4324,365,365,1.0,Strict 30+ night minimum AND price 143% above peer median; 100% vacant.
+54,1381449297894159322,Luxurious Harlem Home W. Modern Amenities & Patio!,Harlem,Entire home/apt,30,434.0,180.0,1.4111,365,365,1.0,Strict 30+ night minimum AND price 141% above peer median; 100% vacant.
+55,673803763328291112,Bright 2-Bedroom Rental Unit in Noho,East Village,Entire home/apt,30,433.0,180.0,1.4056,365,365,1.0,Strict 30+ night minimum AND price 141% above peer median; 100% vacant.
+56,1412726161985916200,Cozy Stay Near JFK & A Train,Ozone Park,Shared room,30,400.0,167.0,1.3952,365,365,1.0,Strict 30+ night minimum AND price 140% above peer median; 100% vacant.
+57,35310193,Architectural Digest Style Oasis,Long Island City,Entire home/apt,30,425.0,180.0,1.3611,365,365,1.0,Strict 30+ night minimum AND price 136% above peer median; 100% vacant.
+58,633956160953215663,Amazing NYC residence,East Harlem,Entire home/apt,30,425.0,180.0,1.3611,365,365,1.0,Strict 30+ night minimum AND price 136% above peer median; 100% vacant.
+59,21239885,Spacious Studio in the Heart of Harlem!,Harlem,Private room,30,255.0,111.0,1.2973,365,365,1.0,Strict 30+ night minimum AND price 130% above peer median; 100% vacant.
+60,647713196690082967,Modern Room w/ balcony in Astoria,Astoria,Private room,30,251.0,111.0,1.2613,365,365,1.0,Strict 30+ night minimum AND price 126% above peer median; 100% vacant.
+61,613045587854720391,Apartamento de nyc cómodo,Washington Heights,Private room,30,250.0,111.0,1.2523,365,365,1.0,Strict 30+ night minimum AND price 125% above peer median; 100% vacant.
+62,668015611171512819,Stuyvesant Heights Lovely Rental,Bedford-Stuyvesant,Private room,30,250.0,111.0,1.2523,365,365,1.0,Strict 30+ night minimum AND price 125% above peer median; 100% vacant.
+63,744254980057484501,Private Rooms Spacious Light-Filled Brooklyn Condo,Bedford-Stuyvesant,Private room,30,250.0,111.0,1.2523,365,365,1.0,Strict 30+ night minimum AND price 125% above peer median; 100% vacant.
+64,986960461220624070,Quiet private room on LaurelHill,Washington Heights,Private room,30,250.0,111.0,1.2523,365,365,1.0,Strict 30+ night minimum AND price 125% above peer median; 100% vacant.
+65,1313109942824449282,Modern Gem Crown Heights Duplex,Crown Heights,Private room,30,250.0,111.0,1.2523,365,365,1.0,Strict 30+ night minimum AND price 125% above peer median; 100% vacant.
+66,877378924316197141,Modern Apartment in Vibrant Brooklyn,Crown Heights,Entire home/apt,30,405.0,180.0,1.25,365,365,1.0,Strict 30+ night minimum AND price 125% above peer median; 100% vacant.
+67,1536294381058359697,NoLita Haus - Amazing Neighborhood,Nolita,Entire home/apt,30,405.0,180.0,1.25,365,365,1.0,Strict 30+ night minimum AND price 125% above peer median; 100% vacant.
+68,51001957,"Newly renovated apartment, 10 mins from Manhattan",Sunnyside,Private room,30,249.0,111.0,1.2432,365,365,1.0,Strict 30+ night minimum AND price 124% above peer median; 100% vacant.
+69,927531075448899720,Private Room in Prospect Heights,Prospect Heights,Private room,30,247.0,111.0,1.2252,365,365,1.0,Strict 30+ night minimum AND price 123% above peer median; 100% vacant.
+70,1290758282015059804,Scandinavian Chelsea Apt in NYC,Chelsea,Entire home/apt,90,400.0,180.0,1.2222,365,365,1.0,Strict 90+ night minimum AND price 122% above peer median; 100% vacant.
+71,28635863,Fabulous West Village Modern Luxury,Greenwich Village,Entire home/apt,90,400.0,180.0,1.2222,365,365,1.0,Strict 90+ night minimum AND price 122% above peer median; 100% vacant.
+72,7630422,Upper West Side Perfection,Upper West Side,Entire home/apt,30,400.0,180.0,1.2222,365,365,1.0,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+73,623882710917814272,Quintessential West Village Charmer,West Village,Entire home/apt,30,400.0,180.0,1.2222,365,365,1.0,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+74,770566178748431390,Harlem event/work /stay space,Harlem,Entire home/apt,30,400.0,180.0,1.2222,365,365,1.0,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+75,1346093486392263908,Spacious Soho Gem,SoHo,Entire home/apt,30,400.0,180.0,1.2222,365,365,1.0,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+76,51927795,Modern waterfront apartment,Williamsburg,Entire home/apt,30,399.0,180.0,1.2167,365,365,1.0,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+77,649470584792583345,Perfect Chill Spot in Flatbush,East Flatbush,Entire home/apt,30,399.0,180.0,1.2167,365,365,1.0,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+78,46798669,New UPW 2 bedroom apt in luxury doorman building,Upper West Side,Entire home/apt,30,396.0,180.0,1.2,365,365,1.0,Strict 30+ night minimum AND price 120% above peer median; 100% vacant.
+79,774084891829212376,Beautiful Townhouse in Brooklyn,Prospect-Lefferts Gardens,Entire home/apt,30,395.0,180.0,1.1944,365,365,1.0,Strict 30+ night minimum AND price 119% above peer median; 100% vacant.
+80,837029221074776517,Giant artists duplex!,Bushwick,Private room,30,242.0,111.0,1.1802,365,365,1.0,Strict 30+ night minimum AND price 118% above peer median; 100% vacant.
+81,30425770,Queens Corner Lot,Queens Village,Private room,30,241.0,111.0,1.1712,365,365,1.0,Strict 30+ night minimum AND price 117% above peer median; 100% vacant.
+82,51670402,3 Bedroom unit For large groups,East Flatbush,Entire home/apt,30,390.0,180.0,1.1667,365,365,1.0,Strict 30+ night minimum AND price 117% above peer median; 100% vacant.
+83,842691777475545064,Lovely 2Bd 2BA w/Private Balcony,Red Hook,Private room,31,240.0,111.0,1.1622,365,365,1.0,Strict 31+ night minimum AND price 116% above peer median; 100% vacant.
+84,712260,Private Two Bedroom with Garden in Cobble Hill,Carroll Gardens,Private room,30,240.0,111.0,1.1622,365,365,1.0,Strict 30+ night minimum AND price 116% above peer median; 100% vacant.
+85,22971234,Art Deco New York City,St. Albans,Private room,30,240.0,111.0,1.1622,365,365,1.0,Strict 30+ night minimum AND price 116% above peer median; 100% vacant.
+86,17929219,Heart of West Village Big+Bright+Beautiful True1BD,West Village,Entire home/apt,30,389.0,180.0,1.1611,365,365,1.0,Strict 30+ night minimum AND price 116% above peer median; 100% vacant.
+87,54276494,"HUGE! 2 Bd/2 Ba 1,200 Sq ft in HEART of Manhattan!",Stuyvesant Town,Entire home/apt,30,388.0,180.0,1.1556,365,365,1.0,Strict 30+ night minimum AND price 116% above peer median; 100% vacant.
+88,1480612826420062802,Stylish Quiet 2BR Nr TimesSq+Gym,Midtown,Entire home/apt,30,380.0,180.0,1.1111,365,365,1.0,Strict 30+ night minimum AND price 111% above peer median; 100% vacant.
+89,662908139346389329,"Top of Central Park, private room/bath with yard",Harlem,Private room,30,233.0,111.0,1.0991,365,365,1.0,Strict 30+ night minimum AND price 110% above peer median; 100% vacant.
+90,1476817181656019657,Spacious room in Brooklyn,Bushwick,Private room,30,232.0,111.0,1.0901,365,365,1.0,Strict 30+ night minimum AND price 109% above peer median; 100% vacant.
+91,552972547593855946,Entire cozy 2 Bedroom - Prime UES (30 Day Min),Upper East Side,Entire home/apt,30,375.0,180.0,1.0833,365,365,1.0,Strict 30+ night minimum AND price 108% above peer median; 100% vacant.
+92,1309031254882729294,Guest room perfect for 2,Bedford-Stuyvesant,Private room,30,231.0,111.0,1.0811,365,365,1.0,Strict 30+ night minimum AND price 108% above peer median; 100% vacant.
+93,1744709,Apartment with skylight in bedroom,Bedford-Stuyvesant,Private room,30,229.0,111.0,1.0631,365,365,1.0,Strict 30+ night minimum AND price 106% above peer median; 100% vacant.
+94,52688154,Lovey Apartment on Upper East Side,Upper East Side,Private room,30,229.0,111.0,1.0631,365,365,1.0,Strict 30+ night minimum AND price 106% above peer median; 100% vacant.
+95,858207672407178675,Great location Luxury apartment,Astoria,Private room,30,229.0,111.0,1.0631,365,365,1.0,Strict 30+ night minimum AND price 106% above peer median; 100% vacant.
+96,9708577,Miriams Place,Borough Park,Entire home/apt,30,370.0,180.0,1.0556,365,365,1.0,Strict 30+ night minimum AND price 106% above peer median; 100% vacant.
+97,905070033065803206,Triumphant Home Host,Jamaica,Private room,30,227.0,111.0,1.045,365,365,1.0,Strict 30+ night minimum AND price 105% above peer median; 100% vacant.
+98,644311938371273827,Apt w/ Private Garden in Brooklyn. Kid Friendly.,Clinton Hill,Entire home/apt,30,366.0,180.0,1.0333,365,365,1.0,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+99,1423376348165102006,Times Square Rooftop Terrace 1BR Luxe Bath SafeBld,Theater District,Entire home/apt,30,366.0,180.0,1.0333,365,365,1.0,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+100,1476941971441847969,Modern Apartment In Queens NY,East Elmhurst,Entire home/apt,30,366.0,180.0,1.0333,365,365,1.0,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+101,50381056,BEAUTIFUL MODERN SUNLIGHT KISSED HOME IN BROOKLYN,East New York,Entire home/apt,30,365.0,180.0,1.0278,365,365,1.0,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+102,576217808263109182,Cozy 2 bedroom 15 mins to LGA & Times Square!,Ditmars Steinway,Entire home/apt,30,365.0,180.0,1.0278,365,365,1.0,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+103,545261,Clinton Hill Lux Apt Grill & Lawn,Clinton Hill,Private room,30,225.0,111.0,1.027,365,365,1.0,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+104,935522748480485575,Stunning Modern Apartment,Upper West Side,Entire home/apt,30,360.0,180.0,1.0,365,365,1.0,Strict 30+ night minimum AND price 100% above peer median; 100% vacant.
+105,1209762126227348383,1 bdr apartment in Manhattan,Kips Bay,Entire home/apt,30,360.0,180.0,1.0,365,365,1.0,Strict 30+ night minimum AND price 100% above peer median; 100% vacant.
+106,735631763810679610,Moon Studio,Greenpoint,Entire home/apt,30,359.0,180.0,0.9944,365,365,1.0,Strict 30+ night minimum AND price 99% above peer median; 100% vacant.
+107,19379952,Penthouse with doorman & private outdoor patio,East Village,Entire home/apt,30,355.0,180.0,0.9722,365,365,1.0,Strict 30+ night minimum AND price 97% above peer median; 100% vacant.
+108,794071520594124768,Private Studio in Brownstone,Harlem,Entire home/apt,30,355.0,180.0,0.9722,365,365,1.0,Strict 30+ night minimum AND price 97% above peer median; 100% vacant.
+109,39630152,Luxurious oasis in upscale crown heights,Crown Heights,Entire home/apt,30,353.0,180.0,0.9611,365,365,1.0,Strict 30+ night minimum AND price 96% above peer median; 100% vacant.
+110,276021,Entire Luxury 2br/2ba in Prime Williamsburg!,Williamsburg,Entire home/apt,180,352.0,180.0,0.9556,365,365,1.0,Strict 180+ night minimum AND price 96% above peer median; 100% vacant.
+111,16158343,Cheerful 3-bedroom villa w/ parking & patio,East Flatbush,Entire home/apt,30,351.0,180.0,0.95,365,365,1.0,Strict 30+ night minimum AND price 95% above peer median; 100% vacant.
+112,41157920,Lux W Chelsea/Hudson yards,Chelsea,Entire home/apt,60,350.0,180.0,0.9444,365,365,1.0,Strict 60+ night minimum AND price 94% above peer median; 100% vacant.
+113,1036276150421118929,2-Bedroom Apartment in Manhattan,Hell's Kitchen,Entire home/apt,30,350.0,180.0,0.9444,365,365,1.0,Strict 30+ night minimum AND price 94% above peer median; 100% vacant.
+114,791539646807027059,The studio in the heights,Washington Heights,Private room,30,215.0,111.0,0.9369,365,365,1.0,Strict 30+ night minimum AND price 94% above peer median; 100% vacant.
+115,1520646116462002346,2BR/2BA in Full-Service Wall Street Building,Financial District,Entire home/apt,30,348.0,180.0,0.9333,365,365,1.0,Strict 30+ night minimum AND price 93% above peer median; 100% vacant.
+116,997434971292281828,Modern 2-Bedroom apt by ocean,Brighton Beach,Private room,30,213.0,111.0,0.9189,365,365,1.0,Strict 30+ night minimum AND price 92% above peer median; 100% vacant.
+117,904968514528702932,Dreamy Beachfront 3Bd/2Ba House,Arverne,Entire home/apt,30,341.0,180.0,0.8944,365,365,1.0,Strict 30+ night minimum AND price 89% above peer median; 100% vacant.
+118,725482656106188093,Gorgeous ! Amazing! Rasta palace ….,Bedford-Stuyvesant,Entire home/apt,30,340.0,180.0,0.8889,365,365,1.0,Strict 30+ night minimum AND price 89% above peer median; 100% vacant.
+119,1521274508682171456,Spacious&SUNNY Townhouse,Ozone Park,Private room,30,207.0,111.0,0.8649,365,365,1.0,Strict 30+ night minimum AND price 86% above peer median; 100% vacant.
+120,1354692062527041556,"Times sq, perfectly located",Hell's Kitchen,Private room,30,206.0,111.0,0.8559,365,365,1.0,Strict 30+ night minimum AND price 86% above peer median; 100% vacant.
+121,39535241,Sunny Urban Desert Oasis 10 Mins to NYC w Rooftop,Williamsburg,Entire home/apt,300,333.0,180.0,0.85,365,365,1.0,Strict 300+ night minimum AND price 85% above peer median; 100% vacant.
+122,27672277,"Bay Ridge, Vista Place",Bay Ridge,Entire home/apt,30,331.0,180.0,0.8389,365,365,1.0,Strict 30+ night minimum AND price 84% above peer median; 100% vacant.
+123,1447015985365726752,Prime Studio on Iconic St Marks,East Village,Entire home/apt,30,331.0,180.0,0.8389,365,365,1.0,Strict 30+ night minimum AND price 84% above peer median; 100% vacant.
+124,53065241,"The Vera, lovely 2 bedrooms in Queens",Richmond Hill,Private room,30,204.0,111.0,0.8378,365,365,1.0,Strict 30+ night minimum AND price 84% above peer median; 100% vacant.
+125,29780863,Private Studio 23 x 8th Ave 20 sec walk to Subway,Chelsea,Entire home/apt,30,330.0,180.0,0.8333,365,365,1.0,Strict 30+ night minimum AND price 83% above peer median; 100% vacant.
+126,790530143812144447,Welcome to my Home,Bath Beach,Private room,30,203.0,111.0,0.8288,365,365,1.0,Strict 30+ night minimum AND price 83% above peer median; 100% vacant.
+127,1223908931949225892,Luxury Waterfront 2 Bedroom Apt,Williamsburg,Entire home/apt,180,325.0,180.0,0.8056,365,365,1.0,Strict 180+ night minimum AND price 81% above peer median; 100% vacant.
+128,22374799,Spacious 2 BR APT w/3Queen Sz Bed w/PVT Parking,Flatlands,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+129,54186567,St. Albans Cozy Inn,St. Albans,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+130,627380994474321106,Spacious Bushwick Apartment,Bushwick,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+131,882549893727590653,Cozy 2Bedroom near Central Park,Upper East Side,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+132,896444436938739154,"Room W private garden in Park Slope Brooklyn, NYC",Park Slope,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+133,1005945620349053784,NY Month-to-Month Rental,Mount Hope,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+134,1436598701872526253,Shared Apartment with 2 baths,Upper East Side,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+135,1510933415195507919,Boutique Hotel Room Feel in Downtown LES,Lower East Side,Private room,30,200.0,111.0,0.8018,365,365,1.0,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+136,15444619,Brklyn Hts Luxury - Garden Calm & Downtown Verve,Boerum Hill,Entire home/apt,30,323.0,180.0,0.7944,365,365,1.0,Strict 30+ night minimum AND price 79% above peer median; 100% vacant.
+137,40155082,Easy & quiet stay,Throgs Neck,Entire home/apt,30,321.0,180.0,0.7833,365,365,1.0,Strict 30+ night minimum AND price 78% above peer median; 100% vacant.
+138,906769734194982627,"Penthouse w/large terrace, views",Clinton Hill,Entire home/apt,180,320.0,180.0,0.7778,365,365,1.0,Strict 180+ night minimum AND price 78% above peer median; 100% vacant.
+139,1275489843344572046,"Elegant NYC loft, Tribeca!",Tribeca,Entire home/apt,30,320.0,180.0,0.7778,365,365,1.0,Strict 30+ night minimum AND price 78% above peer median; 100% vacant.
+140,904332116672992001,Peaceful Brooklyn townhouse.,Greenpoint,Entire home/apt,30,320.0,180.0,0.7778,365,365,1.0,Strict 30+ night minimum AND price 78% above peer median; 100% vacant.
+141,636748829958680554,Elegant 1 bedroom apartment in DUMBO,Vinegar Hill,Entire home/apt,30,318.0,180.0,0.7667,365,365,1.0,Strict 30+ night minimum AND price 77% above peer median; 100% vacant.
+142,900756762692073591,Home away from home.,Silver Lake,Private room,60,195.0,111.0,0.7568,365,365,1.0,Strict 60+ night minimum AND price 76% above peer median; 100% vacant.
+143,658545811833091501,"Near Columbia Hosp. Subway, Times Sq (Resty Stays)",Washington Heights,Entire home/apt,30,315.0,180.0,0.75,365,365,1.0,Strict 30+ night minimum AND price 75% above peer median; 100% vacant.
+144,726579130880945632,Spectacular Lincoln Center Condo in the sky,Upper West Side,Entire home/apt,30,315.0,180.0,0.75,365,365,1.0,Strict 30+ night minimum AND price 75% above peer median; 100% vacant.
+145,765563,Big Comfy Beds & Breakfast on the Deck,Bayside,Entire home/apt,30,314.0,180.0,0.7444,365,365,1.0,Strict 30+ night minimum AND price 74% above peer median; 100% vacant.
+146,52861792,Art & Plants,Hell's Kitchen,Entire home/apt,30,311.0,180.0,0.7278,365,365,1.0,Strict 30+ night minimum AND price 73% above peer median; 100% vacant.
+147,1436902658002801448,The Harlem Alhambra,Harlem,Entire home/apt,30,307.0,180.0,0.7056,365,365,1.0,Strict 30+ night minimum AND price 71% above peer median; 100% vacant.
+148,1240662626849425984,"Prime Location, Clean, Spacious  & Modern Condo",Williamsburg,Private room,30,188.0,111.0,0.6937,365,365,1.0,Strict 30+ night minimum AND price 69% above peer median; 100% vacant.
+149,1526177620317871971,Cozy and spacious room,Bedford-Stuyvesant,Private room,30,188.0,111.0,0.6937,365,365,1.0,Strict 30+ night minimum AND price 69% above peer median; 100% vacant.
+150,744865550787331092,"Cheerful spacious 2 bedroom home, Cozy and unique!",Pelham Gardens,Entire home/apt,30,304.0,180.0,0.6889,365,365,1.0,Strict 30+ night minimum AND price 69% above peer median; 100% vacant.
+151,53422309,The Brooklyn MoMA,Prospect-Lefferts Gardens,Private room,30,187.0,111.0,0.6847,365,365,1.0,Strict 30+ night minimum AND price 68% above peer median; 100% vacant.
+152,22340384,"3Br Duplex, Backyard and Private Parking",Brownsville,Entire home/apt,30,302.0,180.0,0.6778,365,365,1.0,Strict 30+ night minimum AND price 68% above peer median; 100% vacant.
+153,1447798050123921620,Amazing Apartment in Ridgewood! Close to Manhattan,Ridgewood,Private room,30,186.0,111.0,0.6757,365,365,1.0,Strict 30+ night minimum AND price 68% above peer median; 100% vacant.
+154,6105742,Just Steps to Cntrl PK & museums...,Upper East Side,Entire home/apt,30,300.0,180.0,0.6667,365,365,1.0,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+155,53299304,The Little Paradise - New Owner,Concord,Entire home/apt,30,300.0,180.0,0.6667,365,365,1.0,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+156,649185211357475650,Huge Manhattan apartment next to the Central park.,Harlem,Entire home/apt,30,300.0,180.0,0.6667,365,365,1.0,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+157,699862597447371397,Luxury loft in Brooklyn,Greenpoint,Entire home/apt,30,300.0,180.0,0.6667,365,365,1.0,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+158,816320941221100049,Flexible Dates Big Room,Bath Beach,Private room,30,185.0,111.0,0.6667,365,365,1.0,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+159,1197069668924931193,Modern home in Uptown Manhattan,Washington Heights,Entire home/apt,30,300.0,180.0,0.6667,365,365,1.0,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+160,1393521548090507109,Large 1 bed Gramercy apartment,Kips Bay,Entire home/apt,30,300.0,180.0,0.6667,365,365,1.0,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+161,1190846125102630968,"NYC Master EnSuit  Cozy, Quiet, Central, Stylish",Murray Hill,Private room,30,184.0,111.0,0.6577,365,365,1.0,Strict 30+ night minimum AND price 66% above peer median; 100% vacant.
+162,29760980,Downtown Brooklyn Loft Space Under The Bridge,Vinegar Hill,Entire home/apt,30,298.0,180.0,0.6556,365,365,1.0,Strict 30+ night minimum AND price 66% above peer median; 100% vacant.
+163,54001498,Cozy 2-bedroom apartment in Mill Basin,Mill Basin,Entire home/apt,30,298.0,180.0,0.6556,365,365,1.0,Strict 30+ night minimum AND price 66% above peer median; 100% vacant.
+164,653909555821012638,Apartment in prime location ft. views!,St. George,Entire home/apt,30,297.0,180.0,0.65,365,365,1.0,Strict 30+ night minimum AND price 65% above peer median; 100% vacant.
+165,1386025309506564066,Homey 4BR minutes away from NYC,Woodside,Private room,30,183.0,111.0,0.6486,365,365,1.0,Strict 30+ night minimum AND price 65% above peer median; 100% vacant.
+166,1130487141779723920,NYC LARGE Home close to Subway,Chelsea,Entire home/apt,30,295.0,180.0,0.6389,365,365,1.0,Strict 30+ night minimum AND price 64% above peer median; 100% vacant.
+167,1180299545902646491,Trendy Downtown Manhattan Home,East Village,Entire home/apt,30,295.0,180.0,0.6389,365,365,1.0,Strict 30+ night minimum AND price 64% above peer median; 100% vacant.
+168,778572000129057354,Cozy/clean room Manhathan.,Murray Hill,Private room,30,181.0,111.0,0.6306,365,365,1.0,Strict 30+ night minimum AND price 63% above peer median; 100% vacant.
+169,895681617796889995,Hip garden retreat near Park!,Sunset Park,Entire home/apt,30,292.0,180.0,0.6222,365,365,1.0,Strict 30+ night minimum AND price 62% above peer median; 100% vacant.
+170,10298783,Harlem best locate space,Harlem,Private room,30,180.0,111.0,0.6216,365,365,1.0,Strict 30+ night minimum AND price 62% above peer median; 100% vacant.
+171,711501151642222800,"Private Room in Riverdale, Bronx NY",Spuyten Duyvil,Private room,30,180.0,111.0,0.6216,365,365,1.0,Strict 30+ night minimum AND price 62% above peer median; 100% vacant.
+172,877620974568653457,Oasis on Quincy,Bedford-Stuyvesant,Private room,30,180.0,111.0,0.6216,365,365,1.0,Strict 30+ night minimum AND price 62% above peer median; 100% vacant.
+173,933904777683447370,NYC palace,Upper West Side,Private room,30,180.0,111.0,0.6216,365,365,1.0,Strict 30+ night minimum AND price 62% above peer median; 100% vacant.
+174,1326210409527940327,Private Space in Lux Duplex,Bedford-Stuyvesant,Private room,30,180.0,111.0,0.6216,365,365,1.0,Strict 30+ night minimum AND price 62% above peer median; 100% vacant.
+175,51517634,Breakfast N' BedStuy : SUN DRENCHED PRIVATE 3 BDRM,Bedford-Stuyvesant,Entire home/apt,30,290.0,180.0,0.6111,365,365,1.0,Strict 30+ night minimum AND price 61% above peer median; 100% vacant.
+176,658652034156317401,Lovely Vibe in the best part of downtown Manhattan,Financial District,Entire home/apt,31,289.0,180.0,0.6056,365,365,1.0,Strict 31+ night minimum AND price 61% above peer median; 100% vacant.
+177,18210106,Amazing Studio in Times Square,Hell's Kitchen,Entire home/apt,30,289.0,180.0,0.6056,365,365,1.0,Strict 30+ night minimum AND price 61% above peer median; 100% vacant.
+178,743430766348459803,LUX- High Rise 1 BR Apartment in,Flatbush,Entire home/apt,30,289.0,180.0,0.6056,365,365,1.0,Strict 30+ night minimum AND price 61% above peer median; 100% vacant.
+179,1453247285066432906,14111 Oasis,Springfield Gardens,Shared room,30,267.0,167.0,0.5988,365,365,1.0,Strict 30+ night minimum AND price 60% above peer median; 100% vacant.
+180,1539039131231446418,Upscale studio in outstanding location,Hell's Kitchen,Entire home/apt,30,287.0,180.0,0.5944,365,365,1.0,Strict 30+ night minimum AND price 59% above peer median; 100% vacant.
+181,48042018,PLEASENT PLACE TOWN HOUSE,East Harlem,Entire home/apt,30,286.0,180.0,0.5889,365,365,1.0,Strict 30+ night minimum AND price 59% above peer median; 100% vacant.
+182,18812046,Prestige Home 10 mins to JFK & 5 mins to UBS Arena,Cambria Heights,Private room,30,176.0,111.0,0.5856,365,365,1.0,Strict 30+ night minimum AND price 59% above peer median; 100% vacant.
+183,46350355,"Spacious homely duplex hidden Gem, Upstairs unit.",Jamaica,Entire home/apt,30,285.0,180.0,0.5833,365,365,1.0,Strict 30+ night minimum AND price 58% above peer median; 100% vacant.
+184,837909730353865269,LUX in Point,College Point,Entire home/apt,30,285.0,180.0,0.5833,365,365,1.0,Strict 30+ night minimum AND price 58% above peer median; 100% vacant.
+185,1488021966541583187,Sunny Bedstuy Stay,Bedford-Stuyvesant,Private room,30,175.0,111.0,0.5766,365,365,1.0,Strict 30+ night minimum AND price 58% above peer median; 100% vacant.
+186,953463529515749184,Your Home Away from Home-JFK 30minWi-Fi & Parking,Flatlands,Entire home/apt,30,282.0,180.0,0.5667,365,365,1.0,Strict 30+ night minimum AND price 57% above peer median; 100% vacant.
+187,4498688,"Large, Immaculate Brooklyn 2 BR apt, sleeps 4-5",Bedford-Stuyvesant,Entire home/apt,30,281.0,180.0,0.5611,365,365,1.0,Strict 30+ night minimum AND price 56% above peer median; 100% vacant.
+188,873663191005881353,Two bedroom luxury-Jackson Heights - Book on Houfy,East Elmhurst,Entire home/apt,30,281.0,180.0,0.5611,365,365,1.0,Strict 30+ night minimum AND price 56% above peer median; 100% vacant.
+189,29158689,Brooklyn APT in heart of urban NYC hustle & bustle,Bedford-Stuyvesant,Entire home/apt,30,280.0,180.0,0.5556,365,365,1.0,Strict 30+ night minimum AND price 56% above peer median; 100% vacant.
+190,981936893723440768,Diva Lee Falls - Road House,East New York,Entire home/apt,30,280.0,180.0,0.5556,365,365,1.0,Strict 30+ night minimum AND price 56% above peer median; 100% vacant.
+191,1244931205585338425,Top-Floor Loft in West Village,West Village,Entire home/apt,30,280.0,180.0,0.5556,365,365,1.0,Strict 30+ night minimum AND price 56% above peer median; 100% vacant.
+192,54466,Beautiful Uptown Manhattan apartmnt,Harlem,Private room,30,172.0,111.0,0.5495,365,365,1.0,Strict 30+ night minimum AND price 55% above peer median; 100% vacant.
+193,773237631431486588,Home sweet home,Bedford-Stuyvesant,Private room,30,172.0,111.0,0.5495,365,365,1.0,Strict 30+ night minimum AND price 55% above peer median; 100% vacant.
+194,1369814877549642606,Soundview Oasis,Soundview,Private room,30,172.0,111.0,0.5495,365,365,1.0,Strict 30+ night minimum AND price 55% above peer median; 100% vacant.
+195,26043558,Serene Garden floor-through apartment,Bedford-Stuyvesant,Entire home/apt,30,277.0,180.0,0.5389,365,365,1.0,Strict 30+ night minimum AND price 54% above peer median; 100% vacant.
+196,675793,"Amazing Location, Quiet Space, you will LOVE",West Village,Private room,30,170.0,111.0,0.5315,365,365,1.0,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+197,53170821,Modern apartment in Bushwick,Bushwick,Private room,30,170.0,111.0,0.5315,365,365,1.0,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+198,888385005019472825,Habitación para 1 o 2 personas,Middle Village,Private room,30,170.0,111.0,0.5315,365,365,1.0,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+199,888668264357618033,Jasmine Flower Place 40% discount for monthly,Harlem,Private room,30,170.0,111.0,0.5315,365,365,1.0,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+200,51443431,Luxury 1 Bedroom Duplex Apt in heart of Chelsea,Chelsea,Entire home/apt,30,275.0,180.0,0.5278,365,365,1.0,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+201,53216577,Lovely one bedroom Apt in New York,Lower East Side,Entire home/apt,30,275.0,180.0,0.5278,365,365,1.0,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+202,1241669919430658505,Charming 2- Bedroom Brownstone,Bedford-Stuyvesant,Entire home/apt,30,274.0,180.0,0.5222,365,365,1.0,Strict 30+ night minimum AND price 52% above peer median; 100% vacant.
+203,1544429595910354460,Elegant one bedroom apartment in manhattan,Hell's Kitchen,Entire home/apt,30,272.0,180.0,0.5111,365,365,1.0,Strict 30+ night minimum AND price 51% above peer median; 100% vacant.
+204,51243376,Lovely 3-Bedroom Apt in  the Heart of Brooklyn,Prospect-Lefferts Gardens,Entire home/apt,30,270.0,180.0,0.5,365,365,1.0,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+205,51745454,"Luxury, Best Views in Brooklyn, Pets!",Williamsburg,Entire home/apt,30,270.0,180.0,0.5,365,365,1.0,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+206,53484201,Home Away From Home - Modern Apt in Queens,Jackson Heights,Entire home/apt,30,270.0,180.0,0.5,365,365,1.0,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+207,655565090602020122,"Romantic Getaway, 1 bedroom unit in New York City",Midtown,Entire home/apt,30,270.0,180.0,0.5,365,365,1.0,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+208,942119359731768484,Washington Heights Charming Apt,Washington Heights,Entire home/apt,30,270.0,180.0,0.5,365,365,1.0,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+209,51465312,Gorgeous Room in Amazing Riverfront Manhattan Apt,East Harlem,Private room,30,166.0,111.0,0.4955,365,365,1.0,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+210,734146997394470152,Nice    bedroom in Queens N.Y.  Private bathroom,Corona,Private room,30,165.0,111.0,0.4865,365,365,1.0,Strict 30+ night minimum AND price 49% above peer median; 100% vacant.
+211,1304549420589033442,private room in apartment,Rego Park,Private room,30,165.0,111.0,0.4865,365,365,1.0,Strict 30+ night minimum AND price 49% above peer median; 100% vacant.
+212,1391399583836820034,Washington Heights II,Washington Heights,Entire home/apt,30,267.0,180.0,0.4833,365,365,1.0,Strict 30+ night minimum AND price 48% above peer median; 100% vacant.
+213,565173112445230681,Interior designer renovated 3Bdr Apartment,Melrose,Private room,30,164.0,111.0,0.4775,365,365,1.0,Strict 30+ night minimum AND price 48% above peer median; 100% vacant.
+214,53699744,Luxury Oversized studio w. comfy bed + art /plants,Financial District,Entire home/apt,30,265.0,180.0,0.4722,365,365,1.0,Strict 30+ night minimum AND price 47% above peer median; 100% vacant.
+215,587842332142199671,New York Great  Place To Stay Near Subway & Shops!,Gravesend,Entire home/apt,30,265.0,180.0,0.4722,365,365,1.0,Strict 30+ night minimum AND price 47% above peer median; 100% vacant.
+216,856506863490306029,Cute/Cozy room in safest area 5 min walk to subway,Fort Hamilton,Private room,30,163.0,111.0,0.4685,365,365,1.0,Strict 30+ night minimum AND price 47% above peer median; 100% vacant.
+217,15343302,Lovely 2 bedroom apartment in regal Harlem,Harlem,Entire home/apt,30,263.0,180.0,0.4611,365,365,1.0,Strict 30+ night minimum AND price 46% above peer median; 100% vacant.
+218,38624089,Sunset Park's brand new luxury apartment,Sunset Park,Entire home/apt,30,263.0,180.0,0.4611,365,365,1.0,Strict 30+ night minimum AND price 46% above peer median; 100% vacant.
+219,662324653098427815,"Clean, Large Rooms with New Smart TV in each Room",Concourse,Private room,30,162.0,111.0,0.4595,365,365,1.0,Strict 30+ night minimum AND price 46% above peer median; 100% vacant.
+220,713556504588749227,Large Room w pvt bathroom in heart of Williamsburg,Williamsburg,Private room,30,161.0,111.0,0.4505,365,365,1.0,Strict 30+ night minimum AND price 45% above peer median; 100% vacant.
+221,625607057280802438,Entire Loft in Brooklyn - Clinton Hill,Clinton Hill,Entire home/apt,30,260.0,180.0,0.4444,365,365,1.0,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+222,751359271785565868,Lovely 1-bedroom rental unit.,Hell's Kitchen,Entire home/apt,30,260.0,180.0,0.4444,365,365,1.0,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+223,1293682501063425305,It’s So Grand,Lower East Side,Private room,31,160.0,111.0,0.4414,365,365,1.0,Strict 31+ night minimum AND price 44% above peer median; 100% vacant.
+224,718814212312265324,1 Private Room,Bay Ridge,Private room,30,160.0,111.0,0.4414,365,365,1.0,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+225,817989481842751653,Stylish guest suite in Bushwick townhouse,Bushwick,Private room,30,160.0,111.0,0.4414,365,365,1.0,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+226,856674365271587414,Amazing apartment in Bushwick,Bedford-Stuyvesant,Private room,30,160.0,111.0,0.4414,365,365,1.0,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+227,1332026372827145488,Guest suite in Central Harlem,Harlem,Private room,30,160.0,111.0,0.4414,365,365,1.0,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+228,1456835210172739888,Private room In shared 2 bed,Upper West Side,Private room,30,160.0,111.0,0.4414,365,365,1.0,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+229,1555491,Beautiful Upper East Side Apartment,Upper East Side,Entire home/apt,30,258.0,180.0,0.4333,365,365,1.0,Strict 30+ night minimum AND price 43% above peer median; 100% vacant.
+230,1487071010445520883,Brand New: Emerald & Bloom,Bay Ridge,Entire home/apt,30,258.0,180.0,0.4333,365,365,1.0,Strict 30+ night minimum AND price 43% above peer median; 100% vacant.
+231,1543142525748435769,Chic New York loft in prime location!,Greenwich Village,Entire home/apt,30,258.0,180.0,0.4333,365,365,1.0,Strict 30+ night minimum AND price 43% above peer median; 100% vacant.
+232,772607042480055880,The Hidden Gem: 20 Min to NYC | 10 Min to JFK,St. Albans,Entire home/apt,30,257.0,180.0,0.4278,365,365,1.0,Strict 30+ night minimum AND price 43% above peer median; 100% vacant.
+233,779014938888711241,Paradise on Ave I,Flatlands,Entire home/apt,30,257.0,180.0,0.4278,365,365,1.0,Strict 30+ night minimum AND price 43% above peer median; 100% vacant.
+234,1527563288418057875,"Stylish 2BR 1.5B Duplex w/Private Garden, Brooklyn",Prospect-Lefferts Gardens,Shared room,30,238.0,167.0,0.4251,365,365,1.0,Strict 30+ night minimum AND price 43% above peer median; 100% vacant.
+235,563814027308620995,Bed-Stuy Shared living,Bedford-Stuyvesant,Private room,30,158.0,111.0,0.4234,365,365,1.0,Strict 30+ night minimum AND price 42% above peer median; 100% vacant.
+236,883201159097081081,"come enjoy, lay back & relax",St. Albans,Entire home/apt,30,256.0,180.0,0.4222,365,365,1.0,Strict 30+ night minimum AND price 42% above peer median; 100% vacant.
+237,752544464812293243,Amazing Brooklyn loft!,Bedford-Stuyvesant,Entire home/apt,30,253.0,180.0,0.4056,365,365,1.0,Strict 30+ night minimum AND price 41% above peer median; 100% vacant.
+238,851299489251343109,Cozy one bedroom in bayridge bk,Bay Ridge,Entire home/apt,30,253.0,180.0,0.4056,365,365,1.0,Strict 30+ night minimum AND price 41% above peer median; 100% vacant.
+239,660310667265628435,Lovely room in large apartment with private yard,Ridgewood,Private room,30,156.0,111.0,0.4054,365,365,1.0,Strict 30+ night minimum AND price 41% above peer median; 100% vacant.
+240,1081094943593999779,"Eclectic, modern, bright apt",Bushwick,Entire home/apt,30,252.0,180.0,0.4,365,365,1.0,Strict 30+ night minimum AND price 40% above peer median; 100% vacant.
+241,994748134628684461,Cozy and spacious studio,West Village,Entire home/apt,90,250.0,180.0,0.3889,365,365,1.0,Strict 90+ night minimum AND price 39% above peer median; 100% vacant.
+242,715070,SPECTACULAR HOLIDAY RENTAL/VILLAGE,Greenwich Village,Entire home/apt,60,250.0,180.0,0.3889,365,365,1.0,Strict 60+ night minimum AND price 39% above peer median; 100% vacant.
+243,34132006,Ideal 3BR Apartment - Unbeatable Location,Chelsea,Entire home/apt,30,250.0,180.0,0.3889,365,365,1.0,Strict 30+ night minimum AND price 39% above peer median; 100% vacant.
+244,53419788,Lovely 2 bedroom apartment Queens Central Astoria,Ditmars Steinway,Entire home/apt,30,250.0,180.0,0.3889,365,365,1.0,Strict 30+ night minimum AND price 39% above peer median; 100% vacant.
+245,750630709509833993,Open Artist Loft in Prime Bushwick Scene,Bushwick,Entire home/apt,30,250.0,180.0,0.3889,365,365,1.0,Strict 30+ night minimum AND price 39% above peer median; 100% vacant.
+246,876347715276058077,JFK Haven Retreat,Richmond Hill,Entire home/apt,30,250.0,180.0,0.3889,365,365,1.0,Strict 30+ night minimum AND price 39% above peer median; 100% vacant.
+247,1105759211258934651,Rooms in home hosted by Tom (Hung),Bay Ridge,Private room,30,154.0,111.0,0.3874,365,365,1.0,Strict 30+ night minimum AND price 39% above peer median; 100% vacant.
+248,719495891698342037,Lovely 1-Bedroom Penthouse Loft in Park Slope,Park Slope,Entire home/apt,30,249.0,180.0,0.3833,365,365,1.0,Strict 30+ night minimum AND price 38% above peer median; 100% vacant.
+249,1121929936429281111,Amazing NYC Manhattan studio,Morningside Heights,Entire home/apt,30,248.0,180.0,0.3778,365,365,1.0,Strict 30+ night minimum AND price 38% above peer median; 100% vacant.
+250,1379385196647368597,View 34,Murray Hill,Entire home/apt,30,248.0,180.0,0.3778,365,365,1.0,Strict 30+ night minimum AND price 38% above peer median; 100% vacant.
+251,322037,"Luxury Williamsburg, Brooklyn LOFT",Williamsburg,Entire home/apt,30,247.0,180.0,0.3722,365,365,1.0,Strict 30+ night minimum AND price 37% above peer median; 100% vacant.
+252,805356815376500120,UBS Napoleon Suites near JFK/ UBS Arena & Casino.,Queens Village,Entire home/apt,30,247.0,180.0,0.3722,365,365,1.0,Strict 30+ night minimum AND price 37% above peer median; 100% vacant.
+253,807945843450389326,Brick Wall Room near by Williamsburg Bridge,Williamsburg,Private room,30,152.0,111.0,0.3694,365,365,1.0,Strict 30+ night minimum AND price 37% above peer median; 100% vacant.
+254,1232732872159054205,Elegant Ridgewood Apt Gem | NYC,Ridgewood,Private room,30,152.0,111.0,0.3694,365,365,1.0,Strict 30+ night minimum AND price 37% above peer median; 100% vacant.
+255,841368449428969241,Modern Charming Bklyn Apartment,Bedford-Stuyvesant,Entire home/apt,356,245.0,180.0,0.3611,365,365,1.0,Strict 356+ night minimum AND price 36% above peer median; 100% vacant.
+256,694709585427847036,Lovely one bedroom rental in queens,Astoria,Entire home/apt,30,245.0,180.0,0.3611,365,365,1.0,Strict 30+ night minimum AND price 36% above peer median; 100% vacant.
+257,685706917487823608,1st fl 1 bdrm in duplex apt with backyard driveway,Canarsie,Private room,30,151.0,111.0,0.3604,365,365,1.0,Strict 30+ night minimum AND price 36% above peer median; 100% vacant.
+258,1089849330286362160,Room in Apt / Shared space with Host,Crown Heights,Private room,30,151.0,111.0,0.3604,365,365,1.0,Strict 30+ night minimum AND price 36% above peer median; 100% vacant.
+259,1971540,Sunny Midtown NYC Room,Upper West Side,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+260,4783902,Stunning 1BD in West Village Duplex,West Village,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+261,8281889,"Williamsburg, Brooklyn space",Williamsburg,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+262,53894411,Cozy Suite w/private backyard space & entry,Flatlands,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+263,558732520907162146,D.R.I.P INC,Mount Hope,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+264,629196150330969487,Lovely room in Brooklyn,Bergen Beach,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+265,678788359112415515,Light-filled Room Available in Prime Williamsburg,Williamsburg,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+266,699799295716034636,Gem  of Ozone Park,South Ozone Park,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+267,740405625762067517,Modern and Cozy suite in trendy Bushwick,Bushwick,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+268,806899252911679312,Private room for couples,Crown Heights,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+269,1043446269533438345,Flatbush unit near #2 & 5 subway,East Flatbush,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+270,1406727512633488474,Artsy & Airy Apt in Times Sq!,Hell's Kitchen,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+271,1464880231410828550,Cozy Spot by JFK & A Train,Ozone Park,Private room,30,150.0,111.0,0.3514,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+272,41840700,Sunny Designer Apartment in Prospect Hts Brooklyn!,Crown Heights,Entire home/apt,650,243.0,180.0,0.35,323,323,1.0,Strict 650+ night minimum AND price 35% above peer median; 100% vacant.
+273,871751061108347115,Spacious Central Apt~ near JFK,South Ozone Park,Entire home/apt,30,243.0,180.0,0.35,365,365,1.0,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+274,397034,New York City for All Seasons!,Upper West Side,Private room,30,149.0,111.0,0.3423,365,365,1.0,Strict 30+ night minimum AND price 34% above peer median; 100% vacant.
+275,53939267,Lovely 1 bedroom apartment in Queens,Howard Beach,Private room,30,149.0,111.0,0.3423,365,365,1.0,Strict 30+ night minimum AND price 34% above peer median; 100% vacant.
+276,947990637125132193,Tastefully Furnished Luxe 1 Bedroom in Manhattan,Murray Hill,Entire home/apt,180,240.0,180.0,0.3333,365,365,1.0,Strict 180+ night minimum AND price 33% above peer median; 100% vacant.
+277,50706815,Stay in charming & centrally located Hells Kitchen,Hell's Kitchen,Entire home/apt,30,240.0,180.0,0.3333,365,365,1.0,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+278,938529516572780694,New Apartment in Staten Island Between NJ & NY!,Randall Manor,Entire home/apt,30,240.0,180.0,0.3333,365,365,1.0,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+279,978186823944588985,Cozy Condo 1 bedroom,Melrose,Entire home/apt,30,240.0,180.0,0.3333,365,365,1.0,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+280,1018749486476658546,Cozy Condo next to Prospect Park,Prospect-Lefferts Gardens,Entire home/apt,30,240.0,180.0,0.3333,365,365,1.0,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+281,1299491137291843578,Stunning Lower East Side Retreat,Lower East Side,Entire home/apt,30,240.0,180.0,0.3333,365,365,1.0,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+282,1487080174323995277,Amazing UWS One Bedroom,Upper West Side,Entire home/apt,30,240.0,180.0,0.3333,365,365,1.0,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+283,953102865275048099,Private Entry Studio/Room Deluxe,Upper East Side,Private room,30,147.0,111.0,0.3243,365,365,1.0,Strict 30+ night minimum AND price 32% above peer median; 100% vacant.
+284,54210471,Sunday’s with Lovey! 3 bedroom unit 2 full baths.,East New York,Entire home/apt,30,238.0,180.0,0.3222,365,365,1.0,Strict 30+ night minimum AND price 32% above peer median; 100% vacant.
+285,53194676,"Traveling Nurses Utilities, Driveway, Washer/Dryer",Throgs Neck,Entire home/apt,30,236.0,180.0,0.3111,365,365,1.0,Strict 30+ night minimum AND price 31% above peer median; 100% vacant.
+286,29079912,Cozy place to stay 7 minutes from Manhattan...,Astoria,Private room,30,145.0,111.0,0.3063,365,365,1.0,Strict 30+ night minimum AND price 31% above peer median; 100% vacant.
+287,1427343346361507360,Private Apartment Oasis in Prime LES,Lower East Side,Entire home/apt,30,235.0,180.0,0.3056,365,365,1.0,Strict 30+ night minimum AND price 31% above peer median; 100% vacant.
+288,558941566399441638,Lovely private room . (Queens bed),Mount Eden,Private room,30,144.0,111.0,0.2973,365,365,1.0,Strict 30+ night minimum AND price 30% above peer median; 100% vacant.
+289,1304417138516106936,East Williamsburg House,Ridgewood,Private room,30,144.0,111.0,0.2973,365,365,1.0,Strict 30+ night minimum AND price 30% above peer median; 100% vacant.
+290,1284724376820989449,The Palour,Harlem,Entire home/apt,30,233.0,180.0,0.2944,365,365,1.0,Strict 30+ night minimum AND price 29% above peer median; 100% vacant.
+291,49159986,E.Hrlm pvt. Brownstone Parlor Flr Loft Avail.,East Harlem,Entire home/apt,30,233.0,180.0,0.2944,365,365,1.0,Strict 30+ night minimum AND price 29% above peer median; 100% vacant.
+292,658567847166417444,Lovely studio apartment in the middle of Astoria,Ditmars Steinway,Entire home/apt,30,233.0,180.0,0.2944,365,365,1.0,Strict 30+ night minimum AND price 29% above peer median; 100% vacant.
+293,1381535044368210037,Luxury Midtown Gem–Family Comfort by Central Park,Midtown,Entire home/apt,30,233.0,180.0,0.2944,365,365,1.0,Strict 30+ night minimum AND price 29% above peer median; 100% vacant.
+294,766867327829311890,{•Near Manhattan•}.Incredible Sanctuary,Bushwick,Entire home/apt,30,232.0,180.0,0.2889,365,365,1.0,Strict 30+ night minimum AND price 29% above peer median; 100% vacant.
+295,903935533025871679,2 bedroom in residential house,Ditmars Steinway,Entire home/apt,30,232.0,180.0,0.2889,365,365,1.0,Strict 30+ night minimum AND price 29% above peer median; 100% vacant.
+296,1527113995985355351,Brooklyn Brownstone Designer Suite,Cypress Hills,Entire home/apt,30,232.0,180.0,0.2889,365,365,1.0,Strict 30+ night minimum AND price 29% above peer median; 100% vacant.
+297,1368187202354161871,Luxury 1 bedroom 1 Bath BK,Cypress Hills,Private room,30,142.0,111.0,0.2793,365,365,1.0,Strict 30+ night minimum AND price 28% above peer median; 100% vacant.
+298,28483571,Brand New Beautiful Home (25 min to Manhattan),Woodside,Entire home/apt,30,230.0,180.0,0.2778,365,365,1.0,Strict 30+ night minimum AND price 28% above peer median; 100% vacant.
+299,51176539,Private & Peaceful | Entire Place | High-Line,West Village,Entire home/apt,30,230.0,180.0,0.2778,365,365,1.0,Strict 30+ night minimum AND price 28% above peer median; 100% vacant.
+300,1462098618989824489,Cozy apartment by Central Park,Upper East Side,Entire home/apt,30,230.0,180.0,0.2778,365,365,1.0,Strict 30+ night minimum AND price 28% above peer median; 100% vacant.
+301,1408809471766955072,Modern 2BR/2BA with balcony,Crown Heights,Entire home/apt,90,229.0,180.0,0.2722,365,365,1.0,Strict 90+ night minimum AND price 27% above peer median; 100% vacant.
+302,2314392,Spacious Studio on West 72nd,Upper West Side,Entire home/apt,30,229.0,180.0,0.2722,365,365,1.0,Strict 30+ night minimum AND price 27% above peer median; 100% vacant.
+303,1512355583772068367,Shared Room in our home,Crown Heights,Shared room,30,212.0,167.0,0.2695,365,365,1.0,Strict 30+ night minimum AND price 27% above peer median; 100% vacant.
+304,581276193109315899,"The Tulum Experience JFK, LGA, Casino, UBS Arena",Springfield Gardens,Entire home/apt,30,227.0,180.0,0.2611,365,365,1.0,Strict 30+ night minimum AND price 26% above peer median; 100% vacant.
+305,1331537410605212824,Cole’s Luxurious Suite,Springfield Gardens,Entire home/apt,30,226.0,180.0,0.2556,365,365,1.0,Strict 30+ night minimum AND price 26% above peer median; 100% vacant.
+306,13294471,Cozy Bedroom & Own Private Bath/Use of Amenities.,Clifton,Private room,30,139.0,111.0,0.2523,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+307,49447624,Welcome to the Newly Renovated luxury Studio.,Queens Village,Private room,30,139.0,111.0,0.2523,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+308,754705050508576196,"Queens Quarters, Bedroom in shared apartment.",East Elmhurst,Private room,30,139.0,111.0,0.2523,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+309,1009699512413915648,Bushwick Getaway !,Ridgewood,Private room,30,139.0,111.0,0.2523,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+310,1491004177456457005,Brownstone Guest Suite,Prospect Heights,Private room,30,139.0,111.0,0.2523,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+311,7116071,30 Minutes to Manhattan / Sleeps 7,Bensonhurst,Entire home/apt,30,225.0,180.0,0.25,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+312,39229191,Sittin' on the Dock of the Bay,Throgs Neck,Entire home/apt,30,225.0,180.0,0.25,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+313,669124977887839244,A peaceful get away to enjoy your time,Bergen Beach,Entire home/apt,30,225.0,180.0,0.25,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+314,731940007156884626,Lovely 2 bedroom apt with a view,Bushwick,Entire home/apt,30,225.0,180.0,0.25,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+315,830243073885397256,Shauna’s Chateau,East Flatbush,Entire home/apt,30,225.0,180.0,0.25,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+316,1017535766542159357,Luxurious condo close to airport,College Point,Entire home/apt,30,225.0,180.0,0.25,365,365,1.0,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+317,1521034204132216440,Luxury Stay Near LGA - Parking & Privacy,East Elmhurst,Private room,32,537.5,111.0,3.8423,364,365,0.9973,Strict 32+ night minimum AND price 384% above peer median; 100% vacant.
+318,33936370,Cozy room with 3 windows.,Bushwick,Private room,30,537.5,111.0,3.8423,364,365,0.9973,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+319,784294277993627702,Friendly cosy place!),Sheepshead Bay,Private room,30,537.5,111.0,3.8423,364,365,0.9973,Strict 30+ night minimum AND price 384% above peer median; 100% vacant.
+320,46929299,Private room,Gravesend,Private room,30,500.0,111.0,3.5045,364,365,0.9973,Strict 30+ night minimum AND price 350% above peer median; 100% vacant.
+321,18506841,Spacious 2 Bedrooms in Manhattan Townhouse,Harlem,Private room,30,375.0,111.0,2.3784,364,365,0.9973,Strict 30+ night minimum AND price 238% above peer median; 100% vacant.
+322,1483656227560478741,Cozy shared apartment room,Sheepshead Bay,Shared room,31,537.5,167.0,2.2186,364,365,0.9973,Strict 31+ night minimum AND price 222% above peer median; 100% vacant.
+323,34202651,"UWS 3BR/2BTH Apt, 1 block from Central Park",Upper West Side,Entire home/apt,30,525.0,180.0,1.9167,364,365,0.9973,Strict 30+ night minimum AND price 192% above peer median; 100% vacant.
+324,1465399862221901558,"My sunny, peaceful little home",Williamsburg,Private room,30,312.0,111.0,1.8108,364,365,0.9973,Strict 30+ night minimum AND price 181% above peer median; 100% vacant.
+325,54194995,Entire House in Forest Hills,Forest Hills,Entire home/apt,60,501.0,180.0,1.7833,364,365,0.9973,Strict 60+ night minimum AND price 178% above peer median; 100% vacant.
+326,790681115900703507,Artist Bright Bedstuy Brownstone,Bedford-Stuyvesant,Entire home/apt,30,500.0,180.0,1.7778,364,365,0.9973,Strict 30+ night minimum AND price 178% above peer median; 100% vacant.
+327,12950991,UES Luxury White  Glove Doorman Building ❤️ NYC!,Upper East Side,Entire home/apt,30,499.0,180.0,1.7722,364,365,0.9973,Strict 30+ night minimum AND price 177% above peer median; 100% vacant.
+328,51619751,A place to stay recovering from major surgery.,Holliswood,Entire home/apt,30,485.0,180.0,1.6944,364,365,0.9973,Strict 30+ night minimum AND price 169% above peer median; 100% vacant.
+329,1420316312079828057,Stylish Apt in Heart of Brooklyn,Gravesend,Entire home/apt,30,480.0,180.0,1.6667,364,365,0.9973,Strict 30+ night minimum AND price 167% above peer median; 100% vacant.
+330,713252716801514128,Private bdrm in design-filled BKapt—20 min to city,Bedford-Stuyvesant,Private room,30,275.0,111.0,1.4775,364,365,0.9973,Strict 30+ night minimum AND price 148% above peer median; 100% vacant.
+331,710109513630547162,Cozy & Serene Apartment in the Heart of Canarsie.,Canarsie,Private room,30,275.0,111.0,1.4775,364,365,0.9973,Strict 30+ night minimum AND price 148% above peer median; 100% vacant.
+332,7698593,Creative Bedstuy Brownstone w/ Huge Backyard,Bedford-Stuyvesant,Entire home/apt,30,441.0,180.0,1.45,364,365,0.9973,Strict 30+ night minimum AND price 145% above peer median; 100% vacant.
+333,18692028,MODERN 3 BEDROOM APT IN THE HEART OF BROOKLYN,Brooklyn Heights,Entire home/apt,30,428.0,180.0,1.3778,364,365,0.9973,Strict 30+ night minimum AND price 138% above peer median; 100% vacant.
+334,808833553841121814,Inspiring Bond st. Artist loft/gallery/event space,NoHo,Entire home/apt,30,423.0,180.0,1.35,364,365,0.9973,Strict 30+ night minimum AND price 135% above peer median; 100% vacant.
+335,948154615971768276,Large Outdoor Space Events Only/No Overnight Stays,Ridgewood,Entire home/apt,30,421.0,180.0,1.3389,364,365,0.9973,Strict 30+ night minimum AND price 134% above peer median; 100% vacant.
+336,53542590,"Beautiful, Stylish Brooklyn Brownstone Duplex",Bedford-Stuyvesant,Entire home/apt,30,400.0,180.0,1.2222,364,365,0.9973,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+337,939387800231178042,"""Brookhenge"" - The Urban Oasis",Williamsburg,Entire home/apt,30,400.0,180.0,1.2222,364,365,0.9973,Strict 30+ night minimum AND price 122% above peer median; 100% vacant.
+338,596946485985538229,Beautiful 3 Bedroom that's 2 Blocks From The Beach,Belle Harbor,Entire home/apt,30,392.0,180.0,1.1778,364,365,0.9973,Strict 30+ night minimum AND price 118% above peer median; 100% vacant.
+339,37428856,US Tennis Open Haven,Flushing,Entire home/apt,31,369.0,180.0,1.05,364,365,0.9973,Strict 31+ night minimum AND price 105% above peer median; 100% vacant.
+340,53709387,Maison BK stylish and modern space in Brooklyn,Bedford-Stuyvesant,Private room,30,226.0,111.0,1.036,364,365,0.9973,Strict 30+ night minimum AND price 104% above peer median; 100% vacant.
+341,44393462,Financial District Gem,Financial District,Private room,30,225.0,111.0,1.027,364,365,0.9973,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+342,598928506031816181,Spacious Oasis steps from Bronx Zoo & Arthur Ave,Belmont,Private room,30,225.0,111.0,1.027,364,365,0.9973,Strict 30+ night minimum AND price 103% above peer median; 100% vacant.
+343,855858117414211119,Furnished room,Fordham,Private room,30,224.0,111.0,1.018,364,365,0.9973,Strict 30+ night minimum AND price 102% above peer median; 100% vacant.
+344,898174983717316349,Comfy Oceanfront Yacht,Gerritsen Beach,Entire home/apt,30,362.0,180.0,1.0111,364,365,0.9973,Strict 30+ night minimum AND price 101% above peer median; 100% vacant.
+345,75658,Modern Bed Stuy loft + rooftop garden,Bedford-Stuyvesant,Private room,30,222.0,111.0,1.0,364,365,0.9973,Strict 30+ night minimum AND price 100% above peer median; 100% vacant.
+346,1421319936176755794,Casa Azul,Bedford-Stuyvesant,Entire home/apt,30,357.0,180.0,0.9833,364,365,0.9973,Strict 30+ night minimum AND price 98% above peer median; 100% vacant.
+347,1416793735216873673,Midtown Chic modern  for 4 Guests,Hell's Kitchen,Entire home/apt,30,354.0,180.0,0.9667,364,365,0.9973,Strict 30+ night minimum AND price 97% above peer median; 100% vacant.
+348,43259385,Home in Harlem,Harlem,Entire home/apt,30,353.0,180.0,0.9611,364,365,0.9973,Strict 30+ night minimum AND price 96% above peer median; 100% vacant.
+349,873993790318497072,Stunning and Super Large 1BR,Chelsea,Entire home/apt,30,350.0,180.0,0.9444,364,365,0.9973,Strict 30+ night minimum AND price 94% above peer median; 100% vacant.
+350,892079701167817777,Huge 2br with back yard & patio,Greenpoint,Entire home/apt,30,350.0,180.0,0.9444,364,365,0.9973,Strict 30+ night minimum AND price 94% above peer median; 100% vacant.
+351,53145833,850 sq ft High Ceiling Studio Loft in West Village,West Village,Entire home/apt,30,342.0,180.0,0.9,364,365,0.9973,Strict 30+ night minimum AND price 90% above peer median; 100% vacant.
+352,1530386,A Lovely 2br in Chelsea,Chelsea,Entire home/apt,30,332.0,180.0,0.8444,364,365,0.9973,Strict 30+ night minimum AND price 84% above peer median; 100% vacant.
+353,1364758899132261272,JusTerry,Flatbush,Private room,30,203.0,111.0,0.8288,364,365,0.9973,Strict 30+ night minimum AND price 83% above peer median; 100% vacant.
+354,17367187,Private & Separate 1bd+1ba in NYC Pre-War Building,Concourse,Private room,30,201.0,111.0,0.8108,364,365,0.9973,Strict 30+ night minimum AND price 81% above peer median; 100% vacant.
+355,1284863603199231535,Room in lovely brownstone with garden,Park Slope,Private room,30,200.0,111.0,0.8018,364,365,0.9973,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+356,785688352714247316,Full bed in midtown apartment,Hell's Kitchen,Private room,30,200.0,111.0,0.8018,364,365,0.9973,Strict 30+ night minimum AND price 80% above peer median; 100% vacant.
+357,898077144962515384,Stylish 2 Story MCM Brownstone,Bedford-Stuyvesant,Entire home/apt,30,322.0,180.0,0.7889,364,365,0.9973,Strict 30+ night minimum AND price 79% above peer median; 100% vacant.
+358,782932651604019354,Stay at Camila's Place,Mott Haven,Entire home/apt,30,319.0,180.0,0.7722,364,365,0.9973,Strict 30+ night minimum AND price 77% above peer median; 100% vacant.
+359,43929087,Beautiful Newly Renovated Brooklyn Apartment,Clinton Hill,Entire home/apt,30,318.0,180.0,0.7667,364,365,0.9973,Strict 30+ night minimum AND price 77% above peer median; 100% vacant.
+360,797348073045001503,kj luxury manhattan studio,Hell's Kitchen,Entire home/apt,30,315.0,180.0,0.75,364,365,0.9973,Strict 30+ night minimum AND price 75% above peer median; 100% vacant.
+361,762579977393252405,Luxurious home near UBS Arena,Cambria Heights,Private room,30,190.0,111.0,0.7117,364,365,0.9973,Strict 30+ night minimum AND price 71% above peer median; 100% vacant.
+362,1041980408127081749,A Warm & Minimal Brooklyn Nook,Sunset Park,Private room,30,190.0,111.0,0.7117,364,365,0.9973,Strict 30+ night minimum AND price 71% above peer median; 100% vacant.
+363,712191801514007811,Comfortable Stay in South Harlem,Harlem,Entire home/apt,30,302.0,180.0,0.6778,364,365,0.9973,Strict 30+ night minimum AND price 68% above peer median; 100% vacant.
+364,3344237,Stay and share some of the heart of Manhattan!,Upper East Side,Private room,30,186.0,111.0,0.6757,364,365,0.9973,Strict 30+ night minimum AND price 68% above peer median; 100% vacant.
+365,1108891228259931949,Heart of New York,Hell's Kitchen,Entire home/apt,30,300.0,180.0,0.6667,364,365,0.9973,Strict 30+ night minimum AND price 67% above peer median; 100% vacant.
+366,15847347,"Enitre Apartment - Sleeps 4-6 - Private Backyard,",Upper East Side,Entire home/apt,30,299.0,180.0,0.6611,364,365,0.9973,Strict 30+ night minimum AND price 66% above peer median; 100% vacant.
+367,1450594287205813628,Charming 3bd/2ba Upper West Side,Upper West Side,Entire home/apt,30,297.0,180.0,0.65,364,365,0.9973,Strict 30+ night minimum AND price 65% above peer median; 100% vacant.
+368,811605866541468809,Spacious Apartment,East Elmhurst,Entire home/apt,30,292.0,180.0,0.6222,364,365,0.9973,Strict 30+ night minimum AND price 62% above peer median; 100% vacant.
+369,21427369,Gorgeous Clinton Hill Brooklyn 1BR Garden Apt,Clinton Hill,Private room,30,179.0,111.0,0.6126,364,365,0.9973,Strict 30+ night minimum AND price 61% above peer median; 100% vacant.
+370,148259,Garage Studio - Unique Designer Loft,Williamsburg,Entire home/apt,30,290.0,180.0,0.6111,364,365,0.9973,Strict 30+ night minimum AND price 61% above peer median; 100% vacant.
+371,351859,Exquisite Spacious Studio in Midtown,Chelsea,Entire home/apt,30,290.0,180.0,0.6111,364,365,0.9973,Strict 30+ night minimum AND price 61% above peer median; 100% vacant.
+372,42097281,Bklyn’s  Favorite Vacation Home!!!!!!,Bedford-Stuyvesant,Entire home/apt,30,288.0,180.0,0.6,364,365,0.9973,Strict 30+ night minimum AND price 60% above peer median; 100% vacant.
+373,907998178838818312,"Large, Sunny Room +  Office in Greenpoint",Greenpoint,Private room,30,177.0,111.0,0.5946,364,365,0.9973,Strict 30+ night minimum AND price 59% above peer median; 100% vacant.
+374,878336991435374403,Bushwick Musician's Loft,Bushwick,Entire home/apt,30,286.0,180.0,0.5889,364,365,0.9973,Strict 30+ night minimum AND price 59% above peer median; 100% vacant.
+375,52451077,Lovely 1 bedroom unit next to NYBG & The Bronx Zoo,Allerton,Private room,30,175.0,111.0,0.5766,364,365,0.9973,Strict 30+ night minimum AND price 58% above peer median; 100% vacant.
+376,896939245238848955,Early Modern Period home in NY Upscale Riverdale,North Riverdale,Private room,30,175.0,111.0,0.5766,364,365,0.9973,Strict 30+ night minimum AND price 58% above peer median; 100% vacant.
+377,1456612906732267242,Modern Retreat in Bushwick w/ Backyard,Bushwick,Shared room,30,263.0,167.0,0.5749,364,365,0.9973,Strict 30+ night minimum AND price 57% above peer median; 100% vacant.
+378,550786709610206712,"A Room in New York City (Females Only, Short-Term)",Fresh Meadows,Private room,30,174.0,111.0,0.5676,364,365,0.9973,Strict 30+ night minimum AND price 57% above peer median; 100% vacant.
+379,818179625602858926,Just a few steps to the beach,Belle Harbor,Entire home/apt,30,282.0,180.0,0.5667,364,365,0.9973,Strict 30+ night minimum AND price 57% above peer median; 100% vacant.
+380,870212853386092000,Art-Filled Bed-Stuy Townhouse,Bedford-Stuyvesant,Entire home/apt,30,280.0,180.0,0.5556,364,365,0.9973,Strict 30+ night minimum AND price 56% above peer median; 100% vacant.
+381,11653077,Lofty quiet 1 Br apartment in Midtown Manhattan.,Midtown,Entire home/apt,30,275.0,180.0,0.5278,364,365,0.9973,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+382,1426794425091635475,NYC Central Park Green TreeTop Spacious 2BR,Harlem,Entire home/apt,30,275.0,180.0,0.5278,364,365,0.9973,Strict 30+ night minimum AND price 53% above peer median; 100% vacant.
+383,53385771,Lovely 2-bedroom rental unit in New York,Upper East Side,Entire home/apt,30,270.0,180.0,0.5,364,365,0.9973,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+384,663833807049084185,Cool 1 BR Apt in Lively Greenpoint/Wburg - Monthly,Greenpoint,Entire home/apt,30,270.0,180.0,0.5,364,365,0.9973,Strict 30+ night minimum AND price 50% above peer median; 100% vacant.
+385,908782132165679917,2-bedroom with Backyard and BBQ,East Village,Entire home/apt,30,269.0,180.0,0.4944,364,365,0.9973,Strict 30+ night minimum AND price 49% above peer median; 100% vacant.
+386,800738837396327435,Beautiful room in Nolita,Chinatown,Private room,30,165.0,111.0,0.4865,364,365,0.9973,Strict 30+ night minimum AND price 49% above peer median; 100% vacant.
+387,27803575,Stylish Prospect Heights Apartment + Shoot Ready,Crown Heights,Entire home/apt,30,265.0,180.0,0.4722,364,365,0.9973,Strict 30+ night minimum AND price 47% above peer median; 100% vacant.
+388,643319222792682565,Huge room w king bed in Bushwick w yard + rooftop,Bushwick,Private room,30,162.0,111.0,0.4595,364,365,0.9973,Strict 30+ night minimum AND price 46% above peer median; 100% vacant.
+389,45701998,Bohemian Jungle with Private Bathroom & Rooftop,Bedford-Stuyvesant,Private room,30,161.0,111.0,0.4505,364,365,0.9973,Strict 30+ night minimum AND price 45% above peer median; 100% vacant.
+390,809503558229015441,Sunny side of Brooklyn,Bushwick,Entire home/apt,30,260.0,180.0,0.4444,364,365,0.9973,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+391,228317,"Your Haven Awaits At ""Emma's Place""",Bedford-Stuyvesant,Private room,30,160.0,111.0,0.4414,364,365,0.9973,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+392,1465559559056489600,Bright & Cozy Home Near JFK,Jamaica,Private room,30,160.0,111.0,0.4414,364,365,0.9973,Strict 30+ night minimum AND price 44% above peer median; 100% vacant.
+393,1016790707893219410,Charming 1 bedroom in Brooklyn,Crown Heights,Private room,30,159.0,111.0,0.4324,364,365,0.9973,Strict 30+ night minimum AND price 43% above peer median; 100% vacant.
+394,684167152890227720,Cozy 3 bedrooms Apartment in quiet neighborhood!,Briarwood,Entire home/apt,30,256.0,180.0,0.4222,364,365,0.9973,Strict 30+ night minimum AND price 42% above peer median; 100% vacant.
+395,52701221,Beautiful view,Greenpoint,Entire home/apt,30,252.0,180.0,0.4,364,365,0.9973,Strict 30+ night minimum AND price 40% above peer median; 100% vacant.
+396,1001393648020126510,Luxury in South Brooklyn,Canarsie,Entire home/apt,30,252.0,180.0,0.4,364,365,0.9973,Strict 30+ night minimum AND price 40% above peer median; 100% vacant.
+397,1669149,Beautiful Modern Midtown Apartment,Hell's Kitchen,Entire home/apt,30,250.0,180.0,0.3889,364,365,0.9973,Strict 30+ night minimum AND price 39% above peer median; 100% vacant.
+398,40736481,The Bird Sanctuary,Norwood,Private room,30,154.0,111.0,0.3874,364,365,0.9973,Strict 30+ night minimum AND price 39% above peer median; 100% vacant.
+399,857810,Heart of Williamsubrg 1 Bedroom,Williamsburg,Entire home/apt,30,249.0,180.0,0.3833,364,365,0.9973,Strict 30+ night minimum AND price 38% above peer median; 100% vacant.
+400,917260113030074428,Lovely Relaxing Home,Canarsie,Entire home/apt,30,245.0,180.0,0.3611,364,365,0.9973,Strict 30+ night minimum AND price 36% above peer median; 100% vacant.
+401,1307723,A real home on the UWS.,Upper West Side,Private room,30,150.0,111.0,0.3514,364,365,0.9973,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+402,18789421,Peace in Brooklyn,Bedford-Stuyvesant,Private room,30,150.0,111.0,0.3514,364,365,0.9973,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+403,1207237382385354348,Cozy space in a lively town,Astoria,Private room,30,150.0,111.0,0.3514,364,365,0.9973,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+404,1311039185852600517,"Cozy 2BR Apt, Close to NYC",Jamaica Hills,Private room,30,150.0,111.0,0.3514,364,365,0.9973,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+405,1339413545125795810,Historic Charm in Brooklyn: Poire,Bedford-Stuyvesant,Private room,30,150.0,111.0,0.3514,364,365,0.9973,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+406,842077360551879392,"5 Bedroom, 2 story home w/ Private Driveway &porch",Queens Village,Entire home/apt,30,243.0,180.0,0.35,364,365,0.9973,Strict 30+ night minimum AND price 35% above peer median; 100% vacant.
+407,695488688975869568,The Monroe Suite-Bright & Cozy Centrally Located!,Bedford-Stuyvesant,Entire home/apt,30,242.0,180.0,0.3444,364,365,0.9973,Strict 30+ night minimum AND price 34% above peer median; 100% vacant.
+408,747173133155663772,"Spacious bedroom with toilet , bath & living room",Springfield Gardens,Private room,30,149.0,111.0,0.3423,364,365,0.9973,Strict 30+ night minimum AND price 34% above peer median; 100% vacant.
+409,1127744374249883129,Quaint Home Near All,Mariners Harbor,Private room,30,148.0,111.0,0.3333,364,365,0.9973,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+410,3553768,"Serene, minimalist studio W Village",West Village,Entire home/apt,30,239.0,180.0,0.3278,364,365,0.9973,Strict 30+ night minimum AND price 33% above peer median; 100% vacant.
+411,1215930899551057941,Queens apartament,Maspeth,Private room,31,144.0,111.0,0.2973,364,365,0.9973,Strict 31+ night minimum AND price 30% above peer median; 100% vacant.
+412,601621921556384429,Spacious 1 Bedroom Garden Apartment,Bedford-Stuyvesant,Entire home/apt,30,230.0,180.0,0.2778,364,365,0.9973,Strict 30+ night minimum AND price 28% above peer median; 100% vacant.
+413,1056509899939593559,Daverina Gateway,Canarsie,Entire home/apt,30,229.0,180.0,0.2722,364,365,0.9973,Strict 30+ night minimum AND price 27% above peer median; 100% vacant.
+414,692677118136223825,"Huge room in a 2-BR renovated apartment, w/d",Bedford-Stuyvesant,Private room,30,141.0,111.0,0.2703,364,365,0.9973,Strict 30+ night minimum AND price 27% above peer median; 100% vacant.
+415,755808864708679787,Cozy Brooklyn Art Apartment,Bushwick,Private room,30,141.0,111.0,0.2703,364,365,0.9973,Strict 30+ night minimum AND price 27% above peer median; 100% vacant.
+416,1137270,large Private room in UWS New York,Upper West Side,Private room,30,140.0,111.0,0.2613,364,365,0.9973,Strict 30+ night minimum AND price 26% above peer median; 100% vacant.
+417,1281431427554747842,Beautiful 1 Bedroom Condo,Port Morris,Entire home/apt,30,225.0,180.0,0.25,364,365,0.9973,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+418,581673232497281944,Spacious 2 bedroom -apartment with eat in kitchen,Ditmars Steinway,Entire home/apt,30,225.0,180.0,0.25,364,365,0.9973,Strict 30+ night minimum AND price 25% above peer median; 100% vacant.
+419,46415505,Bright and Stylish Atelier in New York City,Kips Bay,Private room,30,375.0,111.0,2.3784,363,365,0.9945,Strict 30+ night minimum AND price 238% above peer median; 99% vacant.
+420,675939523002388461,Short train ride to U.S. Open and Citi Field,East Elmhurst,Entire home/apt,30,500.0,180.0,1.7778,363,365,0.9945,Strict 30+ night minimum AND price 178% above peer median; 99% vacant.
+421,776989156532266496,Greenpoint Guest Suite,Greenpoint,Private room,30,298.0,111.0,1.6847,363,365,0.9945,Strict 30+ night minimum AND price 168% above peer median; 99% vacant.
+422,660204875025359364,Queen Room,Canarsie,Private room,30,281.0,111.0,1.5315,363,365,0.9945,Strict 30+ night minimum AND price 153% above peer median; 99% vacant.
+423,52128548,Family Friendly Villa w Pool,Fresh Meadows,Entire home/apt,30,430.0,180.0,1.3889,363,365,0.9945,Strict 30+ night minimum AND price 139% above peer median; 99% vacant.
+424,1148649278684878945,Exclusive Lux Retreat Hells Kitchen & Hudson Yards,Hell's Kitchen,Entire home/apt,60,400.0,180.0,1.2222,363,365,0.9945,Strict 60+ night minimum AND price 122% above peer median; 99% vacant.
+425,51441187,Modern Cozy 3br Home Just 10 Mins from Jfk,Springfield Gardens,Entire home/apt,30,377.0,180.0,1.0944,363,365,0.9945,Strict 30+ night minimum AND price 109% above peer median; 99% vacant.
+426,38299089,83rd ST: Private and Quiet Haven Upper East APT,Upper East Side,Entire home/apt,30,372.0,180.0,1.0667,363,365,0.9945,Strict 30+ night minimum AND price 107% above peer median; 99% vacant.
+427,1406079361312129786,Perfect place to call home,Upper East Side,Private room,30,225.0,111.0,1.027,363,365,0.9945,Strict 30+ night minimum AND price 103% above peer median; 99% vacant.
+428,570195549062750609,Gorgeous Williamsburg Oasis,Williamsburg,Entire home/apt,30,350.0,180.0,0.9444,363,365,0.9945,Strict 30+ night minimum AND price 94% above peer median; 99% vacant.
+429,648775559661516156,Spacious Duplex Apt in New York,Crown Heights,Entire home/apt,30,350.0,180.0,0.9444,363,365,0.9945,Strict 30+ night minimum AND price 94% above peer median; 99% vacant.
+430,683917359584827882,Sun-lit 1 Bedroom 2 Bath Apartment on Wall Street,Financial District,Entire home/apt,30,350.0,180.0,0.9444,363,365,0.9945,Strict 30+ night minimum AND price 94% above peer median; 99% vacant.
+431,762235443968582234,Spacious 3 bedroom with parking,Flushing,Entire home/apt,30,350.0,180.0,0.9444,363,365,0.9945,Strict 30+ night minimum AND price 94% above peer median; 99% vacant.
+432,52968102,1BR in sunny spacious apt with deck & yard,Prospect-Lefferts Gardens,Private room,30,208.0,111.0,0.8739,363,365,0.9945,Strict 30+ night minimum AND price 87% above peer median; 99% vacant.
+433,1263758349868059423,Williamsburg Design Apartment,Williamsburg,Entire home/apt,30,333.0,180.0,0.85,363,365,0.9945,Strict 30+ night minimum AND price 85% above peer median; 99% vacant.
+434,847645121415435614,UWS Luxury Apt (Columbia U / St Luke’s),Morningside Heights,Entire home/apt,90,331.0,180.0,0.8389,363,365,0.9945,Strict 90+ night minimum AND price 84% above peer median; 99% vacant.
+435,1418721904096280588,"Beautiful, tranquil private suite in a townhome",Crown Heights,Private room,30,200.0,111.0,0.8018,363,365,0.9945,Strict 30+ night minimum AND price 80% above peer median; 99% vacant.
+436,20951141,Brand New 2 Bedroom Right Next To Central Park,Harlem,Entire home/apt,30,318.0,180.0,0.7667,363,365,0.9945,Strict 30+ night minimum AND price 77% above peer median; 99% vacant.
+437,1470970363595307965,1BR Retreat in Historic Bed-Stuy,Bedford-Stuyvesant,Private room,30,196.0,111.0,0.7658,363,365,0.9945,Strict 30+ night minimum AND price 77% above peer median; 99% vacant.
+438,1139765739288761497,Long Term UWS Near Central Park!,Upper West Side,Private room,30,195.0,111.0,0.7568,363,365,0.9945,Strict 30+ night minimum AND price 76% above peer median; 99% vacant.
+439,52223877,Large lovely 2BR/3 bed brownstone garden apartment,Park Slope,Entire home/apt,30,316.0,180.0,0.7556,363,365,0.9945,Strict 30+ night minimum AND price 76% above peer median; 99% vacant.
+440,13139892,2 BR 1 bath condo within a condo,Harlem,Private room,30,192.0,111.0,0.7297,363,365,0.9945,Strict 30+ night minimum AND price 73% above peer median; 99% vacant.
+441,6660511,Highly Sought After Location East Village NYC,East Village,Entire home/apt,30,300.0,180.0,0.6667,363,365,0.9945,Strict 30+ night minimum AND price 67% above peer median; 99% vacant.
+442,20026248,Beach House,Rockaway Beach,Entire home/apt,30,299.0,180.0,0.6611,363,365,0.9945,Strict 30+ night minimum AND price 66% above peer median; 99% vacant.
+443,1447458406547219826,Spacious house with backyard,Bushwick,Entire home/apt,30,288.0,180.0,0.6,363,365,0.9945,Strict 30+ night minimum AND price 60% above peer median; 99% vacant.
+444,595613559093932418,One bedroom with private bathroom in duplex / loft,Ridgewood,Private room,30,175.0,111.0,0.5766,363,365,0.9945,Strict 30+ night minimum AND price 58% above peer median; 99% vacant.
+445,778211862154488577,Classic South Williamsburg APT,Williamsburg,Private room,30,171.0,111.0,0.5405,363,365,0.9945,Strict 30+ night minimum AND price 54% above peer median; 99% vacant.
+446,45727008,Private Garden Oasis in heart of Trendy Bushwick,Bushwick,Entire home/apt,30,270.0,180.0,0.5,363,365,0.9945,Strict 30+ night minimum AND price 50% above peer median; 99% vacant.
+447,1113172571561700595,Charming Modern Brooklyn Oasis,Bedford-Stuyvesant,Entire home/apt,30,270.0,180.0,0.5,363,365,0.9945,Strict 30+ night minimum AND price 50% above peer median; 99% vacant.
+448,9857854,East Village Duplex w/City Views,East Village,Entire home/apt,30,268.0,180.0,0.4889,363,365,0.9945,Strict 30+ night minimum AND price 49% above peer median; 99% vacant.
+449,1321323479504031454,Charming 2 Bedroom Garden Unit,Crown Heights,Entire home/apt,30,265.0,180.0,0.4722,363,365,0.9945,Strict 30+ night minimum AND price 47% above peer median; 99% vacant.
+450,1514138307010003162,Modern Luxury Oasis,Sunset Park,Private room,30,162.0,111.0,0.4595,363,365,0.9945,Strict 30+ night minimum AND price 46% above peer median; 99% vacant.
+451,39033318,Exquisite 4 Bedroom 2.5 Bath with As Home Appeal,Crown Heights,Entire home/apt,30,257.0,180.0,0.4278,363,365,0.9945,Strict 30+ night minimum AND price 43% above peer median; 99% vacant.
+452,44631955,Large 1 Bedroom on Upper West Side. Prime Location,Upper West Side,Entire home/apt,30,251.0,180.0,0.3944,363,365,0.9945,Strict 30+ night minimum AND price 39% above peer median; 99% vacant.
+453,42640224,Fully Furnish PH 2 bed 2 bath Duplex 1500 SQF,Theater District,Entire home/apt,90,250.0,180.0,0.3889,363,365,0.9945,Strict 90+ night minimum AND price 39% above peer median; 99% vacant.
+454,47421830,Modern Condo w/Luxury Amenities by McCarren Park,Williamsburg,Entire home/apt,60,245.0,180.0,0.3611,363,365,0.9945,Strict 60+ night minimum AND price 36% above peer median; 99% vacant.
+455,834818502256471453,New Studio in Doorman Building with Gym,Midtown,Entire home/apt,30,245.0,180.0,0.3611,363,365,0.9945,Strict 30+ night minimum AND price 36% above peer median; 99% vacant.
+456,777439966917556755,Bedroom in East Williamsburg,Williamsburg,Private room,30,150.0,111.0,0.3514,363,365,0.9945,Strict 30+ night minimum AND price 35% above peer median; 99% vacant.
+457,2349737,NYC Apt - Close to Metro & Mnhtn,Rego Park,Entire home/apt,30,235.0,180.0,0.3056,363,365,0.9945,Strict 30+ night minimum AND price 31% above peer median; 99% vacant.
+458,4539480,"Large, Bohemian Loft in the Heart of Brooklyn",Greenpoint,Entire home/apt,30,232.0,180.0,0.2889,363,365,0.9945,Strict 30+ night minimum AND price 29% above peer median; 99% vacant.
+459,1542089161036624417,This place is all about convenience & comfort.,Woodhaven,Private room,30,143.0,111.0,0.2883,363,365,0.9945,Strict 30+ night minimum AND price 29% above peer median; 99% vacant.
+460,53120519,"Beautiful home, parking on premises , comfy, quiet",Morris Park,Entire home/apt,30,229.0,180.0,0.2722,363,365,0.9945,Strict 30+ night minimum AND price 27% above peer median; 99% vacant.
+461,1191438920665329397,Beautiful 1 Bedroom Apartment,Laurelton,Entire home/apt,30,228.0,180.0,0.2667,363,365,0.9945,Strict 30+ night minimum AND price 27% above peer median; 99% vacant.
+462,705279229767442266,HUGE Beautiful Room w/ private bath by the Train!,Bedford-Stuyvesant,Private room,30,139.0,111.0,0.2523,363,365,0.9945,Strict 30+ night minimum AND price 25% above peer median; 99% vacant.
+463,810830041327117144,Prospect Heights Brownstone,Prospect Heights,Private room,30,537.5,111.0,3.8423,362,365,0.9918,Strict 30+ night minimum AND price 384% above peer median; 99% vacant.
+464,1447913409568418846,Luxury 2 Bedroom 3 Bath,Upper East Side,Entire home/apt,30,500.0,180.0,1.7778,362,365,0.9918,Strict 30+ night minimum AND price 178% above peer median; 99% vacant.
+465,4644669,Upper East Side,Upper East Side,Entire home/apt,30,495.0,180.0,1.75,362,365,0.9918,Strict 30+ night minimum AND price 175% above peer median; 99% vacant.
+466,866698991976612799,Chic UES Apt w/ Housekeeping,Upper East Side,Entire home/apt,30,450.0,180.0,1.5,362,365,0.9918,Strict 30+ night minimum AND price 150% above peer median; 99% vacant.
+467,681095875381595879,Beautiful room w/ nice pool and yard - 2 Guest Max,Prince's Bay,Private room,31,255.0,111.0,1.2973,362,365,0.9918,Strict 31+ night minimum AND price 130% above peer median; 99% vacant.
+468,747698059198507352,"Artists & Hipsters Paradise, in Brooklyn NYC.",Williamsburg,Private room,30,250.0,111.0,1.2523,362,365,0.9918,Strict 30+ night minimum AND price 125% above peer median; 99% vacant.
+469,30439073,Gorgeous Long Island City 2  bedroom Condo,Long Island City,Entire home/apt,365,380.0,180.0,1.1111,362,365,0.9918,Strict 365+ night minimum AND price 111% above peer median; 99% vacant.
+470,49011831,A PIECE OF ITALY! 3 BEDROOM APT IN LITTLE ITALY,Little Italy,Entire home/apt,30,376.0,180.0,1.0889,362,365,0.9918,Strict 30+ night minimum AND price 109% above peer median; 99% vacant.
+471,818098463249824835,2bdrm in heart of Little Italy,Little Italy,Entire home/apt,30,375.0,180.0,1.0833,362,365,0.9918,Strict 30+ night minimum AND price 108% above peer median; 99% vacant.
+472,2698984,Huge Modern Waterfront Home,Whitestone,Entire home/apt,30,365.0,180.0,1.0278,362,365,0.9918,Strict 30+ night minimum AND price 103% above peer median; 99% vacant.
+473,49258364,Studio with Roof Deck,Tribeca,Entire home/apt,30,364.0,180.0,1.0222,362,365,0.9918,Strict 30+ night minimum AND price 102% above peer median; 99% vacant.
+474,1186267082991370791,Luxe Brooklyn Villa,Midwood,Entire home/apt,30,360.0,180.0,1.0,362,365,0.9918,Strict 30+ night minimum AND price 100% above peer median; 99% vacant.
+475,1131903840207473600,NYC Gramercy Loft Apartment,Gramercy,Entire home/apt,30,350.0,180.0,0.9444,362,365,0.9918,Strict 30+ night minimum AND price 94% above peer median; 99% vacant.
+476,830355450769846735,Greenpoint Duplex,Greenpoint,Entire home/apt,30,332.0,180.0,0.8444,362,365,0.9918,Strict 30+ night minimum AND price 84% above peer median; 99% vacant.
+477,9325979,Huge gorgeous Loft in the LES/Chinatown!,Chinatown,Entire home/apt,30,304.0,180.0,0.6889,362,365,0.9918,Strict 30+ night minimum AND price 69% above peer median; 99% vacant.
+478,720710154234486243,One Bedroom Flat Midtown Manhattan Luxury Building,Chelsea,Entire home/apt,30,300.0,180.0,0.6667,362,365,0.9918,Strict 30+ night minimum AND price 67% above peer median; 99% vacant.
+479,856617809936726317,Centrally located midtown east,Midtown,Entire home/apt,30,300.0,180.0,0.6667,362,365,0.9918,Strict 30+ night minimum AND price 67% above peer median; 99% vacant.
+480,3272201,Gorgeous Chic Apt on Prime West Village Street,West Village,Entire home/apt,30,295.0,180.0,0.6389,362,365,0.9918,Strict 30+ night minimum AND price 64% above peer median; 99% vacant.
+481,13564134,Beautiful Spacious 3 BR Cozy Apt.,Harlem,Entire home/apt,30,293.0,180.0,0.6278,362,365,0.9918,Strict 30+ night minimum AND price 63% above peer median; 99% vacant.
+482,28734298,Lovely 1 Bedroom Apartment,Bedford-Stuyvesant,Entire home/apt,30,290.0,180.0,0.6111,362,365,0.9918,Strict 30+ night minimum AND price 61% above peer median; 99% vacant.
+483,4947515,Your Home with View in Greenpoint!,Greenpoint,Entire home/apt,30,285.0,180.0,0.5833,362,365,0.9918,Strict 30+ night minimum AND price 58% above peer median; 99% vacant.
+484,1310132992387121679,Beautiful Brooklyn Brownstone,Clinton Hill,Entire home/apt,30,276.0,180.0,0.5333,362,365,0.9918,Strict 30+ night minimum AND price 53% above peer median; 99% vacant.
+485,776267527494946591,"Beautiful, large, classic Brooklyn pre-war aptmnt",Flatbush,Entire home/apt,30,275.0,180.0,0.5278,362,365,0.9918,Strict 30+ night minimum AND price 53% above peer median; 99% vacant.
+486,38811858,Lovely 100 year old house,East Flatbush,Entire home/apt,30,270.0,180.0,0.5,362,365,0.9918,Strict 30+ night minimum AND price 50% above peer median; 99% vacant.
+487,594278892712646603,Spacious 2-Story Modern 4BR  in Brooklyn,East Flatbush,Entire home/apt,30,268.0,180.0,0.4889,362,365,0.9918,Strict 30+ night minimum AND price 49% above peer median; 99% vacant.
+488,1295948259529518223,The Tree House,Bedford-Stuyvesant,Private room,30,160.0,111.0,0.4414,362,365,0.9918,Strict 30+ night minimum AND price 44% above peer median; 99% vacant.
+489,749139083726291164,BnBapts Louise Suite - 15 min to LGA & Manhattan,Sunnyside,Entire home/apt,30,255.0,180.0,0.4167,362,365,0.9918,Strict 30+ night minimum AND price 42% above peer median; 99% vacant.
+490,1414728327286682158,Modern Apartment in Brooklyn,Sheepshead Bay,Shared room,30,231.0,167.0,0.3832,362,365,0.9918,Strict 30+ night minimum AND price 38% above peer median; 99% vacant.
+491,1780748,Sunny 1 bedroom In The Heart of NYC,Murray Hill,Private room,30,151.0,111.0,0.3604,362,365,0.9918,Strict 30+ night minimum AND price 36% above peer median; 99% vacant.
+492,4549557,Central Harlem,Harlem,Private room,30,146.0,111.0,0.3153,362,365,0.9918,Strict 30+ night minimum AND price 32% above peer median; 99% vacant.
+493,53202170,1 bd apartment 2 blocks from the water in Red Hook,Red Hook,Entire home/apt,30,236.0,180.0,0.3111,362,365,0.9918,Strict 30+ night minimum AND price 31% above peer median; 99% vacant.
+494,19831458,HUGE Luxury Apartment minutes from Times Square,Hell's Kitchen,Entire home/apt,30,232.0,180.0,0.2889,362,365,0.9918,Strict 30+ night minimum AND price 29% above peer median; 99% vacant.
+495,890794,Cozy- bedroom in Jackson Heights!,Jackson Heights,Private room,180,141.0,111.0,0.2703,362,365,0.9918,Strict 180+ night minimum AND price 27% above peer median; 99% vacant.
+496,795641,2 bedroom - Gorgeous apt!,Ditmars Steinway,Entire home/apt,30,225.0,180.0,0.25,362,365,0.9918,Strict 30+ night minimum AND price 25% above peer median; 99% vacant.
+497,5770483,Cozy Quiet 1 BR Apt Hell's Kitchen,Hell's Kitchen,Entire home/apt,30,300.0,180.0,0.6667,361,365,0.989,Strict 30+ night minimum AND price 67% above peer median; 99% vacant.
+498,710897185427371328,Boho 1 bed apt In Williamsburg!,Williamsburg,Entire home/apt,30,246.0,180.0,0.3667,361,365,0.989,Strict 30+ night minimum AND price 37% above peer median; 99% vacant.
+499,1366276159114868718,Fort Greene Penthouse,Fort Greene,Entire home/apt,30,350.0,180.0,0.9444,360,365,0.9863,Strict 30+ night minimum AND price 94% above peer median; 99% vacant.
+500,8071687,Historic Townhouse Apartment,SoHo,Entire home/apt,30,298.0,180.0,0.6556,360,365,0.9863,Strict 30+ night minimum AND price 66% above peer median; 99% vacant.
+501,23785875,Large Manhattan Duplex 30 mins to Times Square!,Washington Heights,Entire home/apt,30,264.0,180.0,0.4667,360,365,0.9863,Strict 30+ night minimum AND price 47% above peer median; 99% vacant.
+502,1451393223247713643,Welcome To Our Tiny Townhouse,Williamsburg,Entire home/apt,30,243.0,180.0,0.35,360,365,0.9863,Strict 30+ night minimum AND price 35% above peer median; 99% vacant.
+503,1886820,Quaint City Island Community.,City Island,Entire home/apt,30,300.0,180.0,0.6667,359,365,0.9836,Strict 30+ night minimum AND price 67% above peer median; 98% vacant.
+504,726119851349364741,Nice and clean building and apartment,Gravesend,Private room,30,167.0,111.0,0.5045,359,365,0.9836,Strict 30+ night minimum AND price 50% above peer median; 98% vacant.
+505,8684886,2 bdrm/2 bath Brownstone Duplex with Private Deck,South Slope,Entire home/apt,30,235.0,180.0,0.3056,359,365,0.9836,Strict 30+ night minimum AND price 31% above peer median; 98% vacant.
+506,15345019,NYC Firehouse-Greenpoint BRKLYN,Greenpoint,Private room,31,537.5,111.0,3.8423,358,365,0.9808,Strict 31+ night minimum AND price 384% above peer median; 98% vacant.
+507,3191678,Private Townhouse in Riverdale NY,Fieldston,Private room,30,537.5,111.0,3.8423,358,365,0.9808,Strict 30+ night minimum AND price 384% above peer median; 98% vacant.
+508,571977872591258118,Stylish 3 bed/2.5 bath apt w/rooftop by Park Slope,Gowanus,Private room,30,537.5,111.0,3.8423,358,365,0.9808,Strict 30+ night minimum AND price 384% above peer median; 98% vacant.
+509,7053815,HUGE Entire Flr. Private Entry/Bath,Greenpoint,Private room,100,400.0,111.0,2.6036,358,365,0.9808,Strict 100+ night minimum AND price 260% above peer median; 98% vacant.
+510,965160360662831113,Renovated Brownstone Duplex,Carroll Gardens,Entire home/apt,30,500.0,180.0,1.7778,358,365,0.9808,Strict 30+ night minimum AND price 178% above peer median; 98% vacant.
+511,1522503727016343960,"2 Bed, 2 Bath on Wall Street, Manhattan, NY",Financial District,Entire home/apt,60,480.0,180.0,1.6667,358,365,0.9808,Strict 60+ night minimum AND price 167% above peer median; 98% vacant.
+512,1527148434686891943,"Charming, spacious home base for NYC exploration",Flatbush,Entire home/apt,30,463.0,180.0,1.5722,358,365,0.9808,Strict 30+ night minimum AND price 157% above peer median; 98% vacant.
+513,634737185619080084,Family Surf House at the Beach,Arverne,Entire home/apt,30,453.0,180.0,1.5167,358,365,0.9808,Strict 30+ night minimum AND price 152% above peer median; 98% vacant.
+514,858679273196045423,"Room in East Williamsburg, New York",Williamsburg,Private room,30,275.0,111.0,1.4775,358,365,0.9808,Strict 30+ night minimum AND price 148% above peer median; 98% vacant.
+515,19811816,"Modern townhouse in Clinton Hill, Brooklyn",Fort Greene,Entire home/apt,30,427.0,180.0,1.3722,358,365,0.9808,Strict 30+ night minimum AND price 137% above peer median; 98% vacant.
+516,47874453,Spacious Studio in Nolita/Soho - Longterm,Little Italy,Private room,120,257.0,111.0,1.3153,358,365,0.9808,Strict 120+ night minimum AND price 132% above peer median; 98% vacant.
+517,21413190,Morden Corner Lux Apartment w/ River & City view,Upper West Side,Private room,300,250.0,111.0,1.2523,358,365,0.9808,Strict 300+ night minimum AND price 125% above peer median; 98% vacant.
+518,12122102,Huge Bedroom in Upper Manhattan - Near A&1 Subway!,Inwood,Private room,30,250.0,111.0,1.2523,358,365,0.9808,Strict 30+ night minimum AND price 125% above peer median; 98% vacant.
+519,487684,Modern Brownstone Duplex w/Garden,Boerum Hill,Entire home/apt,150,400.0,180.0,1.2222,358,365,0.9808,Strict 150+ night minimum AND price 122% above peer median; 98% vacant.
+520,53005830,Backyard oasis in brownstone duplex,Bedford-Stuyvesant,Entire home/apt,30,395.0,180.0,1.1944,358,365,0.9808,Strict 30+ night minimum AND price 119% above peer median; 98% vacant.
+521,891403684596430333,Beautiful Brooklyn 1BR w patio (Short Term Avail!),Cobble Hill,Private room,30,240.0,111.0,1.1622,358,365,0.9808,Strict 30+ night minimum AND price 116% above peer median; 98% vacant.
+522,27498398,"Spacious, Bright Harlem Treetop Duplex",East Harlem,Entire home/apt,30,387.0,180.0,1.15,358,365,0.9808,Strict 30+ night minimum AND price 115% above peer median; 98% vacant.
+523,39381034,3 Bedroom 2.5 bath 3 floor Hosted Apartment,Bedford-Stuyvesant,Entire home/apt,30,360.0,180.0,1.0,358,365,0.9808,Strict 30+ night minimum AND price 100% above peer median; 98% vacant.
+524,50866798,Chic artist's loft central Williamsburg,Williamsburg,Entire home/apt,30,360.0,180.0,1.0,358,365,0.9808,Strict 30+ night minimum AND price 100% above peer median; 98% vacant.
+525,669517161697427565,Brand new 1 bedroom in Financial District,Financial District,Entire home/apt,30,350.0,180.0,0.9444,358,365,0.9808,Strict 30+ night minimum AND price 94% above peer median; 98% vacant.
+526,878484956150776375,Brooklyns Baby,Clinton Hill,Entire home/apt,30,322.0,180.0,0.7889,358,365,0.9808,Strict 30+ night minimum AND price 79% above peer median; 98% vacant.
+527,46992656,Lovely 1 bedroom apartment in Murray Hill,Kips Bay,Entire home/apt,30,310.0,180.0,0.7222,358,365,0.9808,Strict 30+ night minimum AND price 72% above peer median; 98% vacant.
+528,1232815754802641772,Bright & Modern 2-BD in Leafy BK,Bedford-Stuyvesant,Entire home/apt,30,310.0,180.0,0.7222,358,365,0.9808,Strict 30+ night minimum AND price 72% above peer median; 98% vacant.
+529,910673513043618573,Beautiful duplex,Bedford-Stuyvesant,Entire home/apt,90,309.0,180.0,0.7167,358,365,0.9808,Strict 90+ night minimum AND price 72% above peer median; 98% vacant.
+530,504362,1760 Sq ft Penthouse apartment,Prospect Heights,Entire home/apt,30,304.0,180.0,0.6889,358,365,0.9808,Strict 30+ night minimum AND price 69% above peer median; 98% vacant.
+531,3803622,Cozy West Village apartment,Civic Center,Entire home/apt,30,300.0,180.0,0.6667,358,365,0.9808,Strict 30+ night minimum AND price 67% above peer median; 98% vacant.
+532,42467234,Oasis in the City!,South Slope,Entire home/apt,30,300.0,180.0,0.6667,358,365,0.9808,Strict 30+ night minimum AND price 67% above peer median; 98% vacant.
+533,10646179,Chelsea High Line Studio,Chelsea,Entire home/apt,30,295.0,180.0,0.6389,358,365,0.9808,Strict 30+ night minimum AND price 64% above peer median; 98% vacant.
+534,934031903795021680,Cozy Room in the prime location,Downtown Brooklyn,Private room,30,175.0,111.0,0.5766,358,365,0.9808,Strict 30+ night minimum AND price 58% above peer median; 98% vacant.
+535,13122932,"East Village duplex: peaceful, bright & cheerful",East Village,Entire home/apt,365,283.0,180.0,0.5722,358,365,0.9808,Strict 365+ night minimum AND price 57% above peer median; 98% vacant.
+536,6897066,Soho 1-BR Retreat: Prime Location & Stylish Design,SoHo,Entire home/apt,30,275.0,180.0,0.5278,358,365,0.9808,Strict 30+ night minimum AND price 53% above peer median; 98% vacant.
+537,3511778,10th St / W Village  Junior Loft,Greenwich Village,Entire home/apt,60,273.0,180.0,0.5167,358,365,0.9808,Strict 60+ night minimum AND price 52% above peer median; 98% vacant.
+538,1428563936017811568,Comfy Brooklyn Retreat,East New York,Private room,30,167.0,111.0,0.5045,358,365,0.9808,Strict 30+ night minimum AND price 50% above peer median; 98% vacant.
+539,633318450007507030,Lovely 2 bedroom Appartment in Brooklyn,Bedford-Stuyvesant,Entire home/apt,30,269.0,180.0,0.4944,358,365,0.9808,Strict 30+ night minimum AND price 49% above peer median; 98% vacant.
+540,881270779058567244,"Cozy, Comfy, Chic Space!",East Flatbush,Private room,30,162.0,111.0,0.4595,358,365,0.9808,Strict 30+ night minimum AND price 46% above peer median; 98% vacant.
+541,662719849289901468,Stylish NYC Apartment,Chelsea,Entire home/apt,30,253.0,180.0,0.4056,358,365,0.9808,Strict 30+ night minimum AND price 41% above peer median; 98% vacant.
+542,54243687,Massive duplex w/ beautiful backyard in Greenpoint,Greenpoint,Entire home/apt,30,250.0,180.0,0.3889,358,365,0.9808,Strict 30+ night minimum AND price 39% above peer median; 98% vacant.
+543,45480128,Lower East Side Cool - Private Bath/BED + Terrace,Chinatown,Private room,365,150.0,111.0,0.3514,358,365,0.9808,Strict 365+ night minimum AND price 35% above peer median; 98% vacant.
+544,591883582403156068,Stylish studio in a high-rise Downtown Brooklyn,Downtown Brooklyn,Entire home/apt,45,242.0,180.0,0.3444,358,365,0.9808,Strict 45+ night minimum AND price 34% above peer median; 98% vacant.
+545,491123,Cozy Lay Over Prospect Heights,Prospect Heights,Private room,30,143.0,111.0,0.2883,358,365,0.9808,Strict 30+ night minimum AND price 29% above peer median; 98% vacant.
+546,1353697223094683161,Sweet Oasis Your home away from home,Edenwald,Private room,30,142.0,111.0,0.2793,358,365,0.9808,Strict 30+ night minimum AND price 28% above peer median; 98% vacant.
+547,799298437148913940,Prime 1 Bd. Apt. in Midtown NYC,Murray Hill,Entire home/apt,30,228.0,180.0,0.2667,358,365,0.9808,Strict 30+ night minimum AND price 27% above peer median; 98% vacant.
+548,1717226,Big Brooklyn House to Love,Bedford-Stuyvesant,Entire home/apt,30,226.0,180.0,0.2556,358,365,0.9808,Strict 30+ night minimum AND price 26% above peer median; 98% vacant.
+549,834949788293241118,Luxurious Designer Soho Loft,Chinatown,Entire home/apt,30,384.0,180.0,1.1333,357,365,0.9781,Strict 30+ night minimum AND price 113% above peer median; 98% vacant.
+550,657114792493776062,Sun Drenched 1 Bedroom in Downtown New York!,Little Italy,Entire home/apt,30,350.0,180.0,0.9444,357,365,0.9781,Strict 30+ night minimum AND price 94% above peer median; 98% vacant.
+551,38437629,The Garden Apartment - Private 2-bedroom in BKLYN,Bedford-Stuyvesant,Entire home/apt,30,265.0,180.0,0.4722,357,365,0.9781,Strict 30+ night minimum AND price 47% above peer median; 98% vacant.
+552,5520934,Huge one bedroom with great light and better vibes,Williamsburg,Entire home/apt,30,225.0,180.0,0.25,357,365,0.9781,Strict 30+ night minimum AND price 25% above peer median; 98% vacant.
+553,1392912634487755545,Modern 1BR in Upscale UES Tower,Midtown,Entire home/apt,30,350.0,180.0,0.9444,356,365,0.9753,Strict 30+ night minimum AND price 94% above peer median; 98% vacant.
+554,424767,"Spacious, Furnished Unit with Private Backyard",Midtown,Entire home/apt,30,246.0,180.0,0.3667,356,365,0.9753,Strict 30+ night minimum AND price 37% above peer median; 98% vacant.
+555,796660992700511337,Tres Beau Brooklyn,Canarsie,Entire home/apt,30,233.0,180.0,0.2944,356,365,0.9753,Strict 30+ night minimum AND price 29% above peer median; 98% vacant.
+556,83474,NY Mag & Budget Travel love us!,Downtown Brooklyn,Private room,30,166.0,111.0,0.4955,355,365,0.9726,Strict 30+ night minimum AND price 50% above peer median; 97% vacant.
+557,1500976236664978303,Modern + Spacious Room in Times Square,Hell's Kitchen,Private room,30,142.0,111.0,0.2793,355,365,0.9726,Strict 30+ night minimum AND price 28% above peer median; 97% vacant.
+558,7953819,Lovely Brooklyn Brownstone w Yard,Bedford-Stuyvesant,Entire home/apt,30,225.0,180.0,0.25,355,365,0.9726,Strict 30+ night minimum AND price 25% above peer median; 97% vacant.
+559,46923243,"Greenpoint- Quiet Block, Tree Lined Street, Trendy",Greenpoint,Entire home/apt,30,281.0,180.0,0.5611,354,365,0.9699,Strict 30+ night minimum AND price 56% above peer median; 97% vacant.
+560,1408232195858594987,Massive Artist Loft PRIME Soho,SoHo,Entire home/apt,30,489.0,180.0,1.7167,353,365,0.9671,Strict 30+ night minimum AND price 172% above peer median; 97% vacant.
+561,1958765,Stylish 2 BR Loft Apt in E.Williamsburg,Williamsburg,Entire home/apt,30,276.0,180.0,0.5333,353,365,0.9671,Strict 30+ night minimum AND price 53% above peer median; 97% vacant.
+562,49926780,Bright and Spacious Brooklyn Loft,Red Hook,Entire home/apt,30,272.0,180.0,0.5111,353,365,0.9671,Strict 30+ night minimum AND price 51% above peer median; 97% vacant.
+563,582478029279386383,King Bed • Purple Mattress • Remote Office,Bushwick,Entire home/apt,30,250.0,180.0,0.3889,353,365,0.9671,Strict 30+ night minimum AND price 39% above peer median; 97% vacant.
+564,4453484,Prime Artist Loft &  Exposed Brick,Williamsburg,Entire home/apt,31,230.0,180.0,0.2778,353,365,0.9671,Strict 31+ night minimum AND price 28% above peer median; 97% vacant.
+565,25071168,Spacious Guest Suite in Park Slope Brownstone,Park Slope,Private room,30,250.0,111.0,1.2523,352,365,0.9644,Strict 30+ night minimum AND price 125% above peer median; 96% vacant.
+566,1394285227105190293,East Village scape NYC Flair,East Village,Entire home/apt,30,367.0,180.0,1.0389,352,365,0.9644,Strict 30+ night minimum AND price 104% above peer median; 96% vacant.
+567,9324841,Large artist one bedroom in Williamsburg!,Williamsburg,Entire home/apt,30,365.0,180.0,1.0278,352,365,0.9644,Strict 30+ night minimum AND price 103% above peer median; 96% vacant.
+568,15260962,Light in Soho,SoHo,Entire home/apt,30,535.0,180.0,1.9722,351,365,0.9616,Strict 30+ night minimum AND price 197% above peer median; 96% vacant.
+569,19905347,Sunny & Quiet Greenwich Village Studio Apt,Chelsea,Entire home/apt,30,300.0,180.0,0.6667,351,365,0.9616,Strict 30+ night minimum AND price 67% above peer median; 96% vacant.
+570,49863599,"Designer Luxe Loft, with Housekeeping & Doorman",NoHo,Entire home/apt,45,271.0,180.0,0.5056,351,365,0.9616,Strict 45+ night minimum AND price 51% above peer median; 96% vacant.
+571,53043735,Cozy 2 BDR in lovely Astoria -15 mins to Manhattan,Ditmars Steinway,Entire home/apt,30,249.0,180.0,0.3833,351,365,0.9616,Strict 30+ night minimum AND price 38% above peer median; 96% vacant.
+572,583018303401434498,Lovely 2 bedroom in Manhattan/ king size bed suite,Harlem,Entire home/apt,30,248.0,180.0,0.3778,351,365,0.9616,Strict 30+ night minimum AND price 38% above peer median; 96% vacant.
+573,7376952,Brownstone@Central Park❤️Manhattan historic area,Upper West Side,Private room,60,145.0,111.0,0.3063,351,365,0.9616,Strict 60+ night minimum AND price 31% above peer median; 96% vacant.
+574,676778209945329666,"Beautiful 1BD Condo in Clinton Hill, Brooklyn",Clinton Hill,Entire home/apt,30,230.0,180.0,0.2778,351,365,0.9616,Strict 30+ night minimum AND price 28% above peer median; 96% vacant.
+575,66008,Charming Carroll Gardens Guest Suite,Carroll Gardens,Entire home/apt,30,225.0,180.0,0.25,351,365,0.9616,Strict 30+ night minimum AND price 25% above peer median; 96% vacant.
+576,2510394,"HUGE LUXURY 2BD/2B, 7mn TO TIME SQR",Long Island City,Entire home/apt,31,395.0,180.0,1.1944,350,365,0.9589,Strict 31+ night minimum AND price 119% above peer median; 96% vacant.
+577,15247262,Charming 1 Bedroom Garden Apt,Prospect Heights,Entire home/apt,30,264.0,180.0,0.4667,350,365,0.9589,Strict 30+ night minimum AND price 47% above peer median; 96% vacant.
+578,929162167006449291,紐約下東區陽光小屋,East Village,Entire home/apt,30,290.0,180.0,0.6111,349,365,0.9562,Strict 30+ night minimum AND price 61% above peer median; 96% vacant.
+579,1218224753396813374,Airy 1BR & 1BTH-Manhattan - Biweekly Cleaning Incl,Theater District,Entire home/apt,30,284.0,180.0,0.5778,349,365,0.9562,Strict 30+ night minimum AND price 58% above peer median; 96% vacant.
+580,1386767555234534394,"Your Home Away from Home, NYC",South Ozone Park,Entire home/apt,30,229.0,180.0,0.2722,349,365,0.9562,Strict 30+ night minimum AND price 27% above peer median; 96% vacant.
+581,1450080414626099128,Beautiful Room-35 minutes from the city,Jamaica,Private room,30,162.0,111.0,0.4595,348,365,0.9534,Strict 30+ night minimum AND price 46% above peer median; 95% vacant.
+582,633968806284955396,Spacious 3 Bedroom w / Private Garden,Greenpoint,Entire home/apt,30,260.0,180.0,0.4444,348,365,0.9534,Strict 30+ night minimum AND price 44% above peer median; 95% vacant.
+583,1252461149484283550,Duplex in Heart of Williamsburg!,Williamsburg,Entire home/apt,30,240.0,180.0,0.3333,348,365,0.9534,Strict 30+ night minimum AND price 33% above peer median; 95% vacant.
+584,974085137535602566,The House on Kissena Park in NYC,Flushing,Entire home/apt,30,520.0,180.0,1.8889,347,365,0.9507,Strict 30+ night minimum AND price 189% above peer median; 95% vacant.
+585,615126076185455171,Charming Pre-War 1 Bd West Village Designer Apt,Chelsea,Entire home/apt,30,400.0,180.0,1.2222,347,365,0.9507,Strict 30+ night minimum AND price 122% above peer median; 95% vacant.
+586,1197202407680659490,"Luxury 1 Bed, W/D in unit",Lower East Side,Entire home/apt,30,312.0,180.0,0.7333,347,365,0.9507,Strict 30+ night minimum AND price 73% above peer median; 95% vacant.
+587,18728,Beautiful Meatpacking District Loft,Chelsea,Private room,30,163.0,111.0,0.4685,347,365,0.9507,Strict 30+ night minimum AND price 47% above peer median; 95% vacant.
+588,50697485,Williamsburg ground zero apartment,Williamsburg,Entire home/apt,30,240.0,180.0,0.3333,347,365,0.9507,Strict 30+ night minimum AND price 33% above peer median; 95% vacant.
+589,802293068136903179,2 Bed Cobble Hill Gem,Cobble Hill,Entire home/apt,30,320.0,180.0,0.7778,346,365,0.9479,Strict 30+ night minimum AND price 78% above peer median; 95% vacant.
+590,51064493,Bright 2 b/r with beautiful sunset manhattan views,Williamsburg,Entire home/apt,30,300.0,180.0,0.6667,346,365,0.9479,Strict 30+ night minimum AND price 67% above peer median; 95% vacant.
+591,904060,Cool Clinton Hill condo near Fort Green/ Bedstuy,Bedford-Stuyvesant,Entire home/apt,30,280.0,180.0,0.5556,346,365,0.9479,Strict 30+ night minimum AND price 56% above peer median; 95% vacant.
+592,10068653,DESIGNER DOWNTOWN 1 BEDROOM,East Village,Entire home/apt,30,275.0,180.0,0.5278,346,365,0.9479,Strict 30+ night minimum AND price 53% above peer median; 95% vacant.
+593,586761073028187150,Modern 1-Bedroom Triplex on famous tree-lined St,Greenpoint,Entire home/apt,30,267.0,180.0,0.4833,346,365,0.9479,Strict 30+ night minimum AND price 48% above peer median; 95% vacant.
+594,789302,"THE NEST - Style, luxe & simplicity",Chelsea,Entire home/apt,60,249.0,180.0,0.3833,346,365,0.9479,Strict 60+ night minimum AND price 38% above peer median; 95% vacant.
+595,834898684259417407,Midtown Gem!,Midtown,Entire home/apt,30,348.0,180.0,0.9333,345,365,0.9452,Strict 30+ night minimum AND price 93% above peer median; 95% vacant.
+596,35120222,Astoria Gem-big 2 B/R- 15 minutes to Time Square,Long Island City,Entire home/apt,30,308.0,180.0,0.7111,345,365,0.9452,Strict 30+ night minimum AND price 71% above peer median; 95% vacant.
+597,24136557,Soho/ LES/Vill NYC 2 br Lux apt,East Village,Entire home/apt,30,280.0,180.0,0.5556,345,365,0.9452,Strict 30+ night minimum AND price 56% above peer median; 95% vacant.
+598,50282803,Artistic modern one bedroom with natural light.,Williamsburg,Entire home/apt,30,265.0,180.0,0.4722,345,365,0.9452,Strict 30+ night minimum AND price 47% above peer median; 95% vacant.
+599,1252024900650856172,Charming 3Bedroom Brownstone Apt w/ workspace,Crown Heights,Entire home/apt,30,230.0,180.0,0.2778,345,365,0.9452,Strict 30+ night minimum AND price 28% above peer median; 95% vacant.
+600,49949089,Large 4 bedroom apartment in the heart of Astoria,Astoria,Entire home/apt,30,227.0,180.0,0.2611,345,365,0.9452,Strict 30+ night minimum AND price 26% above peer median; 95% vacant.
+601,821912872421792536,New York City Central 1 bedroom,Financial District,Entire home/apt,30,369.0,180.0,1.05,344,365,0.9425,Strict 30+ night minimum AND price 105% above peer median; 94% vacant.
+602,581488,1000ft² - Chic 2BR on best Block,Williamsburg,Entire home/apt,30,283.0,180.0,0.5722,344,365,0.9425,Strict 30+ night minimum AND price 57% above peer median; 94% vacant.
+603,50475919,Beautiful Sunny Modern Condo 15 min From Midtown,Greenpoint,Entire home/apt,30,225.0,180.0,0.25,344,365,0.9425,Strict 30+ night minimum AND price 25% above peer median; 94% vacant.
+604,1279234564318920127,Bright & modern 2bd 2ba apt,Greenpoint,Entire home/apt,30,240.0,180.0,0.3333,343,365,0.9397,Strict 30+ night minimum AND price 33% above peer median; 94% vacant.
+605,5363874,2br Duplex w/Roof Deck Close to Empire State Build,Kips Bay,Entire home/apt,30,227.0,180.0,0.2611,343,365,0.9397,Strict 30+ night minimum AND price 26% above peer median; 94% vacant.
+606,771087689598980035,Chic Studio Apartment in Heart of Chelsea (NYC),Chelsea,Entire home/apt,30,302.0,180.0,0.6778,342,365,0.937,Strict 30+ night minimum AND price 68% above peer median; 94% vacant.
+607,53364824,Cosy & charming 1 bedroom duplex in the Upper East,Upper East Side,Entire home/apt,30,225.0,180.0,0.25,342,365,0.937,Strict 30+ night minimum AND price 25% above peer median; 94% vacant.
+608,8776329,Renovated Victorian House,Flatbush,Entire home/apt,30,400.0,180.0,1.2222,341,365,0.9342,Strict 30+ night minimum AND price 122% above peer median; 93% vacant.
+609,1536252834534517960,The Regent® Highrise - Luxury 1BR in Midtown NYC,Hell's Kitchen,Entire home/apt,60,285.0,180.0,0.5833,341,365,0.9342,Strict 60+ night minimum AND price 58% above peer median; 93% vacant.
+610,4352537,Living in the Heart of the City!,Gramercy,Entire home/apt,30,302.0,180.0,0.6778,339,365,0.9288,Strict 30+ night minimum AND price 68% above peer median; 93% vacant.
+611,51918445,Bright & Spacious  in Rockaway Beach,Rockaway Beach,Private room,30,163.0,111.0,0.4685,339,365,0.9288,Strict 30+ night minimum AND price 47% above peer median; 93% vacant.
+612,577717132178906992,Artist Sanctuary - BrooklynZen,Greenpoint,Entire home/apt,30,251.0,180.0,0.3944,339,365,0.9288,Strict 30+ night minimum AND price 39% above peer median; 93% vacant.
+613,734670689144946957,Lovely 1-Bedroom in the Cozy Upper East Side,Upper East Side,Entire home/apt,30,234.0,180.0,0.3,339,365,0.9288,Strict 30+ night minimum AND price 30% above peer median; 93% vacant.
+614,15728780,"A unique, light filled artist’s loft in near SoHo",Lower East Side,Entire home/apt,30,233.0,180.0,0.2944,339,365,0.9288,Strict 30+ night minimum AND price 29% above peer median; 93% vacant.
+615,21595000,Stylish studio next to Domino Park,Williamsburg,Entire home/apt,30,230.0,180.0,0.2778,339,365,0.9288,Strict 30+ night minimum AND price 28% above peer median; 93% vacant.
+616,1491518674403753170,"Modern, Large 1BR by Central Park, High Ceilings",Upper West Side,Entire home/apt,30,360.0,180.0,1.0,338,365,0.926,Strict 30+ night minimum AND price 100% above peer median; 93% vacant.
+617,4216813,Penthouse w/Terrace Williamsburg,Greenpoint,Entire home/apt,30,287.0,180.0,0.5944,338,365,0.926,Strict 30+ night minimum AND price 59% above peer median; 93% vacant.
+618,1383680335751197668,Ritchson Loft Tree-house in NYC,Astoria,Entire home/apt,30,252.0,180.0,0.4,338,365,0.926,Strict 30+ night minimum AND price 40% above peer median; 93% vacant.
+619,821812150063956321,Stylish 2BR Loft • Soaring Ceilings & Light,Gowanus,Private room,30,373.0,111.0,2.3604,337,365,0.9233,Strict 30+ night minimum AND price 236% above peer median; 92% vacant.
+620,974841259918740136,Charming 3Bed Home w/Hot Tub,West Brighton,Private room,30,280.0,111.0,1.5225,337,365,0.9233,Strict 30+ night minimum AND price 152% above peer median; 92% vacant.
+621,5320983,Beautiful bright renovated 2BR w Balcony-sleeps 5!,DUMBO,Entire home/apt,30,424.0,180.0,1.3556,337,365,0.9233,Strict 30+ night minimum AND price 136% above peer median; 92% vacant.
+622,679639039552683894,Massive Dumbo Artist's Loft,DUMBO,Entire home/apt,30,388.0,180.0,1.1556,337,365,0.9233,Strict 30+ night minimum AND price 116% above peer median; 92% vacant.
+623,760067389876708923,Historic NYC Townhouse in Landmarked District,Long Island City,Entire home/apt,30,350.0,180.0,0.9444,337,365,0.9233,Strict 30+ night minimum AND price 94% above peer median; 92% vacant.
+624,1343785166555917967,Manhattan_ny_stay,Hell's Kitchen,Entire home/apt,30,314.0,180.0,0.7444,337,365,0.9233,Strict 30+ night minimum AND price 74% above peer median; 92% vacant.
+625,2296024,Three bedroom upscale condo,Spuyten Duyvil,Entire home/apt,30,261.0,180.0,0.45,337,365,0.9233,Strict 30+ night minimum AND price 45% above peer median; 92% vacant.
+626,1500860567733636949,Sunny Jinling Cottage – Queens NYC Private Parking,Hollis Hills,Entire home/apt,30,255.0,180.0,0.4167,337,365,0.9233,Strict 30+ night minimum AND price 42% above peer median; 92% vacant.
+627,881201185244371657,Bohemian Brownstone in Bed-Stuy,Bedford-Stuyvesant,Entire home/apt,30,240.0,180.0,0.3333,337,365,0.9233,Strict 30+ night minimum AND price 33% above peer median; 92% vacant.
+628,44486696,Artistic loft steps from SOHO & NYU! ~Rare Find~,NoHo,Entire home/apt,30,225.0,180.0,0.25,337,365,0.9233,Strict 30+ night minimum AND price 25% above peer median; 92% vacant.
+629,1266050526914264495,Enchanting Historic Treasure!,East Village,Entire home/apt,30,525.0,180.0,1.9167,336,365,0.9205,Strict 30+ night minimum AND price 192% above peer median; 92% vacant.
+630,1405155283902197443,"Huge & Beautiful, best location!",Greenwich Village,Entire home/apt,30,500.0,180.0,1.7778,336,365,0.9205,Strict 30+ night minimum AND price 178% above peer median; 92% vacant.
+631,560078,Gorgeous Unique Garden-Terrace-Apt.,East Village,Private room,30,228.0,111.0,1.0541,336,365,0.9205,Strict 30+ night minimum AND price 105% above peer median; 92% vacant.
+632,1100945393171794060,Stylish 2BR Loft -  Carroll Gardens - Prime area,Gowanus,Entire home/apt,30,357.0,180.0,0.9833,336,365,0.9205,Strict 30+ night minimum AND price 98% above peer median; 92% vacant.
+633,1370348004069701500,Charming 2 bedroom/ Best Location Gramercy,Kips Bay,Entire home/apt,30,355.0,180.0,0.9722,336,365,0.9205,Strict 30+ night minimum AND price 97% above peer median; 92% vacant.
+634,49881509,Exquisite Harlem house!,East Harlem,Entire home/apt,30,320.0,180.0,0.7778,336,365,0.9205,Strict 30+ night minimum AND price 78% above peer median; 92% vacant.
+635,3513052,Stylish Room in Shared Artist Home w/ Ensuite Bath,Bushwick,Private room,30,181.0,111.0,0.6306,336,365,0.9205,Strict 30+ night minimum AND price 63% above peer median; 92% vacant.
+636,567166736329761635,2 BR 1830 Historic Merchant House LES large fl apt,Lower East Side,Entire home/apt,30,293.0,180.0,0.6278,336,365,0.9205,Strict 30+ night minimum AND price 63% above peer median; 92% vacant.
+637,1383008491621356707,Designer Loft in Dimes Square,Chinatown,Entire home/apt,30,285.0,180.0,0.5833,336,365,0.9205,Strict 30+ night minimum AND price 58% above peer median; 92% vacant.
+638,1517491236242369826,Chic Orchard St Studio – Walk to SoHo & Nolita,Chinatown,Entire home/apt,30,275.0,180.0,0.5278,336,365,0.9205,Strict 30+ night minimum AND price 53% above peer median; 92% vacant.
+639,1368977753174601526,Modern Charming house near train,Crown Heights,Entire home/apt,30,250.0,180.0,0.3889,336,365,0.9205,Strict 30+ night minimum AND price 39% above peer median; 92% vacant.
+640,1604489,Spacious and modern Chelsea loft,Chelsea,Entire home/apt,30,248.0,180.0,0.3778,336,365,0.9205,Strict 30+ night minimum AND price 38% above peer median; 92% vacant.
+641,41617032,Beautiful 2BR PLG Apartment,Prospect-Lefferts Gardens,Entire home/apt,30,243.0,180.0,0.35,336,365,0.9205,Strict 30+ night minimum AND price 35% above peer median; 92% vacant.
+642,1529120218450956995,Cozy and Spacious 3BD/2.5 Bath Duplex,Gowanus,Entire home/apt,30,236.0,180.0,0.3111,336,365,0.9205,Strict 30+ night minimum AND price 31% above peer median; 92% vacant.
+643,886417469102966234,"Charming, sunny 2 BR near the Heights Promenade",Brooklyn Heights,Entire home/apt,30,229.0,180.0,0.2722,336,365,0.9205,Strict 30+ night minimum AND price 27% above peer median; 92% vacant.
+644,45164113,Designer W Village/Soho Studio | Newly Renovated,West Village,Entire home/apt,30,225.0,180.0,0.25,336,365,0.9205,Strict 30+ night minimum AND price 25% above peer median; 92% vacant.
+645,30154255,Designer Downtown Loft,East Village,Entire home/apt,30,495.0,180.0,1.75,335,365,0.9178,Strict 30+ night minimum AND price 175% above peer median; 92% vacant.
+646,1539354588044168434,West Village Stunner! Artist 2BD,West Village,Entire home/apt,30,441.0,180.0,1.45,335,365,0.9178,Strict 30+ night minimum AND price 145% above peer median; 92% vacant.
+647,694859987865921785,Modern 2 bed in heart of Nolita. Flexible Dates,Nolita,Entire home/apt,30,420.0,180.0,1.3333,335,365,0.9178,Strict 30+ night minimum AND price 133% above peer median; 92% vacant.
+648,1415474922219784746,Fully Renovated 3BR/1BA! Close to Penn Station!,Chelsea,Entire home/apt,30,418.0,180.0,1.3222,335,365,0.9178,Strict 30+ night minimum AND price 132% above peer median; 92% vacant.
+649,1186411363056506266,Creatives Multipurpose Getaway!,Greenpoint,Entire home/apt,30,280.0,180.0,0.5556,335,365,0.9178,Strict 30+ night minimum AND price 56% above peer median; 92% vacant.
+650,3519172,Gallery Suite,Fort Greene,Entire home/apt,30,250.0,180.0,0.3889,335,365,0.9178,Strict 30+ night minimum AND price 39% above peer median; 92% vacant.
+651,54071410,Luxury 2BR penthouse with private terrace,East Village,Entire home/apt,30,444.0,180.0,1.4667,334,365,0.9151,Strict 30+ night minimum AND price 147% above peer median; 92% vacant.
+652,408983,Brownstone full floor 900sft. Dog and Pet Friendly,Prospect-Lefferts Gardens,Entire home/apt,30,435.0,180.0,1.4167,334,365,0.9151,Strict 30+ night minimum AND price 142% above peer median; 92% vacant.
+653,1523825526552956109,4BR/2Baths Astoria Penthouse 20 Min to Manhattan,Astoria,Entire home/apt,30,326.0,180.0,0.8111,334,365,0.9151,Strict 30+ night minimum AND price 81% above peer median; 92% vacant.
+654,46510270,The Cozy Blue House - Charming Home Near SI Ferry,Grymes Hill,Entire home/apt,30,295.0,180.0,0.6389,334,365,0.9151,Strict 30+ night minimum AND price 64% above peer median; 92% vacant.
+655,818084,Gorgeous sunny prime SoHo 1BR Apt.,Greenwich Village,Entire home/apt,30,270.0,180.0,0.5,334,365,0.9151,Strict 30+ night minimum AND price 50% above peer median; 92% vacant.
+656,973200600534337339,1bdr in the Heart of Manhattan,Chelsea,Entire home/apt,30,250.0,180.0,0.3889,334,365,0.9151,Strict 30+ night minimum AND price 39% above peer median; 92% vacant.
+657,657962221012628823,"3-Bedroom, 2-Bathroom in Prime Greenpoint!",Greenpoint,Entire home/apt,30,535.0,180.0,1.9722,332,365,0.9096,Strict 30+ night minimum AND price 197% above peer median; 91% vacant.
+658,6333994,Two Bedroom in a townhouse with a patio in Nolita!,Lower East Side,Entire home/apt,30,500.0,180.0,1.7778,332,365,0.9096,Strict 30+ night minimum AND price 178% above peer median; 91% vacant.
+659,36260895,Midtown 33 st 1 Br apt with patio!,Murray Hill,Entire home/apt,30,423.0,180.0,1.35,332,365,0.9096,Strict 30+ night minimum AND price 135% above peer median; 91% vacant.
+660,1364711109806104013,"Large 1BR, High Ceilings, Views",Upper West Side,Entire home/apt,30,352.0,180.0,0.9556,332,365,0.9096,Strict 30+ night minimum AND price 96% above peer median; 91% vacant.
+661,19407992,"Beautiful Lofty Apt,  Heart of Williamsburg, BK",Williamsburg,Entire home/apt,30,295.0,180.0,0.6389,332,365,0.9096,Strict 30+ night minimum AND price 64% above peer median; 91% vacant.
+662,34641992,Sunny and Luxurious Penthouse Loft in West Harlem,Harlem,Entire home/apt,30,411.0,180.0,1.2833,331,365,0.9068,Strict 30+ night minimum AND price 128% above peer median; 91% vacant.
+663,1876811,Sweet Union Sq/ Gramercy Studio,Gramercy,Entire home/apt,30,300.0,180.0,0.6667,331,365,0.9068,Strict 30+ night minimum AND price 67% above peer median; 91% vacant.
+664,52131795,Spacious 2-Bedroom Apt in the Heart of Harlem,Harlem,Entire home/apt,30,227.0,180.0,0.2611,331,365,0.9068,Strict 30+ night minimum AND price 26% above peer median; 91% vacant.
+665,21714930,Four Bedroom House In-Unit Washer Combo NYC,Flushing,Entire home/apt,30,449.0,180.0,1.4944,330,365,0.9041,Strict 30+ night minimum AND price 149% above peer median; 90% vacant.
+666,25517197,HUGE Soho LOFT-2.5 Bedrooms & 2 full Bathrooms,SoHo,Entire home/apt,30,396.0,180.0,1.2,330,365,0.9041,Strict 30+ night minimum AND price 120% above peer median; 90% vacant.
+667,770290214254588951,Entire Home JFK/LGA/UBS Arena/Belmont Park,Queens Village,Entire home/apt,30,250.0,180.0,0.3889,330,365,0.9041,Strict 30+ night minimum AND price 39% above peer median; 90% vacant.
+668,34746284,Urban oasis - Unique home in Williamsburg,Williamsburg,Entire home/apt,30,225.0,180.0,0.25,330,365,0.9041,Strict 30+ night minimum AND price 25% above peer median; 90% vacant.
+669,1544461035933787341,Greenpoint 3 bed Penthouse,Greenpoint,Entire home/apt,30,435.0,180.0,1.4167,329,365,0.9014,Strict 30+ night minimum AND price 142% above peer median; 90% vacant.
+670,682535527513924139,Huge Garden Oasis on the Best Block in Greenpoint,Greenpoint,Entire home/apt,30,420.0,180.0,1.3333,329,365,0.9014,Strict 30+ night minimum AND price 133% above peer median; 90% vacant.
+671,1027808,East Village Loft - 1300 sq/ft home - Huge Living!,East Village,Entire home/apt,30,399.0,180.0,1.2167,329,365,0.9014,Strict 30+ night minimum AND price 122% above peer median; 90% vacant.
+672,43656521,In the heart of the West Village Apt Lrg 1-bedroom,West Village,Entire home/apt,30,225.0,180.0,0.25,329,365,0.9014,Strict 30+ night minimum AND price 25% above peer median; 90% vacant.
+673,53045283,Lovely 1-bedroom loft in the East Village,East Village,Entire home/apt,30,252.0,180.0,0.4,328,365,0.8986,Strict 30+ night minimum AND price 40% above peer median; 90% vacant.
+674,1522517030737496324,"Upper East side gem, 2 bedroom, 3 blocks from park",Upper East Side,Private room,30,537.5,111.0,3.8423,327,365,0.8959,Strict 30+ night minimum AND price 384% above peer median; 90% vacant.
+675,31216852,Beautiful Studio in New Chelsea Building,Chelsea,Entire home/apt,30,270.0,180.0,0.5,327,365,0.8959,Strict 30+ night minimum AND price 50% above peer median; 90% vacant.
+676,53994947,East Village Convenient & Comfortable 1 bdrm,East Village,Entire home/apt,30,240.0,180.0,0.3333,327,365,0.8959,Strict 30+ night minimum AND price 33% above peer median; 90% vacant.
+677,36804299,Brooklyn artist loft - bright & spacious!,Bedford-Stuyvesant,Entire home/apt,30,500.0,180.0,1.7778,326,365,0.8932,Strict 30+ night minimum AND price 178% above peer median; 89% vacant.
+678,1457262765757943772,Spacious New Luxury Park-View Apartment + Office,Gramercy,Entire home/apt,30,334.0,180.0,0.8556,325,365,0.8904,Strict 30+ night minimum AND price 86% above peer median; 89% vacant.
+679,13587436,Perfect 2 bedroom in Brooklyn,Crown Heights,Entire home/apt,30,226.0,180.0,0.2556,324,365,0.8877,Strict 30+ night minimum AND price 26% above peer median; 89% vacant.
+680,1495053728062751588,Modernized Piano Factory Loft w/ Skyline Views,Fort Greene,Entire home/apt,30,432.0,180.0,1.4,323,365,0.8849,Strict 30+ night minimum AND price 140% above peer median; 88% vacant.
+681,1154370465868314728,Spacious 2BR Apartment in Vibrant Williamsburg,Williamsburg,Entire home/apt,30,411.0,180.0,1.2833,323,365,0.8849,Strict 30+ night minimum AND price 128% above peer median; 88% vacant.
+682,4070025,Luxury Flat with Outdoor and Office Space,Vinegar Hill,Entire home/apt,30,375.0,180.0,1.0833,323,365,0.8849,Strict 30+ night minimum AND price 108% above peer median; 88% vacant.
+683,10251082,"Large, private 2BR in historic brownstone",Prospect Heights,Entire home/apt,30,350.0,180.0,0.9444,323,365,0.8849,Strict 30+ night minimum AND price 94% above peer median; 88% vacant.
+684,618731819301540593,FULL OF LIGHT DUPLEX,Windsor Terrace,Entire home/apt,30,300.0,180.0,0.6667,323,365,0.8849,Strict 30+ night minimum AND price 67% above peer median; 88% vacant.
+685,923284967585951633,Bright and spacious in Williamsburg,Williamsburg,Entire home/apt,30,275.0,180.0,0.5278,323,365,0.8849,Strict 30+ night minimum AND price 53% above peer median; 88% vacant.
+686,16584878,Modern and bright duplex in central Cobble Hill,Cobble Hill,Entire home/apt,30,250.0,180.0,0.3889,323,365,0.8849,Strict 30+ night minimum AND price 39% above peer median; 88% vacant.
+687,690814821959585555,"Pvt Ensuite Bathroom, Lux Building in Williamsburg",Williamsburg,Private room,30,149.0,111.0,0.3423,323,365,0.8849,Strict 30+ night minimum AND price 34% above peer median; 88% vacant.
+688,52654519,Tribeca/Soho Garden Apartment,Tribeca,Entire home/apt,30,389.0,180.0,1.1611,322,365,0.8822,Strict 30+ night minimum AND price 116% above peer median; 88% vacant.
+689,584833406345340639,"Modern lg 2/2 Condo ctrl Wburg (pkg, roof, gym)",Williamsburg,Entire home/apt,30,277.0,180.0,0.5389,322,365,0.8822,Strict 30+ night minimum AND price 54% above peer median; 88% vacant.
+690,6465850,Trendy Big SoHa 2 BR-2 1/2 bth Gym Cent Park Drmn!,Harlem,Entire home/apt,31,236.0,180.0,0.3111,322,365,0.8822,Strict 31+ night minimum AND price 31% above peer median; 88% vacant.
+691,29700761,Chic 2BR Brooklyn Retreat w/ Private Garden Oasis,South Slope,Entire home/apt,30,250.0,180.0,0.3889,321,365,0.8795,Strict 30+ night minimum AND price 39% above peer median; 88% vacant.
+692,6384275,GARDEN OASIS CLINTON HILL BROWNSTONE,Clinton Hill,Entire home/apt,30,350.0,180.0,0.9444,320,365,0.8767,Strict 30+ night minimum AND price 94% above peer median; 88% vacant.
+693,784655878980242901,1 Bed in Sunny & Stylish full floor Greenpoint Apt,Greenpoint,Private room,30,205.0,111.0,0.8468,320,365,0.8767,Strict 30+ night minimum AND price 85% above peer median; 88% vacant.
+694,1384869017069410771,Cozy SoHo/Greenwich Village Apt,Greenwich Village,Entire home/apt,30,250.0,180.0,0.3889,320,365,0.8767,Strict 30+ night minimum AND price 39% above peer median; 88% vacant.
+695,893539889281697061,Oakland Gardens Estates,Bayside,Entire home/apt,30,395.0,180.0,1.1944,319,365,0.874,Strict 30+ night minimum AND price 119% above peer median; 87% vacant.
+696,977510333611168866,Penthouse Apartment in Times Square NYC,Theater District,Entire home/apt,30,361.0,180.0,1.0056,319,365,0.874,Strict 30+ night minimum AND price 101% above peer median; 87% vacant.
+697,6601284,Gorgeous Garden Guest Suite in Park Slope,South Slope,Entire home/apt,30,327.0,180.0,0.8167,319,365,0.874,Strict 30+ night minimum AND price 82% above peer median; 87% vacant.
+698,43221088,Stunning Chelsea Apt w/ Huge Private Outdoor Oasis,Chelsea,Entire home/apt,30,400.0,180.0,1.2222,318,365,0.8712,Strict 30+ night minimum AND price 122% above peer median; 87% vacant.
+699,30824853,Stunning apartment heart of Williamsburg 2bd/2ba,Williamsburg,Entire home/apt,30,340.0,180.0,0.8889,318,365,0.8712,Strict 30+ night minimum AND price 89% above peer median; 87% vacant.
+700,7952963,Gorgeous Pre War Sanctuary - 1 block from Union Sq,Gramercy,Private room,30,150.0,111.0,0.3514,318,365,0.8712,Strict 30+ night minimum AND price 35% above peer median; 87% vacant.
+701,643406530097775941,Luxury 1 bd Apartment,Hell's Kitchen,Entire home/apt,30,241.0,180.0,0.3389,318,365,0.8712,Strict 30+ night minimum AND price 34% above peer median; 87% vacant.
+702,772388654659113138,Lovely two bedroom in the West Village,West Village,Entire home/apt,30,232.0,180.0,0.2889,318,365,0.8712,Strict 30+ night minimum AND price 29% above peer median; 87% vacant.
+703,14625676,Sunny & Spacious Classic 4BR Brooklyn Townhouse,Gowanus,Entire home/apt,30,500.0,180.0,1.7778,317,365,0.8685,Strict 30+ night minimum AND price 178% above peer median; 87% vacant.
+704,41547677,Cozy Home with separate office!!  Or 2nd bedroom!!,NoHo,Entire home/apt,30,314.0,180.0,0.7444,317,365,0.8685,Strict 30+ night minimum AND price 74% above peer median; 87% vacant.
+705,1274820999428562667,"Beautiful, Serene West Village Treehouse",West Village,Entire home/apt,30,312.0,180.0,0.7333,317,365,0.8685,Strict 30+ night minimum AND price 73% above peer median; 87% vacant.
+706,1227818000807916145,"New 1-bedroom w/ Gym, Workspace, Terrace",Williamsburg,Entire home/apt,30,300.0,180.0,0.6667,317,365,0.8685,Strict 30+ night minimum AND price 67% above peer median; 87% vacant.
+707,43421180,"Sunny & quiet 1 BR near Park, subway crosstown bus",Upper West Side,Entire home/apt,30,248.0,180.0,0.3778,317,365,0.8685,Strict 30+ night minimum AND price 38% above peer median; 87% vacant.
+708,1503912279108949953,"Upper East Side, steps from Central Park, museums.",Upper East Side,Entire home/apt,30,243.0,180.0,0.35,317,365,0.8685,Strict 30+ night minimum AND price 35% above peer median; 87% vacant.
+709,681296327139376370,"Ft. Greene/1,000sf/2bdrm/2bthrm/Rooftop/Gym/Lounge",Fort Greene,Entire home/apt,30,230.0,180.0,0.2778,317,365,0.8685,Strict 30+ night minimum AND price 28% above peer median; 87% vacant.
+710,890493280151398769,Large 2 Bed Condo w/ Pool & View,Murray Hill,Entire home/apt,30,286.0,180.0,0.5889,316,365,0.8658,Strict 30+ night minimum AND price 59% above peer median; 87% vacant.
+711,53771167,LOVELY  UNIT WITH  DECK  AND PARKING,East Elmhurst,Entire home/apt,30,272.0,180.0,0.5111,316,365,0.8658,Strict 30+ night minimum AND price 51% above peer median; 87% vacant.
+712,1344630370175255397,Stylish Top-Floor Chelsea Apt | Mid-Century Design,Chelsea,Entire home/apt,30,300.0,180.0,0.6667,315,365,0.863,Strict 30+ night minimum AND price 67% above peer median; 86% vacant.
+713,745051425164634863,Bainbridge by Rove Duplex with Deck & Backyard,Bedford-Stuyvesant,Entire home/apt,30,268.0,180.0,0.4889,315,365,0.863,Strict 30+ night minimum AND price 49% above peer median; 86% vacant.
+714,31913609,Architects' Passive House Brownstone Unit,Bedford-Stuyvesant,Entire home/apt,30,230.0,180.0,0.2778,315,365,0.863,Strict 30+ night minimum AND price 28% above peer median; 86% vacant.
+715,41592296,Oasis in the heart of Brooklyn,Greenpoint,Entire home/apt,180,229.0,180.0,0.2722,315,365,0.863,Strict 180+ night minimum AND price 27% above peer median; 86% vacant.
+716,44182770,"Romantic & Pristine, Elegant designer Loft in NYC",Ditmars Steinway,Entire home/apt,30,350.0,180.0,0.9444,314,365,0.8603,Strict 30+ night minimum AND price 94% above peer median; 86% vacant.
+717,1300839454193926836,Charming West Village home,West Village,Entire home/apt,30,299.0,180.0,0.6611,314,365,0.8603,Strict 30+ night minimum AND price 66% above peer median; 86% vacant.
+718,45192635,Historic Harlem Duplex with Heritage Charm,Harlem,Entire home/apt,30,250.0,180.0,0.3889,314,365,0.8603,Strict 30+ night minimum AND price 39% above peer median; 86% vacant.
+719,825129,Room w/pvt bathroom on Central Park,Upper West Side,Private room,31,147.0,111.0,0.3243,314,365,0.8603,Strict 31+ night minimum AND price 32% above peer median; 86% vacant.
+720,1389363234697307636,Cozy Private Room next to Time Square/Central Park,Upper West Side,Private room,30,169.0,111.0,0.5225,313,365,0.8575,Strict 30+ night minimum AND price 52% above peer median; 86% vacant.
+721,47448127,West Village Apartment at Grove Court,West Village,Entire home/apt,90,250.0,180.0,0.3889,313,365,0.8575,Strict 90+ night minimum AND price 39% above peer median; 86% vacant.
+722,13046279,Cozy  2 bedroom apt in Manhattan,Washington Heights,Entire home/apt,90,245.0,180.0,0.3611,313,365,0.8575,Strict 90+ night minimum AND price 36% above peer median; 86% vacant.
+723,15774629,"Garden, Spacious, Great Location,  1 stop to City.",Boerum Hill,Entire home/apt,30,246.0,180.0,0.3667,312,365,0.8548,Strict 30+ night minimum AND price 37% above peer median; 85% vacant.
+724,635617204486061688,Park Slope Townhouse: Private Full-Floor 2 Bedroom,Park Slope,Entire home/apt,30,411.0,180.0,1.2833,311,365,0.8521,Strict 30+ night minimum AND price 128% above peer median; 85% vacant.
+725,37828655,Brooklyn 3bd Penthouse Duplex (w/ private roof),Bedford-Stuyvesant,Entire home/apt,30,424.0,180.0,1.3556,310,365,0.8493,Strict 30+ night minimum AND price 136% above peer median; 85% vacant.
+726,1254363600722938187,"Beautiful Cozy 1BR Apt Step from Train, 15min City",Sunnyside,Entire home/apt,30,250.0,180.0,0.3889,309,365,0.8466,Strict 30+ night minimum AND price 39% above peer median; 85% vacant.
+727,1152426994398176769,Stylish & Modern Luxury Rental in Heart of NYC,Hell's Kitchen,Entire home/apt,30,227.0,180.0,0.2611,308,365,0.8438,Strict 30+ night minimum AND price 26% above peer median; 84% vacant.
+728,1476151998649025816,Creative Townhouse Retreat,Red Hook,Entire home/apt,60,241.0,180.0,0.3389,307,365,0.8411,Strict 60+ night minimum AND price 34% above peer median; 84% vacant.
+729,6716020,Stylish 4-bedroom house with lush backyard & sauna,Kensington,Entire home/apt,30,436.0,180.0,1.4222,306,365,0.8384,Strict 30+ night minimum AND price 142% above peer median; 84% vacant.
+730,1379649607286298309,Crown Heights 6BD Place for 16,Crown Heights,Entire home/apt,30,304.0,180.0,0.6889,306,365,0.8384,Strict 30+ night minimum AND price 69% above peer median; 84% vacant.
+731,3369100,Park Slope Studio,Park Slope,Private room,30,180.0,111.0,0.6216,306,365,0.8384,Strict 30+ night minimum AND price 62% above peer median; 84% vacant.
+732,1449634303572344943,Cozy Furnished 3BR Apt in NYC!,Chelsea,Entire home/apt,30,260.0,180.0,0.4444,306,365,0.8384,Strict 30+ night minimum AND price 44% above peer median; 84% vacant.
+733,25678522,Quiet one bedroom apartment in West Village,West Village,Entire home/apt,30,250.0,180.0,0.3889,306,365,0.8384,Strict 30+ night minimum AND price 39% above peer median; 84% vacant.
+734,776998312373826024,Prospect Park is your playground!,Windsor Terrace,Entire home/apt,30,229.0,180.0,0.2722,306,365,0.8384,Strict 30+ night minimum AND price 27% above peer median; 84% vacant.
+735,888253861914052883,Luxurious Apartment at Colonial Townhouse,Ridgewood,Entire home/apt,30,225.0,180.0,0.25,306,365,0.8384,Strict 30+ night minimum AND price 25% above peer median; 84% vacant.
+736,479002,Shared Apartment in Brooklyn Brownstone,Fort Greene,Private room,30,418.0,111.0,2.7658,305,365,0.8356,Strict 30+ night minimum AND price 277% above peer median; 84% vacant.
+737,48585070,Home in  Queens / Free Parking/10min JFK- LGA,Richmond Hill,Private room,30,350.0,111.0,2.1532,305,365,0.8356,Strict 30+ night minimum AND price 215% above peer median; 84% vacant.
+738,566548245549224932,Summit House 2 Bedroom Apt with Private Garden,Carroll Gardens,Private room,30,300.0,111.0,1.7027,305,365,0.8356,Strict 30+ night minimum AND price 170% above peer median; 84% vacant.
+739,1268383579464213732,Brownstone Triplex & Garden,Park Slope,Entire home/apt,30,450.0,180.0,1.5,305,365,0.8356,Strict 30+ night minimum AND price 150% above peer median; 84% vacant.
+740,1436225401093395258,Luxury 2bedroom inTimes Square,Hell's Kitchen,Entire home/apt,30,357.0,180.0,0.9833,305,365,0.8356,Strict 30+ night minimum AND price 98% above peer median; 84% vacant.
+741,836720,Best view in Queens,College Point,Entire home/apt,30,353.0,180.0,0.9611,305,365,0.8356,Strict 30+ night minimum AND price 96% above peer median; 84% vacant.
+742,2468186,Beautiful Apartment Near Central Park,Upper West Side,Entire home/apt,30,345.0,180.0,0.9167,305,365,0.8356,Strict 30+ night minimum AND price 92% above peer median; 84% vacant.
+743,1286376625557078941,Brownstone room w/ AC/wash/dryer,Harlem,Private room,30,200.0,111.0,0.8018,305,365,0.8356,Strict 30+ night minimum AND price 80% above peer median; 84% vacant.
+744,652943524305648321,Furnished Private Bedroom in  Canarsie apartment!,Canarsie,Private room,30,178.0,111.0,0.6036,305,365,0.8356,Strict 30+ night minimum AND price 60% above peer median; 84% vacant.
+745,1339054666142371200,Sunny Brooklyn Apartment,Bedford-Stuyvesant,Private room,30,173.0,111.0,0.5586,305,365,0.8356,Strict 30+ night minimum AND price 56% above peer median; 84% vacant.
+746,639317233046143765,Stylish brand new 2 bedroom close to LGA airport,East Elmhurst,Entire home/apt,30,265.0,180.0,0.4722,305,365,0.8356,Strict 30+ night minimum AND price 47% above peer median; 84% vacant.
+747,103555,Clean&Serene in Scenic Fort Greene,Fort Greene,Entire home/apt,30,260.0,180.0,0.4444,305,365,0.8356,Strict 30+ night minimum AND price 44% above peer median; 84% vacant.
+748,1374209075339266256,Modern space in Bed-Stuy,Bedford-Stuyvesant,Private room,30,158.0,111.0,0.4234,305,365,0.8356,Strict 30+ night minimum AND price 42% above peer median; 84% vacant.
+749,691963044801266991,Spacious 3 bedroom home right by JFK airport,Howard Beach,Entire home/apt,30,254.0,180.0,0.4111,305,365,0.8356,Strict 30+ night minimum AND price 41% above peer median; 84% vacant.
+750,1290816484307146814,Spring Creek Oasis,East New York,Private room,30,155.0,111.0,0.3964,305,365,0.8356,Strict 30+ night minimum AND price 40% above peer median; 84% vacant.
+751,724535783876553795,Cozy 1 bedroom apartment in Prime Williamsburg,Williamsburg,Entire home/apt,30,251.0,180.0,0.3944,305,365,0.8356,Strict 30+ night minimum AND price 39% above peer median; 84% vacant.
+752,1284776,Modern Apartment in Brownstone Bkln,Gowanus,Entire home/apt,30,250.0,180.0,0.3889,305,365,0.8356,Strict 30+ night minimum AND price 39% above peer median; 84% vacant.
+753,578592072056483887,*PRIME Bedford Ave * Peaceful & Chic +private yard,Williamsburg,Entire home/apt,30,237.0,180.0,0.3167,305,365,0.8356,Strict 30+ night minimum AND price 32% above peer median; 84% vacant.
+754,2968070,Near Times Square and Hell's Kitchen,Theater District,Private room,30,146.0,111.0,0.3153,305,365,0.8356,Strict 30+ night minimum AND price 32% above peer median; 84% vacant.
+755,1432220832139681314,Prime 2BR Base: NYC Living Refined,Midtown,Entire home/apt,30,235.0,180.0,0.3056,305,365,0.8356,Strict 30+ night minimum AND price 31% above peer median; 84% vacant.
+756,34709283,"""Harlem Duplex from 7/20-8/20 perfect for Family""",Harlem,Entire home/apt,30,225.0,180.0,0.25,305,365,0.8356,Strict 30+ night minimum AND price 25% above peer median; 84% vacant.
+757,18152,Manhattan Room,Upper East Side,Private room,30,500.0,111.0,3.5045,304,365,0.8329,Strict 30+ night minimum AND price 350% above peer median; 83% vacant.
+758,1372525930485302467,Designer Loft in Prime Williamsburg,Williamsburg,Entire home/apt,30,500.0,180.0,1.7778,304,365,0.8329,Strict 30+ night minimum AND price 178% above peer median; 83% vacant.
+759,38978429,Charming Studio **West Village**,Greenwich Village,Entire home/apt,30,311.0,180.0,0.7278,304,365,0.8329,Strict 30+ night minimum AND price 73% above peer median; 83% vacant.
+760,27966667,Newly Renovated Carroll Gardens 2 BR,Carroll Gardens,Entire home/apt,30,295.0,180.0,0.6389,304,365,0.8329,Strict 30+ night minimum AND price 64% above peer median; 83% vacant.
+761,13218139,"Villa Astoria Duplex (5 Rooms, 2 Baths, 2 Floors)",Midtown,Entire home/apt,30,470.0,180.0,1.6111,303,365,0.8301,Strict 30+ night minimum AND price 161% above peer median; 83% vacant.
+762,32990282,"Cozy 1BR in the Heart of Astoria, 15 Min to NYC",Ditmars Steinway,Entire home/apt,30,396.0,180.0,1.2,303,365,0.8301,Strict 30+ night minimum AND price 120% above peer median; 83% vacant.
+763,46450521,Huge One-bedroom in Heart of Murray Hill,Kips Bay,Entire home/apt,30,252.0,180.0,0.4,303,365,0.8301,Strict 30+ night minimum AND price 40% above peer median; 83% vacant.
+764,11867485,BEAUTIFUL COZY APARTMENT IN TIMES SQUARE,Theater District,Entire home/apt,30,500.0,180.0,1.7778,302,365,0.8274,Strict 30+ night minimum AND price 178% above peer median; 83% vacant.
+765,1464105449413686952,Bushwick Oasis- 2 bedrooms,Bushwick,Entire home/apt,30,266.0,180.0,0.4778,302,365,0.8274,Strict 30+ night minimum AND price 48% above peer median; 83% vacant.
+766,23202549,3rd Floor 2 Bedroom by Park Ave,Kips Bay,Entire home/apt,31,252.0,180.0,0.4,302,365,0.8274,Strict 31+ night minimum AND price 40% above peer median; 83% vacant.
+767,24912129,Fab Williamsburg condo monthly rental,Greenpoint,Entire home/apt,60,225.0,180.0,0.25,302,365,0.8274,Strict 60+ night minimum AND price 25% above peer median; 83% vacant.
+768,3012871,Amazing large Beautiful design apt on Bedford Ave,Williamsburg,Entire home/apt,30,272.0,180.0,0.5111,300,365,0.8219,Strict 30+ night minimum AND price 51% above peer median; 82% vacant.
+769,39528624,Big & Beautiful Loft in the Heart of Williamsburg,Williamsburg,Entire home/apt,30,420.0,180.0,1.3333,298,365,0.8164,Strict 30+ night minimum AND price 133% above peer median; 82% vacant.
+770,13317650,"Large 3-Bedrooms/2-Bath Apt, One Block to Train",East New York,Private room,30,233.0,111.0,1.0991,296,365,0.811,Strict 30+ night minimum AND price 110% above peer median; 81% vacant.
+771,1049940767703198807,"Bright, Spacious 2BR w Park view",Greenpoint,Entire home/apt,30,353.0,180.0,0.9611,296,365,0.811,Strict 30+ night minimum AND price 96% above peer median; 81% vacant.
+772,1089185458346740440,Cozy Summer Apartment in the Heart of Brooklyn,East Flatbush,Private room,31,162.0,111.0,0.4595,295,365,0.8082,Strict 31+ night minimum AND price 46% above peer median; 81% vacant.
+773,623185525340790807,Family friendly apartment in trendy Greenpoint,Greenpoint,Entire home/apt,30,475.0,180.0,1.6389,292,365,0.8,Strict 30+ night minimum AND price 164% above peer median; 80% vacant.
