@@ -89,24 +89,110 @@ for (mn, hg), g in listing_v.dropna(subset=['minimum_nights_group']).groupby(['m
 pd.DataFrame(box_rows).to_csv(OUT / 'task4_min_nights_vacancy_box.csv', index=False)
 pd.concat(out_rows, ignore_index=True).to_csv(OUT / 'task4_min_nights_vacancy_outliers.csv', index=False)
 
-# Task 5
+# Task 5 — Neighbourhood Opportunity Heatmap
 print('Task 5...')
-needed = ['id','number_of_reviews_ltm','host_is_superhost','neighbourhood_cleansed']
-coords = [c for c in ['latitude','longitude'] if c in listings.columns]
-t5_cols = needed + coords
-t5_all = listings[t5_cols].copy()
-t5_all['number_of_reviews_ltm'] = pd.to_numeric(t5_all['number_of_reviews_ltm'], errors='coerce').fillna(0)
-t5_all['host_is_superhost_bool'] = bool_series(t5_all['host_is_superhost'])
-threshold = t5_all['number_of_reviews_ltm'].quantile(.9)
-t5_all['is_top_tier'] = t5_all['number_of_reviews_ltm'] >= threshold
 
-t5 = t5_all[t5_all['is_top_tier']].rename(columns={'id':'listing_id'}).copy()
-for c in ['latitude','longitude']:
-    if c not in t5.columns: t5[c] = None
-t5[['listing_id','latitude','longitude','number_of_reviews_ltm','host_is_superhost','neighbourhood_cleansed']].to_csv(OUT / 'task5_top_tier_locations.csv', index=False)
+# --- 5a. Listing-level base metrics ---
+t5_listings = listings[['id', 'neighbourhood_cleansed', 'room_type', 'price',
+                         'number_of_reviews_ltm', 'calculated_host_listings_count']].copy()
+t5_listings['id'] = t5_listings['id'].astype(str)
+t5_listings['price_clean'] = pd.to_numeric(t5_listings['price'], errors='coerce')
+t5_listings['reviews_ltm'] = pd.to_numeric(t5_listings['number_of_reviews_ltm'], errors='coerce').fillna(0)
+t5_listings['host_count'] = pd.to_numeric(t5_listings['calculated_host_listings_count'], errors='coerce').fillna(1)
+t5_listings['host_group'] = t5_listings['host_count'].apply(lambda x: 'Commercial host' if x > 1 else 'Individual host')
 
+# --- 5b. Derive borough from GeoJSON properties ---
+import json
+geo_path = DATA / 'neighbourhoods.geojson'
+with open(geo_path, encoding='utf-8') as f:
+    geo = json.load(f)
+borough_map = {}
+for feat in geo.get('features', []):
+    props = feat.get('properties', {})
+    n = props.get('neighbourhood') or props.get('neighbourhood_cleansed') or ''
+    g = props.get('neighbourhood_group') or props.get('neighbourhood_group_cleansed') or 'Unknown'
+    if n:
+        borough_map[n] = g
+t5_listings['borough'] = t5_listings['neighbourhood_cleansed'].map(borough_map).fillna('Unknown')
+
+# --- 5c. Availability from calendar (365-day window, chunked) ---
+print('  Task 5 – reading calendar for availability...')
+avail_parts = []
+for chunk in pd.read_csv(CALENDAR, usecols=['listing_id', 'available'], chunksize=1_000_000, low_memory=False):
+    chunk['listing_id'] = chunk['listing_id'].astype(str)
+    chunk['avail_num'] = bool_series(chunk['available']).astype(int)
+    avail_parts.append(chunk.groupby('listing_id').agg(
+        avail_days=('avail_num', 'sum'),
+        total_days=('avail_num', 'size')
+    ))
+avail_df = pd.concat(avail_parts).groupby('listing_id').sum()
+avail_df['availability_pct'] = avail_df['avail_days'] / avail_df['total_days'].clip(lower=1)
+t5_listings = t5_listings.join(avail_df[['availability_pct']], on='id')
+t5_listings['availability_pct'] = t5_listings['availability_pct'].fillna(0)
+
+# --- 5c. Aggregate to neighbourhood level ---
+def dominant(s):
+    return s.value_counts().idxmax() if len(s) else 'Unknown'
+
+t5_agg = t5_listings.groupby('neighbourhood_cleansed', dropna=True).agg(
+    borough=('borough', dominant),
+    listing_count=('id', 'count'),
+    avg_price=('price_clean', 'mean'),
+    avg_reviews_ltm=('reviews_ltm', 'mean'),
+    total_reviews=('reviews_ltm', 'sum'),
+    avg_availability_pct=('availability_pct', 'mean'),
+    dominant_room_type=('room_type', dominant),
+).reset_index()
+
+t5_agg['avg_price'] = t5_agg['avg_price'].fillna(0)
+
+# --- 5d. Normalize components to [0, 1] ---
+def norm(s):
+    mn, mx = s.min(), s.max()
+    return (s - mn) / (mx - mn) if mx > mn else pd.Series(0.0, index=s.index)
+
+t5_agg['norm_demand']       = norm(t5_agg['avg_reviews_ltm'])
+t5_agg['norm_price']        = norm(t5_agg['avg_price'])
+t5_agg['norm_availability'] = norm(t5_agg['avg_availability_pct'])
+t5_agg['norm_competition']  = norm(t5_agg['listing_count'])
+
+# --- 5e. Opportunity score ---
+t5_agg['opportunity_score'] = (
+    t5_agg['norm_demand'] +
+    t5_agg['norm_price'] +
+    t5_agg['norm_availability'] -
+    t5_agg['norm_competition']
+).round(4)
+
+# Drop helper columns
+t5_agg = t5_agg.drop(columns=['norm_demand', 'norm_price', 'norm_availability', 'norm_competition'])
+
+# Round floats for readability
+t5_agg['avg_price'] = t5_agg['avg_price'].round(2)
+t5_agg['avg_reviews_ltm'] = t5_agg['avg_reviews_ltm'].round(2)
+t5_agg['avg_availability_pct'] = (t5_agg['avg_availability_pct'] * 100).round(2)  # store as %
+
+t5_agg.sort_values('opportunity_score', ascending=False).to_csv(
+    OUT / 'task5_neighbourhood_opportunity.csv', index=False
+)
+print(f'  Task 5 done: {len(t5_agg)} neighbourhoods written.')
+
+# Keep legacy files so existing imports don't break
+t5_legacy = listings[['id', 'number_of_reviews_ltm', 'host_is_superhost', 'neighbourhood_cleansed']].copy()
+t5_legacy['id'] = t5_legacy['id'].astype(str)
+t5_legacy['number_of_reviews_ltm'] = pd.to_numeric(t5_legacy['number_of_reviews_ltm'], errors='coerce').fillna(0)
+t5_legacy['host_is_superhost_bool'] = bool_series(t5_legacy['host_is_superhost'])
+for c in ['latitude', 'longitude']:
+    if c in listings.columns:
+        t5_legacy[c] = listings[c]
+    else:
+        t5_legacy[c] = None
+threshold = t5_legacy['number_of_reviews_ltm'].quantile(.9)
+t5_legacy['is_top_tier'] = t5_legacy['number_of_reviews_ltm'] >= threshold
+t5_top = t5_legacy[t5_legacy['is_top_tier']].rename(columns={'id': 'listing_id'})
+t5_top[['listing_id', 'latitude', 'longitude', 'number_of_reviews_ltm', 'host_is_superhost', 'neighbourhood_cleansed']].to_csv(OUT / 'task5_top_tier_locations.csv', index=False)
 gap_rows = []
-for neighbourhood, group in t5_all.groupby('neighbourhood_cleansed', dropna=True):
+for neighbourhood, group in t5_legacy.groupby('neighbourhood_cleansed', dropna=True):
     top_tier = group[group['is_top_tier']]
     superhost_count = int(top_tier['host_is_superhost_bool'].sum())
     total_top_tier = int(len(top_tier))
@@ -124,7 +210,7 @@ for neighbourhood, group in t5_all.groupby('neighbourhood_cleansed', dropna=True
         'gap_score': gap_score,
         'avg_top_tier_reviews_ltm': top_tier['number_of_reviews_ltm'].mean() if total_top_tier else 0,
     })
-pd.DataFrame(gap_rows).sort_values(['gap_score','top_tier_regular_count'], ascending=[False,False]).to_csv(OUT / 'task5_neighbourhood_gap.csv', index=False)
+pd.DataFrame(gap_rows).sort_values(['gap_score', 'top_tier_regular_count'], ascending=[False, False]).to_csv(OUT / 'task5_neighbourhood_gap.csv', index=False)
 
 # Task 6
 print('Task 6...')

@@ -83,6 +83,25 @@ export interface Task5NeighbourhoodGapRow {
   avg_top_tier_reviews_ltm: number
 }
 
+export interface Task5NeighbourhoodOpportunityRow {
+  neighbourhood_cleansed: string
+  borough: string
+  opportunity_score: number
+  avg_price: number
+  listing_count: number
+  avg_availability_pct: number
+  avg_reviews_ltm: number
+  dominant_room_type: string
+  total_reviews: number
+}
+
+export interface Task5FilterState {
+  borough: string
+  roomType: string
+  priceMin: number
+  priceMax: number
+}
+
 export interface Task6HostKpiRow {
   kpi_name: string
   kpi_value: number
