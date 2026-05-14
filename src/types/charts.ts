@@ -71,6 +71,18 @@ export interface Task5TopTierLocationRow {
   neighbourhood_cleansed: string
 }
 
+export interface Task5NeighbourhoodGapRow {
+  neighbourhood_cleansed: string
+  total_listings: number
+  top_tier_threshold_ltm: number
+  total_top_tier_listings: number
+  top_tier_superhost_count: number
+  top_tier_regular_count: number
+  superhost_share: number
+  gap_score: number
+  avg_top_tier_reviews_ltm: number
+}
+
 export interface Task6HostKpiRow {
   kpi_name: string
   kpi_value: number

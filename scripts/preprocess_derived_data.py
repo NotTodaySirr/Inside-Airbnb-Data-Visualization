@@ -94,13 +94,37 @@ print('Task 5...')
 needed = ['id','number_of_reviews_ltm','host_is_superhost','neighbourhood_cleansed']
 coords = [c for c in ['latitude','longitude'] if c in listings.columns]
 t5_cols = needed + coords
-t5 = listings[t5_cols].copy()
-t5['number_of_reviews_ltm'] = pd.to_numeric(t5['number_of_reviews_ltm'], errors='coerce').fillna(0)
-threshold = t5['number_of_reviews_ltm'].quantile(.9)
-t5 = t5[t5['number_of_reviews_ltm'] >= threshold].rename(columns={'id':'listing_id'})
+t5_all = listings[t5_cols].copy()
+t5_all['number_of_reviews_ltm'] = pd.to_numeric(t5_all['number_of_reviews_ltm'], errors='coerce').fillna(0)
+t5_all['host_is_superhost_bool'] = bool_series(t5_all['host_is_superhost'])
+threshold = t5_all['number_of_reviews_ltm'].quantile(.9)
+t5_all['is_top_tier'] = t5_all['number_of_reviews_ltm'] >= threshold
+
+t5 = t5_all[t5_all['is_top_tier']].rename(columns={'id':'listing_id'}).copy()
 for c in ['latitude','longitude']:
     if c not in t5.columns: t5[c] = None
 t5[['listing_id','latitude','longitude','number_of_reviews_ltm','host_is_superhost','neighbourhood_cleansed']].to_csv(OUT / 'task5_top_tier_locations.csv', index=False)
+
+gap_rows = []
+for neighbourhood, group in t5_all.groupby('neighbourhood_cleansed', dropna=True):
+    top_tier = group[group['is_top_tier']]
+    superhost_count = int(top_tier['host_is_superhost_bool'].sum())
+    total_top_tier = int(len(top_tier))
+    regular_count = int(total_top_tier - superhost_count)
+    superhost_share = superhost_count / total_top_tier if total_top_tier else 0
+    gap_score = regular_count * (1 - superhost_share) if total_top_tier else 0
+    gap_rows.append({
+        'neighbourhood_cleansed': neighbourhood,
+        'total_listings': int(len(group)),
+        'top_tier_threshold_ltm': threshold,
+        'total_top_tier_listings': total_top_tier,
+        'top_tier_superhost_count': superhost_count,
+        'top_tier_regular_count': regular_count,
+        'superhost_share': superhost_share,
+        'gap_score': gap_score,
+        'avg_top_tier_reviews_ltm': top_tier['number_of_reviews_ltm'].mean() if total_top_tier else 0,
+    })
+pd.DataFrame(gap_rows).sort_values(['gap_score','top_tier_regular_count'], ascending=[False,False]).to_csv(OUT / 'task5_neighbourhood_gap.csv', index=False)
 
 # Task 6
 print('Task 6...')

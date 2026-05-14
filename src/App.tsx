@@ -9,11 +9,11 @@ import { Task5BubbleMap } from './visualizations/Task5BubbleMap'
 import { Task6HostKpiBars } from './visualizations/Task6HostKpiBars'
 
 const charts: ChartDefinition[] = [
-  { id: 'task1', title: 'Price–Rating Correlation Ranking', taskText: 'Rank neighbourhood-room groups by the strength and direction of price–rating correlation, filtered by sample size.', idiom: 'Diverging bar chart', dataUrl: '/data/derived/task1_price_rating_corr.csv', component: Task1CorrelationBars },
+  { id: 'task1', title: 'Price-Rating Correlation by Neighbourhood and Room Type', taskText: 'Which neighbourhood-room type groups show the strongest positive or negative relationship between price and rating?', idiom: 'Diverging bar chart', dataUrl: '/data/derived/task1_price_rating_corr.csv', component: Task1CorrelationBars },
   { id: 'task2', title: 'Monthly Review Demand by Room Type', taskText: 'Compare review volume over time and identify seasonal shifts across room types.', idiom: 'Stacked bar chart', dataUrl: '/data/derived/task2_review_month_room_type.csv', component: Task2StackedReviews },
   { id: 'task3', title: 'Vacancy Trend by Host Group', taskText: 'Compare vacancy rates for individual versus multi-listing hosts with a room-type filter.', idiom: 'Area chart', dataUrl: '/data/derived/task3_vacancy_month_host_group.csv', component: Task3VacancyArea },
   { id: 'task4', title: 'Minimum Nights vs Vacancy Distribution', taskText: 'Inspect vacancy spread, medians, and listing-level outliers across stay-length policies.', idiom: 'Box plot', dataUrl: '/data/derived/task4_min_nights_vacancy_box.csv', component: Task4VacancyBoxPlot },
-  { id: 'task5', title: 'Top-Tier Listing Location Bubbles', taskText: 'Locate listings in the top 10% of last-twelve-month reviews and compare superhost status.', idiom: 'Bubble map', dataUrl: '/data/derived/task5_top_tier_locations.csv', component: Task5BubbleMap },
+  { id: 'task5', title: 'Top-Tier Superhost Gap Map', taskText: 'Map high-review listings by Superhost status and highlight neighbourhoods with many high-review regular hosts but low Superhost presence.', idiom: 'Bubble map', dataUrl: '/data/derived/task5_top_tier_locations.csv', component: Task5BubbleMap },
   { id: 'task6', title: 'Host Performance KPI Comparison', taskText: 'Compare superhost and regular host performance across acceptance, instant booking, and rating KPIs.', idiom: 'Grouped bar chart', dataUrl: '/data/derived/task6_host_kpi.csv', component: Task6HostKpiBars },
 ]
 
@@ -25,7 +25,7 @@ function App() {
   return (
     <main className="app-shell">
       <section className="hero-panel">
-        <p className="eyebrow">Inside Airbnb · React + D3 Explorer</p>
+        <p className="eyebrow">Inside Airbnb - React + D3 Explorer</p>
         <h1>Six focused chart views, one premium exploration surface.</h1>
         <p className="hero-copy">Each view loads a small pre-aggregated CSV from <code>public/data/derived</code>. React owns interaction state; D3 powers CSV loading, scales, stacks, shapes, and chart math.</p>
       </section>

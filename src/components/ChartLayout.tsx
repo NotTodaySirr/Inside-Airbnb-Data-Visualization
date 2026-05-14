@@ -1,24 +1,65 @@
 import type { ReactNode } from 'react'
 
-type ChartLayoutProps = {
+type ChartWorkspaceProps = {
+  children: ReactNode
+  toolbox: ReactNode
+  caption: string
+  activeSummary?: string
+}
+
+type ToolboxSectionProps = {
   title: string
-  description: string
   children: ReactNode
 }
 
-export function ChartLayout({
-  title,
-  description,
+type ToolboxControlProps = {
+  label: string
+  children: ReactNode
+}
+
+export function ChartWorkspace({
   children,
-}: ChartLayoutProps) {
+  toolbox,
+  caption,
+  activeSummary,
+}: ChartWorkspaceProps) {
   return (
-    <section className="chart-card" aria-labelledby="chart-title">
-      <div className="chart-card__header">
-        <p className="eyebrow">Sample chart</p>
-        <h2 id="chart-title">{title}</h2>
-        <p>{description}</p>
+    <>
+      <div className="chart-workspace">
+        <div className="chart-workspace__main">{children}</div>
+        <aside className="chart-toolbox" aria-label="Chart controls">
+          {activeSummary ? <ActiveFilterSummary summary={activeSummary} /> : null}
+          {toolbox}
+        </aside>
       </div>
-      {children}
+      <p className="chart-caption">{caption}</p>
+    </>
+  )
+}
+
+export function ToolboxSection({ title, children }: ToolboxSectionProps) {
+  return (
+    <section className="toolbox-section">
+      <h3>{title}</h3>
+      <div className="toolbox-section__body">{children}</div>
     </section>
+  )
+}
+
+export function ToolboxControl({ label, children }: ToolboxControlProps) {
+  return (
+    <label className="toolbox-control">
+      <span>{label}</span>
+      {children}
+    </label>
+  )
+}
+
+export function ActiveFilterSummary({ summary }: { summary: string }) {
+  return (
+    <div className="active-filter-summary">
+      <span>Active filters</span>
+      <strong>{summary}</strong>
+    </div>
   )
 }

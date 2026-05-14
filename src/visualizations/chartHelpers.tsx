@@ -1,3 +1,26 @@
+export type HoverCardRow = {
+  label: string
+  value: string
+}
+
+export type HoverCardProps = {
+  x: number
+  y: number
+  title: string
+  rows: HoverCardRow[]
+}
+
+export function HoverCard({ x, y, title, rows }: HoverCardProps) {
+  return (
+    <div className="hover-card" style={{ left: x, top: y }}>
+      <strong>{title}</strong>
+      {rows.map((row) => (
+        <span key={row.label}><b>{row.label}:</b> {row.value}</span>
+      ))}
+    </div>
+  )
+}
+
 export function EmptyState({ title, message }: { title: string; message: string }) {
   return (
     <div className="empty-state" role="status">
