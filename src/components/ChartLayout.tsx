@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { SummarySlot, ToolboxSlot } from './ChartSlots'
 
 type ChartWorkspaceProps = {
   children: ReactNode
@@ -17,6 +18,11 @@ type ToolboxControlProps = {
   children: ReactNode
 }
 
+/**
+ * Renders the chart's main canvas inline, while portaling its per-chart
+ * toolbox + active-summary into the shared dashboard FilterRail via
+ * ChartSlots. This keeps each chart agnostic of the shell layout.
+ */
 export function ChartWorkspace({
   children,
   toolbox,
@@ -25,14 +31,14 @@ export function ChartWorkspace({
 }: ChartWorkspaceProps) {
   return (
     <>
-      <div className="chart-workspace">
-        <div className="chart-workspace__main">{children}</div>
-        <aside className="chart-toolbox" aria-label="Chart controls">
-          {activeSummary ? <ActiveFilterSummary summary={activeSummary} /> : null}
-          {toolbox}
-        </aside>
-      </div>
+      <div className="chart-canvas-body">{children}</div>
       <p className="chart-caption">{caption}</p>
+      {activeSummary ? (
+        <SummarySlot>
+          <ActiveFilterSummary summary={activeSummary} />
+        </SummarySlot>
+      ) : null}
+      {toolbox ? <ToolboxSlot>{toolbox}</ToolboxSlot> : null}
     </>
   )
 }
