@@ -1,0 +1,118 @@
+import pandas as pd
+from pathlib import Path
+
+DATA = Path('public/data')
+OUT = DATA / 'derived'
+OUT.mkdir(parents=True, exist_ok=True)
+
+LISTINGS = DATA / 'listings_cleaned.csv'
+REVIEWS = DATA / 'reviews_cleaned.csv'
+CALENDAR = DATA / 'calendar_cleaned.csv'
+
+def bool_series(s):
+    return s.astype(str).str.lower().isin(['true', 't', '1', 'yes'])
+
+def min_nights_group(v):
+    if pd.isna(v): return None
+    v = float(v)
+    if v <= 2: return '1-2 nights'
+    if v <= 6: return '3-6 nights'
+    if v <= 29: return '7-29 nights'
+    return '30+ nights'
+
+def pearson(x):
+    if len(x) < 10 or x['price_clean'].nunique() < 2 or x['review_scores_rating'].nunique() < 2:
+        return None
+    return x['price_clean'].corr(x['review_scores_rating'])
+
+print('Loading listings...')
+listings = pd.read_csv(LISTINGS, low_memory=False)
+listings['id'] = listings['id'].astype(str)
+
+# Task 1
+print('Task 1...')
+t1 = listings.copy()
+t1['price_clean'] = pd.to_numeric(t1['price'], errors='coerce')
+t1['review_scores_rating'] = pd.to_numeric(t1['review_scores_rating'], errors='coerce')
+valid_price = t1['price_clean'].notna() & ~bool_series(t1['price_missing']) & ~bool_series(t1['is_price_outlier'])
+t1 = t1[valid_price & t1['review_scores_rating'].notna()]
+rows = []
+for (n, r), g in t1.groupby(['neighbourhood_cleansed', 'room_type'], dropna=True):
+    corr = pearson(g)
+    if corr is not None and pd.notna(corr):
+        rows.append({
+            'neighbourhood_cleansed': n,
+            'room_type': r,
+            'pearson_r': corr,
+            'sample_size': len(g),
+            'avg_price_clean': g['price_clean'].mean(),
+            'avg_review_scores_rating': g['review_scores_rating'].mean(),
+        })
+pd.DataFrame(rows).sort_values(['neighbourhood_cleansed','room_type']).to_csv(OUT / 'task1_price_rating_corr.csv', index=False)
+
+# Task 2
+print('Task 2...')
+reviews = pd.read_csv(REVIEWS, usecols=['date','room_type'], low_memory=False)
+reviews['review_month'] = pd.to_datetime(reviews['date'], errors='coerce').dt.to_period('M').astype(str)
+t2 = reviews.dropna(subset=['review_month','room_type']).groupby(['review_month','room_type']).size().reset_index(name='review_count')
+t2.to_csv(OUT / 'task2_review_month_room_type.csv', index=False)
+
+# Tasks 3/4 calendar aggregation in chunks
+print('Tasks 3/4 calendar chunks...')
+listing_meta = listings[['id','calculated_host_listings_count','minimum_nights']].copy()
+listing_meta['host_group'] = pd.to_numeric(listing_meta['calculated_host_listings_count'], errors='coerce').fillna(0).apply(lambda x: 'Individual host' if x == 1 else 'Multi-listing host')
+listing_meta['minimum_nights_group'] = pd.to_numeric(listing_meta['minimum_nights'], errors='coerce').apply(min_nights_group)
+meta = listing_meta.set_index('id')[['host_group','minimum_nights_group']]
+month_parts = []
+listing_parts = []
+for chunk in pd.read_csv(CALENDAR, usecols=['listing_id','date','available','room_type'], chunksize=1_000_000, low_memory=False):
+    chunk['listing_id'] = chunk['listing_id'].astype(str)
+    chunk['date_month'] = pd.to_datetime(chunk['date'], errors='coerce').dt.to_period('M').astype(str)
+    chunk['available_num'] = bool_series(chunk['available']).astype(int)
+    chunk = chunk.join(meta, on='listing_id')
+    chunk = chunk.dropna(subset=['host_group'])
+    month_parts.append(chunk.groupby(['date_month','host_group','room_type'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
+    listing_parts.append(chunk.groupby(['listing_id','host_group','minimum_nights_group'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
+month = pd.concat(month_parts).groupby(['date_month','host_group','room_type'], as_index=False).sum()
+month['vacancy_rate'] = month['available_days'] / month['total_days']
+month[['date_month','host_group','room_type','vacancy_rate','available_days','total_days']].to_csv(OUT / 'task3_vacancy_month_host_group.csv', index=False)
+listing_v = pd.concat(listing_parts).groupby(['listing_id','host_group','minimum_nights_group'], as_index=False).sum()
+listing_v['vacancy_rate'] = listing_v['available_days'] / listing_v['total_days']
+box_rows, out_rows = [], []
+for (mn, hg), g in listing_v.dropna(subset=['minimum_nights_group']).groupby(['minimum_nights_group','host_group']):
+    q1, med, q3 = g['vacancy_rate'].quantile([.25,.5,.75])
+    iqr = q3 - q1
+    low, high = max(0, q1 - 1.5*iqr), min(1, q3 + 1.5*iqr)
+    box_rows.append({'minimum_nights_group': mn, 'host_group': hg, 'q1': q1, 'median': med, 'q3': q3, 'whisker_low': low, 'whisker_high': high, 'sample_size': len(g)})
+    outs = g[(g['vacancy_rate'] < low) | (g['vacancy_rate'] > high)][['minimum_nights_group','host_group','listing_id','vacancy_rate']]
+    out_rows.append(outs)
+pd.DataFrame(box_rows).to_csv(OUT / 'task4_min_nights_vacancy_box.csv', index=False)
+pd.concat(out_rows, ignore_index=True).to_csv(OUT / 'task4_min_nights_vacancy_outliers.csv', index=False)
+
+# Task 5
+print('Task 5...')
+needed = ['id','number_of_reviews_ltm','host_is_superhost','neighbourhood_cleansed']
+coords = [c for c in ['latitude','longitude'] if c in listings.columns]
+t5_cols = needed + coords
+t5 = listings[t5_cols].copy()
+t5['number_of_reviews_ltm'] = pd.to_numeric(t5['number_of_reviews_ltm'], errors='coerce').fillna(0)
+threshold = t5['number_of_reviews_ltm'].quantile(.9)
+t5 = t5[t5['number_of_reviews_ltm'] >= threshold].rename(columns={'id':'listing_id'})
+for c in ['latitude','longitude']:
+    if c not in t5.columns: t5[c] = None
+t5[['listing_id','latitude','longitude','number_of_reviews_ltm','host_is_superhost','neighbourhood_cleansed']].to_csv(OUT / 'task5_top_tier_locations.csv', index=False)
+
+# Task 6
+print('Task 6...')
+kpis = []
+listings['host_performance_group'] = bool_series(listings['host_is_superhost']).map({True:'Superhost', False:'Regular host'})
+for group, g in listings.groupby('host_performance_group'):
+    metrics = {
+        'avg_host_acceptance_rate': pd.to_numeric(g['host_acceptance_rate'], errors='coerce').dropna(),
+        'instant_bookable_rate': bool_series(g['instant_bookable']).astype(float),
+        'avg_review_scores_rating': pd.to_numeric(g['review_scores_rating'], errors='coerce').dropna(),
+    }
+    for name, vals in metrics.items():
+        kpis.append({'kpi_name': name, 'kpi_value': vals.mean(), 'host_performance_group': group, 'sample_size': len(vals)})
+pd.DataFrame(kpis).to_csv(OUT / 'task6_host_kpi.csv', index=False)
+print('Done:', OUT)

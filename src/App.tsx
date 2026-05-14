@@ -1,69 +1,54 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import './App.css'
-import { ChartLayout } from './components/ChartLayout'
-import { VisualizationDesign } from './components/VisualizationDesign'
-import { loadChartData } from './data/loadChartData'
-import { sampleCategoricalData } from './data/sampleData'
-import type { CategoricalDatum } from './data/sampleData'
-import { BarChart } from './visualizations/BarChart'
+import type { ChartDefinition, ChartId } from './types/charts'
+import { Task1CorrelationBars } from './visualizations/Task1CorrelationBars'
+import { Task2StackedReviews } from './visualizations/Task2StackedReviews'
+import { Task3VacancyArea } from './visualizations/Task3VacancyArea'
+import { Task4VacancyBoxPlot } from './visualizations/Task4VacancyBoxPlot'
+import { Task5BubbleMap } from './visualizations/Task5BubbleMap'
+import { Task6HostKpiBars } from './visualizations/Task6HostKpiBars'
+
+const charts: ChartDefinition[] = [
+  { id: 'task1', title: 'Price–Rating Correlation Ranking', taskText: 'Rank neighbourhood-room groups by the strength and direction of price–rating correlation, filtered by sample size.', idiom: 'Diverging bar chart', dataUrl: '/data/derived/task1_price_rating_corr.csv', component: Task1CorrelationBars },
+  { id: 'task2', title: 'Monthly Review Demand by Room Type', taskText: 'Compare review volume over time and identify seasonal shifts across room types.', idiom: 'Stacked bar chart', dataUrl: '/data/derived/task2_review_month_room_type.csv', component: Task2StackedReviews },
+  { id: 'task3', title: 'Vacancy Trend by Host Group', taskText: 'Compare vacancy rates for individual versus multi-listing hosts with a room-type filter.', idiom: 'Area chart', dataUrl: '/data/derived/task3_vacancy_month_host_group.csv', component: Task3VacancyArea },
+  { id: 'task4', title: 'Minimum Nights vs Vacancy Distribution', taskText: 'Inspect vacancy spread, medians, and listing-level outliers across stay-length policies.', idiom: 'Box plot', dataUrl: '/data/derived/task4_min_nights_vacancy_box.csv', component: Task4VacancyBoxPlot },
+  { id: 'task5', title: 'Top-Tier Listing Location Bubbles', taskText: 'Locate listings in the top 10% of last-twelve-month reviews and compare superhost status.', idiom: 'Bubble map', dataUrl: '/data/derived/task5_top_tier_locations.csv', component: Task5BubbleMap },
+  { id: 'task6', title: 'Host Performance KPI Comparison', taskText: 'Compare superhost and regular host performance across acceptance, instant booking, and rating KPIs.', idiom: 'Grouped bar chart', dataUrl: '/data/derived/task6_host_kpi.csv', component: Task6HostKpiBars },
+]
 
 function App() {
-  const [data, setData] = useState<CategoricalDatum[]>(sampleCategoricalData)
-  const [source, setSource] = useState<'csv' | 'sample'>('sample')
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    let ignore = false
-
-    async function loadData() {
-      const result = await loadChartData()
-
-      if (!ignore) {
-        setData(result.data)
-        setSource(result.source)
-        setIsLoading(false)
-      }
-    }
-
-    loadData()
-
-    return () => {
-      ignore = true
-    }
-  }, [])
+  const [activeId, setActiveId] = useState<ChartId>('task1')
+  const activeChart = useMemo(() => charts.find((chart) => chart.id === activeId) ?? charts[0], [activeId])
+  const ActiveComponent = activeChart.component
 
   return (
     <main className="app-shell">
       <section className="hero-panel">
-        <p className="eyebrow">Data Visualization Lab</p>
-        <h1>React controls the interface. D3 powers the chart math.</h1>
-        <p className="hero-copy">
-          This starter keeps the UI declarative with React while using D3 for
-          scales, axes, and data-to-pixel calculations.
-        </p>
+        <p className="eyebrow">Inside Airbnb · React + D3 Explorer</p>
+        <h1>Six focused chart views, one premium exploration surface.</h1>
+        <p className="hero-copy">Each view loads a small pre-aggregated CSV from <code>public/data/derived</code>. React owns interaction state; D3 powers CSV loading, scales, stacks, shapes, and chart math.</p>
       </section>
 
-      <ChartLayout
-        title={source === 'csv' ? 'Cleaned Dataset Overview' : 'Sample Dataset Preview'}
-        description={
-          source === 'csv'
-            ? 'Loaded from public/data/chart-data.csv.'
-            : 'Showing sample data. Add public/data/chart-data.csv to visualize your cleaned dataset.'
-        }
-      >
-        {isLoading ? (
-          <div className="loading-state">Loading data...</div>
-        ) : (
-          <BarChart
-            data={data}
-            xLabel="Category"
-            yLabel="Value"
-            colorLabel="Group"
-          />
-        )}
-      </ChartLayout>
+      <nav className="chart-tabs" aria-label="Chart selector">
+        {charts.map((chart, index) => (
+          <button id={`chart-tab-${chart.id}`} key={chart.id} className={chart.id === activeId ? 'active' : ''} onClick={() => setActiveId(chart.id)}>
+            <span>Task {index + 1}</span>{chart.idiom}
+          </button>
+        ))}
+      </nav>
 
-      <VisualizationDesign source={source} />
+      <section className="chart-card" aria-labelledby="active-chart-title">
+        <div className="chart-heading">
+          <div>
+            <p className="eyebrow">{activeChart.idiom}</p>
+            <h2 id="active-chart-title">{activeChart.title}</h2>
+            <p>{activeChart.taskText}</p>
+          </div>
+          <code>{activeChart.dataUrl}</code>
+        </div>
+        <ActiveComponent />
+      </section>
     </main>
   )
 }

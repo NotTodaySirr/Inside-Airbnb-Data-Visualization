@@ -1,0 +1,7 @@
+kpi_name,kpi_value,host_performance_group,sample_size
+avg_host_acceptance_rate,0.6844712946690099,Regular host,13656
+instant_bookable_rate,0.2127594833998242,Regular host,29578
+avg_review_scores_rating,4.678007487082147,Regular host,18966
+avg_host_acceptance_rate,0.8725247451617668,Superhost,6769
+instant_bookable_rate,0.2014473489883326,Superhost,6771
+avg_review_scores_rating,4.857504553734062,Superhost,6039
