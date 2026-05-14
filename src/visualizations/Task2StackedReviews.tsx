@@ -1,22 +1,19 @@
 import * as d3 from 'd3'
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
 import { useCsvData } from '../data/useCsvData'
-import type { Task2ReviewMonthRoomTypeRow } from '../types/charts'
+import type { Task2BarSummaryRow, Task2ListingDetailRow } from '../types/charts'
 import { EmptyState, HoverCard, Legend } from './chartHelpers'
 import { chartMargins, formatNumber, roomTypeColor, uniqueValues, wideChart } from './chartScales'
 
-const monthWindowOptions = [
-  { value: '12', label: 'Last 12 months' },
-  { value: '24', label: 'Last 24 months' },
-  { value: '36', label: 'Last 36 months' },
-  { value: 'all', label: 'All months' },
-] as const
-
-function monthKey(value: Task2ReviewMonthRoomTypeRow['review_month']): string {
-  if (value instanceof Date) return d3.timeFormat('%Y-%m')(value)
-  return String(value)
+const MONTH_NUMS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+const MONTH_LABELS: Record<number, string> = {
+  1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
+  7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec',
 }
+
+// Years with incomplete data (current year or known partial years)
+const INCOMPLETE_YEARS = new Set([2025])
 
 type HoverCardState = {
   x: number
@@ -25,40 +22,150 @@ type HoverCardState = {
   rows: { label: string; value: string }[]
 }
 
+type DetailLoadState = 'idle' | 'loading' | 'loaded' | 'error'
+
+function formatPrice(v: number | null): string {
+  if (v == null || isNaN(v)) return 'N/A'
+  return `$${v.toFixed(0)}`
+}
+
+function formatRating(v: number | null): string {
+  if (v == null || isNaN(v)) return 'N/A'
+  return v.toFixed(2)
+}
+
 export function Task2StackedReviews() {
-  const state = useCsvData<Task2ReviewMonthRoomTypeRow>('/data/derived/task2_review_month_room_type.csv')
+  const barState = useCsvData<Task2BarSummaryRow>('/data/derived/task2_bar_summary.csv')
+
   const [hiddenRoomTypes, setHiddenRoomTypes] = useState<string[]>([])
-  const [monthWindow, setMonthWindow] = useState('36')
+  const [selectedYear, setSelectedYear] = useState<string>('2024')
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null)
   const [hoverCard, setHoverCard] = useState<HoverCardState | null>(null)
 
-  if (state.status === 'loading') return <div className="loading-state">Loading monthly reviews...</div>
-  if (state.status === 'error') return <EmptyState title="Could not load Task 2" message={state.error} />
+  // Lazy-load detail file
+  const [detailStatus, setDetailStatus] = useState<DetailLoadState>('idle')
+  const [detailData, setDetailData] = useState<Task2ListingDetailRow[]>([])
+  const detailRef = useRef<Task2ListingDetailRow[]>([])
 
-  const rows = state.data.map((row) => ({ ...row, review_month: monthKey(row.review_month) }))
-  const rooms = uniqueValues(rows, d => d.room_type)
-  const visibleRooms = rooms.filter(room => !hiddenRoomTypes.includes(room))
-  const allMonths = uniqueValues(rows, d => d.review_month)
-  const months = monthWindow === 'all' ? allMonths : allMonths.slice(-Number(monthWindow))
-  const monthLabel = monthWindowOptions.find(option => option.value === monthWindow)?.label ?? 'Last 36 months'
+  const loadDetail = useCallback(() => {
+    if (detailStatus !== 'idle') return
+    setDetailStatus('loading')
+    d3.csv('/data/derived/task2_listing_detail.csv', d3.autoType)
+      .then((rows) => {
+        const typed = rows as unknown as Task2ListingDetailRow[]
+        detailRef.current = typed
+        setDetailData(typed)
+        setDetailStatus('loaded')
+      })
+      .catch(() => setDetailStatus('error'))
+  }, [detailStatus])
+
+  // Auto-select peak month when year changes
+  useEffect(() => {
+    if (barState.status !== 'loaded') return
+    const rows = barState.data
+    const yearRows = selectedYear === 'all'
+      ? rows
+      : rows.filter(r => String(r.review_year) === selectedYear)
+    // Aggregate by month_num
+    const byMonth = d3.rollup(yearRows, v => d3.sum(v, d => d.review_count), d => d.month_num)
+    const peakMonth = [...byMonth.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? 7
+    setSelectedMonth(peakMonth)
+  }, [selectedYear, barState.status])
+
+  if (barState.status === 'loading') return <div className="loading-state">Loading monthly reviews...</div>
+  if (barState.status === 'error') return <EmptyState title="Could not load Task 2" message={barState.error} />
+
+  const allRows = barState.data
+  const rooms = uniqueValues(allRows, d => d.room_type)
+  const visibleRooms = rooms.filter(r => !hiddenRoomTypes.includes(r))
+
+  // Available years from data
+  const years = [...new Set(allRows.map(r => r.review_year))].sort((a, b) => b - a)
+
+  // Filter by selected year
+  const yearRows = selectedYear === 'all'
+    ? allRows
+    : allRows.filter(r => String(r.review_year) === selectedYear)
+
+  // Aggregate to month_num x room_type for stacked bar
+  const byMonthRoom = new Map<string, number>()
+  for (const row of yearRows) {
+    if (!visibleRooms.includes(row.room_type)) continue
+    const key = `${row.month_num}__${row.room_type}`
+    byMonthRoom.set(key, (byMonthRoom.get(key) ?? 0) + row.review_count)
+  }
+
+  const stackData = MONTH_NUMS.map(mn => {
+    const entry: Record<string, number | string> = { month_num: mn, month_label: MONTH_LABELS[mn] }
+    for (const room of visibleRooms) {
+      entry[room] = byMonthRoom.get(`${mn}__${room}`) ?? 0
+    }
+    return entry
+  })
+
+  roomTypeColor.domain(rooms)
+  const stack = d3.stack<Record<string, number | string>>().keys(visibleRooms)(stackData)
+  const { width, height } = wideChart
+  const x = d3.scaleBand(MONTH_NUMS.map(String), [chartMargins.left, width - chartMargins.right]).padding(0.18)
+  const y = d3.scaleLinear(
+    [0, d3.max(stack, s => d3.max(s, d => d[1])) ?? 1],
+    [height - chartMargins.bottom, chartMargins.top]
+  ).nice()
+
+  // Peak panel data
+  const panelRows = detailStatus === 'loaded'
+    ? detailData.filter(r =>
+        r.month_num === selectedMonth &&
+        (selectedYear === 'all' || String(r.review_year) === selectedYear)
+      )
+    : []
+
+  const totalReviews = selectedMonth
+    ? d3.sum(yearRows.filter(r => r.month_num === selectedMonth), r => r.review_count)
+    : 0
+
+  // Top room type for selected month
+  const roomTotals = selectedMonth
+    ? d3.rollup(
+        yearRows.filter(r => r.month_num === selectedMonth && visibleRooms.includes(r.room_type)),
+        v => d3.sum(v, d => d.review_count),
+        d => d.room_type
+      )
+    : new Map<string, number>()
+  const topRoomType = [...roomTotals.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—'
+
+  // Top neighbourhood from detail
+  const neighTotals = d3.rollup(panelRows, v => d3.sum(v, d => d.review_count), d => d.neighbourhood_cleansed)
+  const topNeigh = [...neighTotals.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—'
+
+  // Top 5 listings
+  const top5 = [...panelRows]
+    .sort((a, b) => b.review_count - a.review_count ||
+      (b.review_scores_rating ?? 0) - (a.review_scores_rating ?? 0) ||
+      b.number_of_reviews_ltm - a.number_of_reviews_ltm
+    )
+    .slice(0, 5)
+
+  const yearLabel = selectedYear === 'all' ? 'All years' : selectedYear
+  const monthLabel = selectedMonth ? MONTH_LABELS[selectedMonth] : '—'
   const roomSummary = visibleRooms.length === rooms.length ? 'All room types' : `${visibleRooms.length}/${rooms.length} room types`
-  const activeSummary = `${roomSummary} - ${monthLabel}`
+  const activeSummary = `${roomSummary} · ${yearLabel}`
 
   const toggleRoom = (room: string) => {
-    setHiddenRoomTypes((current) => (
-      current.includes(room) ? current.filter(item => item !== room) : [...current, room]
-    ))
+    setHiddenRoomTypes(cur => cur.includes(room) ? cur.filter(r => r !== room) : [...cur, room])
   }
 
   const resetFilters = () => {
     setHiddenRoomTypes([])
-    setMonthWindow('36')
+    setSelectedYear('2024')
   }
 
   const toolbox = (
     <>
       <ToolboxSection title="Data Filters">
         <div className="toolbox-check-list">
-          {rooms.map((room) => (
+          {rooms.map(room => (
             <label key={room} className="toolbox-check">
               <input type="checkbox" checked={!hiddenRoomTypes.includes(room)} onChange={() => toggleRoom(room)} />
               <span>{room}</span>
@@ -68,93 +175,97 @@ export function Task2StackedReviews() {
       </ToolboxSection>
 
       <ToolboxSection title="Display">
-        <ToolboxControl label="Month window">
-          <select id="task2-month-window" value={monthWindow} onChange={(e) => setMonthWindow(e.target.value)}>
-            {monthWindowOptions.map((option) => (
-              <option key={option.value} value={option.value}>{option.label}</option>
+        <ToolboxControl label="Year">
+          <select
+            id="task2-year-filter"
+            value={selectedYear}
+            onChange={e => setSelectedYear(e.target.value)}
+          >
+            <option value="all">All years</option>
+            {years.map(y => (
+              <option key={y} value={String(y)}>
+                {y}{INCOMPLETE_YEARS.has(y) ? ' ⚠' : ''}
+              </option>
             ))}
           </select>
         </ToolboxControl>
+        {INCOMPLETE_YEARS.has(Number(selectedYear)) && (
+          <p className="toolbox-hint">⚠ {selectedYear} data is incomplete — some months may show zero.</p>
+        )}
+        {selectedYear === 'all' && (
+          <p className="toolbox-hint">All years aggregates every Jan, Feb… across all years. Consider selecting a single year for cleaner seasonality.</p>
+        )}
       </ToolboxSection>
 
       <button className="toolbox-reset" type="button" onClick={resetFilters}>Reset filters</button>
     </>
   )
 
-  if (!rows.length) {
-    return (
-      <ChartWorkspace toolbox={toolbox} activeSummary={activeSummary} caption="No review rows are available in the derived monthly review file.">
-        <EmptyState title="No reviews found" message="The derived monthly review file is empty." />
-      </ChartWorkspace>
-    )
-  }
-
   if (!visibleRooms.length) {
     return (
-      <ChartWorkspace toolbox={toolbox} activeSummary={activeSummary} caption="No room types are currently visible. Re-enable at least one room type to draw the chart.">
+      <ChartWorkspace toolbox={toolbox} activeSummary={activeSummary} caption="No room types visible. Re-enable at least one.">
         <EmptyState title="No visible room types" message="Use the toolbox to turn a room type back on." />
       </ChartWorkspace>
     )
   }
 
-  roomTypeColor.domain(rooms)
-  const filteredRows = rows.filter(d => visibleRooms.includes(d.room_type) && months.includes(d.review_month))
-  const byMonth = months.map((month) => {
-    const monthRecord = Object.fromEntries(visibleRooms.map(room => [room, 0])) as Record<string, number>
-    filteredRows.filter(d => d.review_month === month).forEach((row) => {
-      monthRecord[row.room_type] = row.review_count
-    })
-    return { review_month: month, ...monthRecord }
-  }) as Record<string, number | string>[]
-  const stack = d3.stack<Record<string, number | string>>().keys(visibleRooms)(byMonth)
-  const { width, height } = wideChart
-  const x = d3.scaleBand(months, [chartMargins.left, width - chartMargins.right]).padding(.18)
-  const y = d3.scaleLinear([0, d3.max(stack, s => d3.max(s, d => d[1])) ?? 1], [height - chartMargins.bottom, chartMargins.top]).nice()
-
   return (
     <ChartWorkspace
       toolbox={toolbox}
       activeSummary={activeSummary}
-      caption={`Showing monthly review volume by room type for ${monthLabel.toLowerCase()}. Toggle room types to compare demand composition.`}
+      caption={`Seasonal review volume by room type for ${yearLabel}. Click a month bar to see top listings and neighbourhoods.`}
     >
       <div className="task-chart-shell">
         <Legend items={visibleRooms} color={roomTypeColor} />
+
         <div className="task-plot-wrap">
           <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Stacked monthly reviews by room type">
+            {/* Grid lines */}
             {y.ticks(5).map(t => (
               <g key={t}>
                 <line x1={chartMargins.left} x2={width - chartMargins.right} y1={y(t)} y2={y(t)} className="grid-line" />
                 <text x={chartMargins.left - 10} y={y(t) + 4} textAnchor="end" className="axis-label">{formatNumber(t)}</text>
               </g>
             ))}
+
+            {/* Stacked bars */}
             {stack.map(series => (
               <g key={series.key} fill={roomTypeColor(series.key)}>
-                {series.map(d => {
+                {series.map((d, i) => {
+                  const mn = MONTH_NUMS[i]
                   const reviewCount = Number(d[1] - d[0])
+                  const isSelected = mn === selectedMonth
                   const hover = {
-                    title: `${String(d.data.review_month)} - ${series.key}`,
+                    title: `${MONTH_LABELS[mn]} ${yearLabel} — ${series.key}`,
                     rows: [
-                      { label: 'Month', value: String(d.data.review_month) },
+                      { label: 'Month', value: `${MONTH_LABELS[mn]} ${yearLabel}` },
                       { label: 'Room type', value: String(series.key) },
                       { label: 'Review count', value: formatNumber(reviewCount) },
                     ],
                   }
-
                   return (
                     <rect
-                      key={`${series.key}-${d.data.review_month}`}
-                      x={x(String(d.data.review_month))}
+                      key={`${series.key}-${mn}`}
+                      x={x(String(mn))}
                       y={y(d[1])}
                       width={x.bandwidth()}
                       height={Math.max(0, y(d[0]) - y(d[1]))}
-                      rx={4}
-                      onMouseEnter={(e) => {
+                      rx={3}
+                      opacity={isSelected ? 1 : 0.75}
+                      stroke={isSelected ? 'var(--color-accent, #fff)' : 'none'}
+                      strokeWidth={isSelected ? 1.5 : 0}
+                      style={{ cursor: 'pointer', transition: 'opacity 0.15s' }}
+                      onClick={() => {
+                        setSelectedMonth(mn)
+                        loadDetail()
+                      }}
+                      onMouseEnter={e => {
                         const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
                         setHoverCard({ x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18, ...hover })
                       }}
-                      onMouseMove={(e) => {
+                      onMouseMove={e => {
                         const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
-                        setHoverCard((current) => current ? { ...current, x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18, ...hover } : null)
+                        setHoverCard(cur => cur ? { ...cur, x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18, ...hover } : null)
                       }}
                       onMouseLeave={() => setHoverCard(null)}
                     />
@@ -162,12 +273,96 @@ export function Task2StackedReviews() {
                 })}
               </g>
             ))}
-            {months.filter((_, i) => i % 3 === 0).map(m => (
-              <text key={m} x={(x(m) ?? 0) + x.bandwidth() / 2} y={height - 42} textAnchor="middle" className="axis-label" transform={`rotate(-35 ${(x(m) ?? 0) + x.bandwidth() / 2} ${height - 42})`}>{m}</text>
+
+            {/* X-axis month labels */}
+            {MONTH_NUMS.map(mn => (
+              <text
+                key={mn}
+                x={(x(String(mn)) ?? 0) + x.bandwidth() / 2}
+                y={height - 20}
+                textAnchor="middle"
+                className="axis-label"
+              >
+                {MONTH_LABELS[mn]}
+              </text>
             ))}
           </svg>
           {hoverCard ? <HoverCard {...hoverCard} /> : null}
         </div>
+
+        {/* Peak month drilldown panel */}
+        {selectedMonth && (
+          <div className="t2-peak-panel">
+            <div className="t2-peak-header">
+              <h3 className="t2-peak-title">
+                {monthLabel} {yearLabel} — Peak Analysis
+              </h3>
+              <div className="t2-peak-stats">
+                <div className="t2-stat">
+                  <span className="t2-stat__label">Total reviews</span>
+                  <strong className="t2-stat__value">{formatNumber(totalReviews)}</strong>
+                </div>
+                <div className="t2-stat">
+                  <span className="t2-stat__label">Top room type</span>
+                  <strong className="t2-stat__value">{topRoomType}</strong>
+                </div>
+                <div className="t2-stat">
+                  <span className="t2-stat__label">Top neighbourhood</span>
+                  <strong className="t2-stat__value">
+                    {detailStatus === 'idle' ? '— click bar to load' : detailStatus === 'loading' ? 'Loading…' : topNeigh}
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            {/* Listing recommendation table */}
+            <div className="t2-rec-section">
+              <h4 className="t2-rec-title">Top listings to promote in {monthLabel}</h4>
+              {detailStatus === 'idle' && (
+                <p className="t2-rec-hint">Click any bar to load listing recommendations.</p>
+              )}
+              {detailStatus === 'loading' && (
+                <p className="t2-rec-hint">Loading listing data…</p>
+              )}
+              {detailStatus === 'error' && (
+                <p className="t2-rec-hint t2-rec-hint--error">Could not load listing detail file.</p>
+              )}
+              {detailStatus === 'loaded' && top5.length === 0 && (
+                <p className="t2-rec-hint">No listing data for this month/year combination.</p>
+              )}
+              {detailStatus === 'loaded' && top5.length > 0 && (
+                <table className="t2-rec-table">
+                  <thead>
+                    <tr>
+                      <th>Listing name</th>
+                      <th>Neighbourhood</th>
+                      <th>Room type</th>
+                      <th>Reviews (month)</th>
+                      <th>Rating</th>
+                      <th>Price / night</th>
+                      <th>Reviews (LTM)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {top5.map((row) => (
+                      <tr key={row.listing_id}>
+                        <td className="t2-rec-name" title={row.listing_id}>
+                          {row.name || `Listing ${row.listing_id}`}
+                        </td>
+                        <td>{row.neighbourhood_cleansed ?? 'N/A'}</td>
+                        <td>{row.room_type}</td>
+                        <td className="t2-rec-num">{formatNumber(row.review_count)}</td>
+                        <td className="t2-rec-num">{formatRating(row.review_scores_rating)}</td>
+                        <td className="t2-rec-num">{formatPrice(row.price)}</td>
+                        <td className="t2-rec-num">{formatNumber(row.number_of_reviews_ltm)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </ChartWorkspace>
   )

@@ -102,6 +102,138 @@ svg { width: 100%; height: auto; display: block; border-radius: 26px; background
 .task5-opp-row.header { color: #93c5fd; font-size: .78rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; background: rgba(15,23,42,.74); }
 .task5-opp-row span:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
 
+/* ── Task 2 peak panel ─────────────────────────────────────────── */
+.t2-peak-panel {
+  margin-top: 24px;
+  border: 1px solid rgba(125,211,252,.2);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(15,23,42,.72), rgba(2,6,23,.52));
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+}
+.t2-peak-header {
+  padding: 18px 22px 16px;
+  border-bottom: 1px solid rgba(148,163,184,.14);
+  display: grid;
+  gap: 14px;
+}
+.t2-peak-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  letter-spacing: -.02em;
+}
+.t2-peak-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.t2-stat {
+  flex: 1 1 160px;
+  display: grid;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(14,165,233,.1);
+  border: 1px solid rgba(125,211,252,.16);
+}
+.t2-stat__label {
+  color: #94a3b8;
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.t2-stat__value {
+  color: #f0f9ff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+
+/* Recommendation section */
+.t2-rec-section { padding: 18px 22px 22px; display: grid; gap: 14px; }
+.t2-rec-title {
+  margin: 0;
+  font-size: .88rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #7dd3fc;
+}
+.t2-rec-hint {
+  margin: 0;
+  color: #64748b;
+  font-size: .9rem;
+  font-style: italic;
+}
+.t2-rec-hint--error { color: #f87171; }
+
+/* Toolbox hint */
+.toolbox-hint {
+  margin: 0;
+  color: #64748b;
+  font-size: .78rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Recommendation table */
+.t2-rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+  color: #cbd5e1;
+}
+.t2-rec-table thead tr {
+  background: rgba(15,23,42,.74);
+}
+.t2-rec-table th {
+  padding: 9px 12px;
+  text-align: left;
+  font-size: .72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #93c5fd;
+  border-bottom: 1px solid rgba(148,163,184,.18);
+  white-space: nowrap;
+}
+.t2-rec-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(148,163,184,.1);
+  vertical-align: middle;
+}
+.t2-rec-table tbody tr:last-child td { border-bottom: none; }
+.t2-rec-table tbody tr { transition: background .15s ease; }
+.t2-rec-table tbody tr:hover { background: rgba(14,165,233,.1); }
+.t2-rec-rank {
+  font-weight: 900;
+  color: #fde68a;
+  font-size: .95rem;
+  width: 28px;
+}
+.t2-rec-name {
+  font-size: .88rem;
+  color: #e2e8f0;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
+}
+.t2-rec-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* task-chart-shell already exists but ensure it stacks */
+.task-chart-shell { display: grid; gap: 0; }
+
 @media (max-width: 1000px) { .chart-workspace { grid-template-columns: 1fr; } .chart-toolbox { order: -1; } }
-@media (max-width: 900px) { .chart-tabs { grid-template-columns: repeat(2, 1fr); } .chart-heading { flex-direction: column; } .chart-heading code { white-space: normal; } .task5-opportunity-table { overflow-x: auto; } .task5-opp-row { min-width: 820px; } }
-@media (max-width: 560px) { .app-shell { width: min(100% - 20px, 1180px); padding-top: 18px; } .chart-tabs { grid-template-columns: 1fr; } .hover-card { width: min(240px, calc(100vw - 32px)); transform: translate(10px, -16px); } .opportunity-legend .legend-gradient { width: 100px; } }
+@media (max-width: 900px) { .chart-tabs { grid-template-columns: repeat(2, 1fr); } .chart-heading { flex-direction: column; } .chart-heading code { white-space: normal; } .task5-opportunity-table { overflow-x: auto; } .task5-opp-row { min-width: 820px; } .t2-rec-table { display: block; overflow-x: auto; } }
+@media (max-width: 560px) { .app-shell { width: min(100% - 20px, 1180px); padding-top: 18px; } .chart-tabs { grid-template-columns: 1fr; } .hover-card { width: min(240px, calc(100vw - 32px)); transform: translate(10px, -16px); } .opportunity-legend .legend-gradient { width: 100px; } .t2-peak-stats { flex-direction: column; } }

@@ -50,12 +50,92 @@ for (n, r), g in t1.groupby(['neighbourhood_cleansed', 'room_type'], dropna=True
         })
 pd.DataFrame(rows).sort_values(['neighbourhood_cleansed','room_type']).to_csv(OUT / 'task1_price_rating_corr.csv', index=False)
 
-# Task 2
+# Task 2 — Seasonality + Listing Promotion
 print('Task 2...')
-reviews = pd.read_csv(REVIEWS, usecols=['date','room_type'], low_memory=False)
-reviews['review_month'] = pd.to_datetime(reviews['date'], errors='coerce').dt.to_period('M').astype(str)
-t2 = reviews.dropna(subset=['review_month','room_type']).groupby(['review_month','room_type']).size().reset_index(name='review_count')
-t2.to_csv(OUT / 'task2_review_month_room_type.csv', index=False)
+reviews2 = pd.read_csv(REVIEWS, usecols=['listing_id', 'date', 'room_type'], low_memory=False)
+reviews2['listing_id'] = reviews2['listing_id'].astype(str)
+reviews2['_dt'] = pd.to_datetime(reviews2['date'], errors='coerce')
+reviews2 = reviews2.dropna(subset=['_dt', 'room_type'])
+reviews2['review_year'] = reviews2['_dt'].dt.year.astype(int)
+reviews2['month_num'] = reviews2['_dt'].dt.month.astype(int)
+MONTH_LABELS = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',
+                7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}
+reviews2['month_label'] = reviews2['month_num'].map(MONTH_LABELS)
+
+# --- File 1: bar summary (year x month x room_type) ---
+t2_bar = (
+    reviews2
+    .groupby(['review_year', 'month_num', 'month_label', 'room_type'], dropna=True)
+    .size()
+    .reset_index(name='review_count')
+    .sort_values(['review_year', 'month_num'])
+)
+t2_bar.to_csv(OUT / 'task2_bar_summary.csv', index=False)
+print(f'  Task 2 bar summary: {len(t2_bar)} rows')
+
+# --- File 2: listing-level detail, top 20 per (year, month) ---
+# Join reviews with listings to get neighbourhood, price, rating
+# Include name if available (added by add_listing_name_to_cleaned.py)
+_meta_cols = ['id', 'neighbourhood_cleansed', 'price', 'review_scores_rating', 'number_of_reviews_ltm']
+if 'name' in listings.columns:
+    _meta_cols = ['id', 'name', 'neighbourhood_cleansed', 'price', 'review_scores_rating', 'number_of_reviews_ltm']
+listings_meta = listings[_meta_cols].copy()
+listings_meta['id'] = listings_meta['id'].astype(str)
+
+t2_detail_raw = (
+    reviews2
+    .groupby(['review_year', 'month_num', 'month_label', 'listing_id', 'room_type'], dropna=True)
+    .size()
+    .reset_index(name='review_count')
+)
+t2_detail_raw = t2_detail_raw.merge(
+    listings_meta,
+    left_on='listing_id',
+    right_on='id',
+    how='left'
+).drop(columns=['id'])
+
+# Fallback: fill missing name with 'Listing {listing_id}'
+if 'name' in t2_detail_raw.columns:
+    t2_detail_raw['name'] = t2_detail_raw['name'].fillna(
+        'Listing ' + t2_detail_raw['listing_id'].astype(str)
+    )
+else:
+    t2_detail_raw['name'] = 'Listing ' + t2_detail_raw['listing_id'].astype(str)
+
+# Keep top 20 listings per (review_year, month_num) by review_count
+# Tie-break: higher review_scores_rating, then higher number_of_reviews_ltm
+t2_detail_raw['review_scores_rating'] = pd.to_numeric(t2_detail_raw['review_scores_rating'], errors='coerce')
+t2_detail_raw['number_of_reviews_ltm'] = pd.to_numeric(t2_detail_raw['number_of_reviews_ltm'], errors='coerce').fillna(0)
+t2_detail_raw['price'] = pd.to_numeric(t2_detail_raw['price'], errors='coerce')
+t2_detail = (
+    t2_detail_raw
+    .sort_values(
+        ['review_year', 'month_num', 'review_count', 'review_scores_rating', 'number_of_reviews_ltm'],
+        ascending=[True, True, False, False, False]
+    )
+    .groupby(['review_year', 'month_num'], group_keys=False)
+    .head(20)
+    .sort_values(['review_year', 'month_num', 'review_count'], ascending=[True, True, False])
+)
+t2_detail['review_scores_rating'] = t2_detail['review_scores_rating'].round(2)
+t2_detail['price'] = t2_detail['price'].round(2)
+
+# Reorder columns to match plan schema
+_detail_cols = ['review_year', 'month_num', 'month_label', 'listing_id', 'name',
+                'room_type', 'neighbourhood_cleansed', 'review_count',
+                'review_scores_rating', 'price', 'number_of_reviews_ltm']
+_detail_cols = [c for c in _detail_cols if c in t2_detail.columns]
+t2_detail = t2_detail[_detail_cols]
+t2_detail.to_csv(OUT / 'task2_listing_detail.csv', index=False)
+print(f'  Task 2 listing detail: {len(t2_detail)} rows')
+
+# Keep legacy file so existing imports don't break
+t2_legacy = reviews2.groupby(
+    [reviews2['_dt'].dt.to_period('M').astype(str).rename('review_month'), 'room_type'],
+    dropna=True
+).size().reset_index(name='review_count')
+t2_legacy.to_csv(OUT / 'task2_review_month_room_type.csv', index=False)
 
 # Tasks 3/4 calendar aggregation in chunks
 print('Tasks 3/4 calendar chunks...')

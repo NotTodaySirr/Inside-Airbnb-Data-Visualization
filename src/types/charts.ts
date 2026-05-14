@@ -35,6 +35,29 @@ export interface Task2ReviewMonthRoomTypeRow {
   review_count: number
 }
 
+// New seasonality types (2-file architecture)
+export interface Task2BarSummaryRow {
+  review_year: number
+  month_num: number
+  month_label: string
+  room_type: string
+  review_count: number
+}
+
+export interface Task2ListingDetailRow {
+  review_year: number
+  month_num: number
+  month_label: string
+  listing_id: string
+  name: string
+  room_type: string
+  neighbourhood_cleansed: string
+  review_count: number
+  review_scores_rating: number | null
+  price: number | null
+  number_of_reviews_ltm: number
+}
+
 export interface Task3VacancyMonthHostGroupRow {
   date_month: string | Date
   host_group: string
