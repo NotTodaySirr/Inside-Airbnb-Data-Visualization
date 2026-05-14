@@ -1,0 +1,19 @@
+metric_id,metric_label,metric_group,host_profile_group,normalized_score,raw_value,raw_unit,sample_size,total_hosts,completeness_rate,target_score,target_value,target_label
+rating,Rating,Quality & Outcomes,Superhost,97.56,4.878,rating,3335,3395,0.9823,96.6,4.83,P25
+rating,Rating,Quality & Outcomes,Regular host,94.85,4.7425,rating,12961,18057,0.7178,96.6,4.83,P25
+trust,Trust score,Quality & Outcomes,Superhost,91.85,2.7555,score,3395,3395,1.0,100.0,3.0,median
+trust,Trust score,Quality & Outcomes,Regular host,33.08,0.9924,score,18057,18057,1.0,100.0,3.0,median
+low_risk,Low risk,Quality & Outcomes,Superhost,80.68,0.8068,percent,3395,3395,1.0,100.0,1.0,median
+low_risk,Low risk,Quality & Outcomes,Regular host,68.69,0.6869,percent,18057,18057,1.0,100.0,1.0,median
+demand,Recent demand,Quality & Outcomes,Superhost,61.13,15.8927,count,3395,3395,1.0,19.23,5.0,median
+demand,Recent demand,Quality & Outcomes,Regular host,6.1,1.5863,count,18057,18057,1.0,19.23,5.0,median
+occupancy,Occupancy,Quality & Outcomes,Superhost,48.41,0.4841,percent,3137,3395,0.924,32.88,0.3288,P25
+occupancy,Occupancy,Quality & Outcomes,Regular host,12.13,0.1213,percent,7223,18057,0.4,32.88,0.3288,P25
+acceptance,Acceptance rate,Operations,Superhost,89.88,0.8988,percent,3393,3395,0.9994,86.0,0.86,P25
+acceptance,Acceptance rate,Operations,Regular host,64.38,0.6438,percent,5127,18057,0.2839,86.0,0.86,P25
+response,Response rate,Operations,Superhost,98.17,0.9817,percent,3237,3395,0.9535,100.0,1.0,P25
+response,Response rate,Operations,Regular host,78.03,0.7803,percent,5132,18057,0.2842,100.0,1.0,P25
+identity,Identity verified,Technical settings,Superhost,88.42,0.8842,percent,3395,3395,1.0,100.0,1.0,100%
+identity,Identity verified,Technical settings,Regular host,80.86,0.8086,percent,18057,18057,1.0,100.0,1.0,100%
+instant,Instant bookable,Technical settings,Superhost,17.4,0.174,percent,3395,3395,1.0,0.0,0.0,median
+instant,Instant bookable,Technical settings,Regular host,13.05,0.1305,percent,18057,18057,1.0,0.0,0.0,median

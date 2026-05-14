@@ -178,10 +178,27 @@ export interface Task5FilterState {
   percentile: number
 }
 
+/** @deprecated Replaced by Task6HostProfileRow. Kept so legacy CSV still parses. */
 export interface Task6HostKpiRow {
   kpi_name: string
   kpi_value: number
   host_performance_group: string
   sample_size: number
+}
+
+export interface Task6HostProfileRow {
+  metric_id: string
+  metric_label: string
+  metric_group: string
+  host_profile_group: 'Superhost' | 'Regular host'
+  normalized_score: number
+  raw_value: number
+  raw_unit: 'percent' | 'rating' | 'count' | 'score'
+  sample_size: number
+  total_hosts: number
+  completeness_rate: number
+  target_score: number
+  target_value: number
+  target_label: string
 }
 

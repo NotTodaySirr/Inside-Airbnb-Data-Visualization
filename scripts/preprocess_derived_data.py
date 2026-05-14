@@ -340,17 +340,136 @@ _cand_count = int((_top_tier['host_is_superhost'] == False).sum())
 print(f'  Task 5 done: {len(t5_out)} active listings written.')
 print(f'  90th-pct threshold: {_threshold_90:.0f} reviews LTM -> {len(_top_tier)} top-tier ({_sh_count} Superhosts, {_cand_count} candidates)')
 
-# Task 6
+# Task 6 — Host Benchmark Profile
 print('Task 6...')
-kpis = []
+
+t6 = listings.copy()
+
+# --- Coerce all required columns ---
+t6['host_id'] = t6['host_id'].astype(str)
+t6['host_is_superhost_bool'] = bool_series(t6['host_is_superhost'])
+t6['host_acceptance_rate'] = pd.to_numeric(t6['host_acceptance_rate'], errors='coerce')
+t6['host_response_rate']   = pd.to_numeric(t6['host_response_rate'],   errors='coerce')
+t6['host_trust_score']     = pd.to_numeric(t6['host_trust_score'],     errors='coerce')
+t6['review_scores_rating'] = pd.to_numeric(t6['review_scores_rating'], errors='coerce')
+t6['number_of_reviews_ltm']= pd.to_numeric(t6['number_of_reviews_ltm'],errors='coerce')
+t6['occupancy_rate_365']   = pd.to_numeric(t6['occupancy_rate_365'],   errors='coerce')
+t6['host_identity_verified_bool'] = bool_series(t6['host_identity_verified']).astype(float)
+t6['instant_bookable_bool']       = bool_series(t6['instant_bookable']).astype(float)
+t6['cashflow_risk_flag_num']      = pd.to_numeric(t6['cashflow_risk_flag'], errors='coerce').fillna(0)
+
+# --- Dedup rule: host with ANY superhost listing → Superhost ---
+host_superhost = t6.groupby('host_id')['host_is_superhost_bool'].any()
+t6['host_group'] = t6['host_id'].map(host_superhost).map({True: 'Superhost', False: 'Regular host'})
+
+# --- Aggregate to host level (mean per host_id, then mean across hosts) ---
+host_agg = t6.groupby(['host_id', 'host_group'], as_index=False).agg(
+    rating          =('review_scores_rating',    'mean'),
+    acceptance      =('host_acceptance_rate',    'mean'),
+    response        =('host_response_rate',      'mean'),
+    trust           =('host_trust_score',        'mean'),
+    demand          =('number_of_reviews_ltm',   'mean'),
+    occupancy       =('occupancy_rate_365',      'mean'),
+    identity        =('host_identity_verified_bool', 'max'),   # verified if any listing verified
+    instant         =('instant_bookable_bool',   'mean'),
+    cashflow_risk   =('cashflow_risk_flag_num',  'mean'),
+)
+host_agg['low_risk'] = 1 - host_agg['cashflow_risk']
+
+# --- Compute Superhost P75 for demand cap ---
+sh_hosts = host_agg[host_agg['host_group'] == 'Superhost']
+demand_cap = sh_hosts['demand'].quantile(0.75)
+if demand_cap == 0 or pd.isna(demand_cap):
+    demand_cap = host_agg['demand'].quantile(0.75)
+
+# --- Define 9 metrics with normalization and target logic ---
+# metric_id, metric_label, metric_group, raw_col, normalize_fn, target_fn
+METRICS = [
+    # Quality / Outcomes
+    ('rating',    'Rating',           'Quality & Outcomes', 'rating',   lambda v: v / 5 * 100),
+    ('trust',     'Trust score',      'Quality & Outcomes', 'trust',    lambda v: v / 3 * 100),
+    ('low_risk',  'Low risk',         'Quality & Outcomes', 'low_risk', lambda v: v * 100),
+    ('demand',    'Recent demand',    'Quality & Outcomes', 'demand',   lambda v: (v / demand_cap * 100).clip(0, 100)),
+    ('occupancy', 'Occupancy',        'Quality & Outcomes', 'occupancy',lambda v: v * 100),
+    # Operations
+    ('acceptance','Acceptance rate',  'Operations',         'acceptance',lambda v: v * 100),
+    ('response',  'Response rate',    'Operations',         'response', lambda v: v * 100),
+    # Technical settings
+    ('identity',  'Identity verified','Technical settings', 'identity', lambda v: v * 100),
+    ('instant',   'Instant bookable', 'Technical settings', 'instant',  lambda v: v * 100),
+]
+
+# Target thresholds: computed from Superhost distribution
+def sh_quantile(col, q):
+    vals = sh_hosts[col].dropna()
+    return float(vals.quantile(q)) if len(vals) else float('nan')
+
+target_rules = {
+    'rating':    ('P25', sh_quantile('rating',    0.25), lambda v: v / 5 * 100),
+    'trust':     ('median', sh_quantile('trust',  0.50), lambda v: v / 3 * 100),
+    'low_risk':  ('median', sh_quantile('low_risk',0.50),lambda v: v * 100),
+    'demand':    ('median', sh_quantile('demand', 0.50), lambda v: min((v / demand_cap * 100), 100)),
+    'occupancy': ('P25',    sh_quantile('occupancy',0.25),lambda v: v * 100),
+    'acceptance':('P25',    sh_quantile('acceptance',0.25),lambda v: v * 100),
+    'response':  ('P25',    sh_quantile('response',0.25), lambda v: v * 100),
+    'identity':  ('100%',   1.0,                          lambda v: v * 100),
+    'instant':   ('median', sh_quantile('instant', 0.50), lambda v: v * 100),
+}
+
+profile_rows = []
+for metric_id, metric_label, metric_group, raw_col, norm_fn in METRICS:
+    t_label, t_raw, t_norm_fn = target_rules[metric_id]
+    t_score = t_norm_fn(t_raw) if not pd.isna(t_raw) else float('nan')
+
+    for group in ['Superhost', 'Regular host']:
+        g = host_agg[host_agg['host_group'] == group][raw_col].dropna()
+        total_hosts = int((host_agg['host_group'] == group).sum())
+        sample_size = int(len(g))
+        completeness = round(sample_size / total_hosts, 4) if total_hosts else 0
+        raw_mean = float(g.mean()) if sample_size else float('nan')
+        norm_score = float(norm_fn(pd.Series([raw_mean])).iloc[0]) if sample_size else float('nan')
+        norm_score = round(min(max(norm_score, 0), 100), 2) if not pd.isna(norm_score) else float('nan')
+
+        # raw_unit
+        if metric_id in ('rating',):
+            raw_unit = 'rating'
+        elif metric_id in ('trust',):
+            raw_unit = 'score'
+        elif metric_id in ('demand',):
+            raw_unit = 'count'
+        else:
+            raw_unit = 'percent'
+
+        profile_rows.append({
+            'metric_id':         metric_id,
+            'metric_label':      metric_label,
+            'metric_group':      metric_group,
+            'host_profile_group':group,
+            'normalized_score':  norm_score,
+            'raw_value':         round(raw_mean, 4) if not pd.isna(raw_mean) else '',
+            'raw_unit':          raw_unit,
+            'sample_size':       sample_size,
+            'total_hosts':       total_hosts,
+            'completeness_rate': completeness,
+            'target_score':      round(t_score, 2) if not pd.isna(t_score) else '',
+            'target_value':      round(t_raw, 4) if not pd.isna(t_raw) else '',
+            'target_label':      t_label,
+        })
+
+t6_out = pd.DataFrame(profile_rows)
+t6_out.to_csv(OUT / 'task6_host_profile.csv', index=False)
+print(f'  Task 6 host profile: {len(t6_out)} rows (expect 18)')
+
+# Keep legacy file so old imports don't hard-error
+kpis_legacy = []
 listings['host_performance_group'] = bool_series(listings['host_is_superhost']).map({True:'Superhost', False:'Regular host'})
 for group, g in listings.groupby('host_performance_group'):
-    metrics = {
+    metrics_legacy = {
         'avg_host_acceptance_rate': pd.to_numeric(g['host_acceptance_rate'], errors='coerce').dropna(),
         'instant_bookable_rate': bool_series(g['instant_bookable']).astype(float),
         'avg_review_scores_rating': pd.to_numeric(g['review_scores_rating'], errors='coerce').dropna(),
     }
-    for name, vals in metrics.items():
-        kpis.append({'kpi_name': name, 'kpi_value': vals.mean(), 'host_performance_group': group, 'sample_size': len(vals)})
-pd.DataFrame(kpis).to_csv(OUT / 'task6_host_kpi.csv', index=False)
+    for name, vals in metrics_legacy.items():
+        kpis_legacy.append({'kpi_name': name, 'kpi_value': vals.mean(), 'host_performance_group': group, 'sample_size': len(vals)})
+pd.DataFrame(kpis_legacy).to_csv(OUT / 'task6_host_kpi.csv', index=False)
 print('Done:', OUT)

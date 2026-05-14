@@ -1,13 +1,11 @@
 #root { width: 100%; }
 .app-shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 56px; }
-.hero-panel, .chart-card { border: 1px solid var(--border); background: linear-gradient(145deg, rgba(15,23,42,.86), rgba(30,41,59,.62)); box-shadow: var(--shadow); backdrop-filter: blur(22px); border-radius: 34px; }
-.hero-panel { padding: clamp(28px, 5vw, 58px); position: relative; overflow: hidden; }
-.hero-panel::after { content: ''; position: absolute; inset: auto -10% -45% 38%; height: 260px; background: linear-gradient(90deg, rgba(167,139,250,.34), rgba(34,211,238,.22)); filter: blur(34px); transform: rotate(-6deg); }
+.chart-card { border: 1px solid var(--border); background: linear-gradient(145deg, rgba(15,23,42,.86), rgba(30,41,59,.62)); box-shadow: var(--shadow); backdrop-filter: blur(22px); border-radius: 34px; }
 .eyebrow { margin: 0 0 10px; color: #67e8f9; text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; font-weight: 800; }
 h1, h2 { margin: 0; letter-spacing: -.04em; line-height: 1.02; }
 h1 { max-width: 840px; font-size: clamp(2.35rem, 6vw, 5.4rem); }
 h2 { font-size: clamp(1.6rem, 3vw, 2.55rem); }
-.hero-copy, .chart-heading p { color: var(--text-muted); max-width: 780px; font-size: 1.02rem; }
+.chart-heading p { color: var(--text-muted); max-width: 780px; font-size: 1.02rem; }
 .chart-tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 20px 0; }
 .chart-tabs button { min-height: 76px; border: 1px solid var(--border); border-radius: 22px; color: var(--text); background: rgba(15,23,42,.58); cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease; text-align: left; padding: 14px; }
 .chart-tabs button:hover { transform: translateY(-3px); border-color: rgba(103,232,249,.55); }

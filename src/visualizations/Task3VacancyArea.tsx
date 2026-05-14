@@ -178,8 +178,8 @@ export function Task3VacancyArea() {
     setHoverCard({
       title: closest,
       rows,
-      x: e.clientX - rect.left + 16,
-      y: e.clientY - rect.top - 18,
+      x: e.clientX + 16,
+      y: e.clientY - 18,
     })
   }
 

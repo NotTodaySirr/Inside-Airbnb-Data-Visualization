@@ -260,12 +260,10 @@ export function Task2StackedReviews() {
                         loadDetail()
                       }}
                       onMouseEnter={e => {
-                        const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
-                        setHoverCard({ x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18, ...hover })
+                        setHoverCard({ x: e.clientX + 16, y: e.clientY - 18, ...hover })
                       }}
                       onMouseMove={e => {
-                        const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
-                        setHoverCard(cur => cur ? { ...cur, x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18, ...hover } : null)
+                        setHoverCard(cur => cur ? { ...cur, x: e.clientX + 16, y: e.clientY - 18, ...hover } : null)
                       }}
                       onMouseLeave={() => setHoverCard(null)}
                     />

@@ -34,7 +34,7 @@ function fmtNum(v: number) { return v.toLocaleString(undefined, { maximumFractio
 function fmtPct(v: number) { return `${(v * 100).toFixed(1)}%` }
 
 // ─── component ────────────────────────────────────────────────────────────────
-export function Task5BubbleMap() {
+export function Task5SuperhostHeatmap() {
   const csvState = useCsvData<Task5SpatialListingRow>('/data/derived/task5_spatial_listings.csv')
   const geoState = useJsonData<NeighbourhoodGeoJson>('/data/neighbourhoods.geojson')
 
@@ -285,10 +285,9 @@ export function Task5BubbleMap() {
                   strokeOpacity={isDimmed ? 0.1 : 0.8}
                   style={{ cursor: 'pointer' }}
                   onMouseEnter={e => {
-                    const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
                     setHoverCard({
-                      x: e.clientX - rect.left + 16,
-                      y: e.clientY - rect.top - 18,
+                      x: e.clientX + 16,
+                      y: e.clientY - 18,
                       title: d.name || `Listing ${d.listing_id}`,
                       rows: [
                         { label: 'Neighbourhood', value: d.neighbourhood_cleansed },
@@ -302,9 +301,8 @@ export function Task5BubbleMap() {
                     })
                   }}
                   onMouseMove={e => {
-                    const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
                     setHoverCard(cur => cur
-                      ? { ...cur, x: e.clientX - rect.left + 16, y: e.clientY - rect.top - 18 }
+                      ? { ...cur, x: e.clientX + 16, y: e.clientY - 18 }
                       : null
                     )
                   }}

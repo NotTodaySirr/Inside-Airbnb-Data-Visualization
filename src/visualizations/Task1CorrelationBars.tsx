@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
 import { useCsvData } from '../data/useCsvData'
 import type { Task1PriceRatingCorrBarRow, Task1PriceRatingCorrRow } from '../types/charts'
-import { EmptyState } from './chartHelpers'
+import { EmptyState, HoverCard } from './chartHelpers'
 import { chartMargins, formatDecimal, formatNumber, uniqueValues, wideChart } from './chartScales'
 
 const url = '/data/derived/task1_price_rating_corr.csv'
@@ -25,7 +25,8 @@ type DirectionMode = (typeof directionOptions)[number]['value']
 type HoverCardState = {
   x: number
   y: number
-  row: Task1PriceRatingCorrBarRow
+  title: string
+  rows: { label: string; value: string }[]
 }
 
 function strengthClass(value: number): 'weak' | 'moderate' | 'strong' {
@@ -203,20 +204,25 @@ export function Task1CorrelationBars() {
                 <g
                   key={d.group_label}
                   onMouseEnter={(e) => {
-                    const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
                     setHoverCard({
-                      x: e.clientX - rect.left + 16,
-                      y: e.clientY - rect.top - 18,
-                      row: d,
+                      x: e.clientX + 16,
+                      y: e.clientY - 18,
+                      title: d.group_label,
+                      rows: [
+                        { label: 'Neighbourhood', value: d.neighbourhood_cleansed },
+                        { label: 'Room type', value: d.room_type },
+                        { label: 'Pearson r', value: formatDecimal(d.pearson_r) },
+                        { label: 'Sample size', value: formatNumber(d.sample_size) },
+                        { label: 'Avg price', value: `$${formatDecimal(d.avg_price_clean)}` },
+                        { label: 'Avg rating', value: formatDecimal(d.avg_review_scores_rating) },
+                      ],
                     })
                   }}
                   onMouseMove={(e) => {
-                    const rect = (e.currentTarget.ownerSVGElement ?? e.currentTarget).getBoundingClientRect()
                     setHoverCard((current) => current ? {
                       ...current,
-                      x: e.clientX - rect.left + 16,
-                      y: e.clientY - rect.top - 18,
-                      row: d,
+                      x: e.clientX + 16,
+                      y: e.clientY - 18,
                     } : null)
                   }}
                   onMouseLeave={() => setHoverCard(null)}
@@ -229,17 +235,7 @@ export function Task1CorrelationBars() {
             })}
           </svg>
 
-          {hoverCard ? (
-            <div className="hover-card" style={{ left: hoverCard.x, top: hoverCard.y }}>
-              <strong>{hoverCard.row.group_label}</strong>
-              <span><b>Neighbourhood:</b> {hoverCard.row.neighbourhood_cleansed}</span>
-              <span><b>Room type:</b> {hoverCard.row.room_type}</span>
-              <span><b>Pearson r:</b> {formatDecimal(hoverCard.row.pearson_r)}</span>
-              <span><b>Sample size:</b> {formatNumber(hoverCard.row.sample_size)}</span>
-              <span><b>Avg price:</b> ${formatDecimal(hoverCard.row.avg_price_clean)}</span>
-              <span><b>Avg rating:</b> {formatDecimal(hoverCard.row.avg_review_scores_rating)}</span>
-            </div>
-          ) : null}
+          {hoverCard && <HoverCard x={hoverCard.x} y={hoverCard.y} title={hoverCard.title} rows={hoverCard.rows} />}
         </div>
       </div>
     </ChartWorkspace>

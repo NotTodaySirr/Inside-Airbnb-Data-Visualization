@@ -1,3 +1,5 @@
+import { createPortal } from 'react-dom'
+
 export type HoverCardRow = {
   label: string
   value: string
@@ -11,13 +13,14 @@ export type HoverCardProps = {
 }
 
 export function HoverCard({ x, y, title, rows }: HoverCardProps) {
-  return (
-    <div className="hover-card" style={{ left: x, top: y }}>
+  return createPortal(
+    <div className="hover-card" style={{ position: 'fixed', left: x, top: y, zIndex: 9999 }}>
       <strong>{title}</strong>
       {rows.map((row) => (
         <span key={row.label}><b>{row.label}:</b> {row.value}</span>
       ))}
-    </div>
+    </div>,
+    document.body
   )
 }
 
