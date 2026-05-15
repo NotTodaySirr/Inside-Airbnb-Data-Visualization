@@ -6,6 +6,9 @@ import { createPortal } from 'react-dom'
  * and {@link SummarySlot} to render their per-chart toolbox + active-summary
  * into the shared right-rail. When a target is null (e.g. on the Dashboard
  * overview tab where no single chart is "active"), the slots render nothing.
+ *
+ * `activeChartId` is used in the overview to gate which chart's toolbox
+ * is allowed to portal — only the clicked card's chart gets a live target.
  */
 export type ChartSlotsContextValue = {
   toolboxTarget: HTMLElement | null
@@ -28,6 +31,34 @@ export function ChartSlotsProvider({
 }) {
   return (
     <ChartSlotsContext.Provider value={{ toolboxTarget, summaryTarget }}>
+      {children}
+    </ChartSlotsContext.Provider>
+  )
+}
+
+/**
+ * Wraps a single chart in a scoped ChartSlotsProvider.
+ * When `active` is false the targets are nulled out so the chart's
+ * ToolboxSlot / SummarySlot portals are suppressed.
+ */
+export function ChartScope({
+  active,
+  toolboxTarget,
+  summaryTarget,
+  children,
+}: {
+  active: boolean
+  toolboxTarget: HTMLElement | null
+  summaryTarget: HTMLElement | null
+  children: ReactNode
+}) {
+  return (
+    <ChartSlotsContext.Provider
+      value={{
+        toolboxTarget: active ? toolboxTarget : null,
+        summaryTarget: active ? summaryTarget : null,
+      }}
+    >
       {children}
     </ChartSlotsContext.Provider>
   )

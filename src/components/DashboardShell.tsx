@@ -13,13 +13,15 @@ type Props = {
 
 export function DashboardShell({ charts, defaultTab = 'overview' }: Props) {
   const [activeId, setActiveId] = useState<DashboardTabId>(defaultTab)
+  const [activeOverviewId, setActiveOverviewId] = useState<DashboardTabId | null>(null)
   const [summaryTarget, setSummaryTarget] = useState<HTMLDivElement | null>(null)
   const [toolboxTarget, setToolboxTarget] = useState<HTMLDivElement | null>(null)
 
-  // When switching tabs, scroll canvas back to top.
+  // When switching tabs, scroll canvas back to top and clear overview selection.
   useEffect(() => {
     const canvas = document.querySelector('.dashboard-canvas')
     if (canvas) canvas.scrollTop = 0
+    if (activeId !== 'overview') setActiveOverviewId(null)
   }, [activeId])
 
   const tabs: DashboardTab[] = [
@@ -33,9 +35,19 @@ export function DashboardShell({ charts, defaultTab = 'overview' }: Props) {
 
   const isOverview = activeId === 'overview'
   const activeChart = isOverview ? null : charts.find((c) => c.id === activeId) ?? null
-  const activeChartLabel = activeChart
-    ? `Task ${charts.findIndex((c) => c.id === activeChart.id) + 1}`
-    : null
+
+  // Label shown in the FilterRail chart-specific zone.
+  // On detail tabs: the active chart label. On overview: the clicked card label.
+  const activeChartLabel = (() => {
+    if (!isOverview && activeChart) {
+      return `Task ${charts.findIndex((c) => c.id === activeChart.id) + 1}`
+    }
+    if (isOverview && activeOverviewId) {
+      const idx = charts.findIndex((c) => c.id === activeOverviewId)
+      return idx >= 0 ? `Task ${idx + 1}` : null
+    }
+    return null
+  })()
 
   return (
     <GlobalFiltersProvider>
@@ -54,7 +66,14 @@ export function DashboardShell({ charts, defaultTab = 'overview' }: Props) {
           <div className="dashboard-main">
             <main className="dashboard-canvas" aria-live="polite">
               {isOverview ? (
-                <DashboardOverview charts={charts} onOpenChart={setActiveId} />
+                <DashboardOverview
+                  charts={charts}
+                  onOpenChart={setActiveId}
+                  activeCardId={activeOverviewId}
+                  onCardClick={(id) => setActiveOverviewId((prev) => (prev === id ? null : id))}
+                  toolboxTarget={toolboxTarget}
+                  summaryTarget={summaryTarget}
+                />
               ) : activeChart ? (
                 <ActiveChartView chart={activeChart} taskLabel={activeChartLabel ?? ''} />
               ) : null}

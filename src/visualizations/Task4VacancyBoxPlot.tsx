@@ -112,7 +112,7 @@ export function Task4VacancyBoxPlot() {
             ))}
 
             {/* ── boxes ── */}
-            {boxes.map(b => {
+            {boxes.map((b, i) => {
               const cx = boxCx(b.minimum_nights_group, b.price_setting_group)
               const color = priceSettingColor(b.price_setting_group)
               const hover = {
@@ -128,7 +128,7 @@ export function Task4VacancyBoxPlot() {
 
               return (
                 <g
-                  key={`${b.minimum_nights_group}-${b.price_setting_group}`}
+                  key={`${i}-${b.minimum_nights_group}-${b.price_setting_group ?? 'unknown'}`}
                   style={{ cursor: 'pointer' }}
                   onMouseEnter={e => {
                     setHoverCard({ x: e.clientX + 16, y: e.clientY - 18, ...hover })

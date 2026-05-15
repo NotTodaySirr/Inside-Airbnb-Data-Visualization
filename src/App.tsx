@@ -3,7 +3,7 @@ import { DashboardShell } from './components/DashboardShell'
 import type { ChartDefinition } from './types/charts'
 import { Task1CorrelationBars } from './visualizations/Task1CorrelationBars'
 import { Task2StackedReviews } from './visualizations/Task2StackedReviews'
-import { Task3VacancyArea } from './visualizations/Task3VacancyArea'
+import { Task3CalendarHeatmap } from './visualizations/Task3CalendarHeatmap'
 import { Task4VacancyBoxPlot } from './visualizations/Task4VacancyBoxPlot'
 import { Task5SuperhostHeatmap } from './visualizations/Task5SuperhostHeatmap'
 import { Task6HostProfileChart } from './visualizations/Task6HostProfileChart'
@@ -29,12 +29,12 @@ const charts: ChartDefinition[] = [
   },
   {
     id: 'task3',
-    title: 'Daily Availability & Price Monitor',
+    title: 'Daily Availability & Price Calendar',
     taskText:
-      'Track daily availability and pricing trends across the 365-day calendar horizon, segmented by individual and commercial hosts. Identify listings that are candidates for dynamic pricing intervention.',
-    idiom: 'Area chart',
+      'Track daily availability across the next 365 days with each cell split into Individual (top) and Commercial (bottom) hosts. Gold outlines flag days with high availability and high price for pricing review. Hover any day for both groups\' median price and occupancy.',
+    idiom: 'Split-cell calendar heatmap',
     dataUrl: '/data/derived/task3_daily_host_group_summary.csv',
-    component: Task3VacancyArea,
+    component: Task3CalendarHeatmap,
   },
   {
     id: 'task4',

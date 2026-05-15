@@ -209,37 +209,63 @@ html, body { height: 100%; overflow: hidden; }
 .eyebrow { margin: 0 0 6px; color: #67e8f9; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 800; }
 
 /* ─── Dashboard overview (pyramid grid) ───────────────────────────────── */
-.dashboard-overview { display: grid; gap: 28px; padding-bottom: 16px; }
-.overview-header { display: grid; gap: 4px; max-width: 880px; }
-.overview-header h2 { margin: 0; font-size: clamp(1.45rem, 2.6vw, 2.1rem); letter-spacing: -.025em; line-height: 1.1; }
-.overview-lede { margin: 4px 0 0; color: var(--text-muted); font-size: 1rem; max-width: 760px; }
-.overview-section { display: grid; gap: 18px; }
+/* ── Dashboard overview: scrollable thematic sections ────────────── */
+.dashboard-overview { display: grid; gap: 32px; padding-bottom: 24px; }
+
+.overview-section { display: grid; gap: 14px; }
 .overview-section__title {
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: #93c5fd;
   font-size: .76rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: .12em;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
   border-bottom: 1px solid rgba(148,163,184,.18);
 }
-.overview-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.overview-section__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(8,145,178,.45), rgba(124,58,237,.35));
+  border: 1px solid rgba(125,211,252,.3);
+  color: #e0f2fe;
+  font-size: .65rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.overview-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
 .overview-card {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   padding: 12px 14px;
   border-radius: 18px;
   border: 1px solid var(--border);
   background: linear-gradient(155deg, rgba(15,23,42,.72), rgba(2,6,23,.5));
   box-shadow: 0 14px 32px rgba(2,6,23,.28);
+  overflow: hidden;
 }
 .overview-card--full { grid-column: 1 / -1; }
+.overview-card--active {
+  border-color: rgba(34,211,238,.65) !important;
+  box-shadow: 0 0 0 2px rgba(34,211,238,.22), 0 14px 32px rgba(2,6,23,.28);
+}
+.overview-card--active .overview-card__eyebrow { color: #22d3ee; }
 .overview-card__header {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   align-items: center;
+  flex-shrink: 0;
 }
 .overview-card__eyebrow {
   color: #67e8f9;
@@ -267,6 +293,7 @@ html, body { height: 100%; overflow: hidden; }
   font-size: .72rem;
   font-weight: 800;
   cursor: pointer;
+  white-space: nowrap;
   transition: transform .18s ease, border-color .18s ease, background .18s ease;
 }
 .overview-card__open:hover {
@@ -274,59 +301,56 @@ html, body { height: 100%; overflow: hidden; }
   border-color: rgba(125,211,252,.7);
   background: linear-gradient(135deg, rgba(8,145,178,.5), rgba(124,58,237,.36));
 }
-.overview-card__body { display: grid; align-items: stretch; min-width: 0; }
-.overview-card__placeholder {
-  border: 1px dashed rgba(148,163,184,.32);
-  border-radius: 18px;
-  background: rgba(2,6,23,.32);
-  color: var(--text-muted);
+/* Body: fixed height so cards don't grow unbounded */
+.overview-card__body {
+  flex: 1;
+  min-height: 0;
   display: grid;
-  place-items: center;
-  gap: 6px;
-  cursor: pointer;
-  min-height: 240px;
-  padding: 24px;
-  transition: border-color .2s ease, background .2s ease;
-  font: inherit;
+  align-items: stretch;
+  min-width: 0;
+  overflow: hidden;
 }
-.overview-card__placeholder:hover {
-  border-color: rgba(125,211,252,.55);
-  background: rgba(8,145,178,.16);
-}
-.overview-card__placeholder-title { color: var(--text); font-weight: 800; font-size: 1rem; }
-.overview-card__placeholder-hint { font-size: .82rem; }
 
-/* In overview cards, hide everything except the chart itself, then size
-   the chart wrapper so the SVG can scale to fit while preserving its
-   viewBox aspect ratio (letterboxed margins, never cropped). */
+/* In overview cards, hide secondary panels so only the chart renders */
 .overview-card__body .t2-peak-panel,
 .overview-card__body .task3-intervention-section,
 .overview-card__body .task5-opportunity-table,
 .overview-card__body .legend,
 .overview-card__body .task1b-legend,
 .overview-card__body .opportunity-legend,
+.overview-card__body .task3-heatmap-legend,
 .overview-card__body .chart-caption,
 .overview-card__body .active-filter-summary { display: none; }
 
 .overview-card__body .task-chart-shell,
 .overview-card__body .task1b-chart-shell { gap: 0; }
 
+/* Task 3 split-cell calendar in overview: clip overflow */
+.overview-card__body .task3-calendar-shell {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: 320px;
+  overflow: hidden;
+}
+.overview-card__body .task3-calendar-shell svg {
+  max-width: 100%;
+  overflow: hidden !important;
+}
+
+/* Half-card plot wrappers */
 .overview-card__body .task-plot-wrap,
 .overview-card__body .task1b-plot-wrap {
-  height: 360px;
+  height: 320px;
   display: grid;
   place-items: stretch;
   min-width: 0;
 }
+/* Full-width cards get more height */
 .overview-card--full .overview-card__body .task-plot-wrap,
 .overview-card--full .overview-card__body .task1b-plot-wrap {
-  height: 460px;
+  height: 400px;
 }
 
-/* Override the global svg { height: auto } so the chart fits the box
-   while preserveAspectRatio (default xMidYMid meet) keeps its ratio.
-   The !important on overflow cancels Task 3's inline overflow:visible
-   which would otherwise let the chart bleed past the preview height. */
 .overview-card__body svg {
   width: 100%;
   height: 100%;
@@ -450,6 +474,10 @@ svg { width: 100%; height: auto; display: block; border-radius: 22px; background
 .t2-rec-rank { font-weight: 900; color: #fde68a; font-size: .95rem; width: 28px; }
 .t2-rec-name { font-size: .88rem; color: #e2e8f0; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: default; }
 .t2-rec-num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: #e2e8f0; }
+
+/* ── Task 3 Split-Cell Calendar ────────────────────────────────── */
+.task3-calendar-shell { width: 100%; overflow-x: auto; overflow-y: visible; }
+.task3-split-tooltip { display: grid; gap: 4px; }
 
 /* ── Task 3 Daily Pricing Monitor ──────────────────────────────── */
 .task3-intervention-section { margin-top: 28px; border: 1px solid rgba(125,211,252,.18); border-radius: 24px; background: linear-gradient(145deg, rgba(15,23,42,.72), rgba(2,6,23,.52)); backdrop-filter: blur(18px); overflow: hidden; }
