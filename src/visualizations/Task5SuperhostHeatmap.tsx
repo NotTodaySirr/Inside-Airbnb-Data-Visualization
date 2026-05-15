@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
 import { useCsvData } from '../data/useCsvData'
 import { useJsonData } from '../data/useJsonData'
@@ -43,6 +43,29 @@ export function Task5SuperhostHeatmap() {
   const [percentile, setPercentile] = useState(90)
   const [selectedNeighbourhood, setSelectedNeighbourhood] = useState<string | null>(null)
   const [hoverCard, setHoverCard] = useState<HoverCardProps | null>(null)
+  const [transform, setTransform] = useState<d3.ZoomTransform>(d3.zoomIdentity)
+
+  // refs for d3-zoom
+  const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null)
+  const svgNodeRef = useRef<SVGSVGElement | null>(null)
+
+  // Callback ref: fires when the SVG element actually mounts (after data loads).
+  // This is the correct pattern when the element is conditionally rendered.
+  const svgRef = useCallback((node: SVGSVGElement | null) => {
+    if (svgNodeRef.current && zoomRef.current) {
+      // cleanup previous
+      d3.select(svgNodeRef.current).on('.zoom', null)
+    }
+    svgNodeRef.current = node
+    if (!node) return
+    const zoom = d3.zoom<SVGSVGElement, unknown>()
+      .scaleExtent([1, 12])
+      .on('zoom', (event: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
+        setTransform(event.transform)
+      })
+    zoomRef.current = zoom
+    d3.select(node).call(zoom)
+  }, [])
 
   // ── all hooks before early returns ──────────────────────────────────────────
   const allRows = csvState.status === 'loaded' ? csvState.data : []
@@ -168,6 +191,20 @@ export function Task5SuperhostHeatmap() {
     setSelectedNeighbourhood(null)
   }
 
+  const resetZoom = () => {
+    if (!svgNodeRef.current || !zoomRef.current) return
+    d3.select(svgNodeRef.current)
+      .transition().duration(400)
+      .call(zoomRef.current.transform, d3.zoomIdentity)
+  }
+
+  const stepZoom = (factor: number) => {
+    if (!svgNodeRef.current || !zoomRef.current) return
+    d3.select(svgNodeRef.current)
+      .transition().duration(250)
+      .call(zoomRef.current.scaleBy, factor)
+  }
+
   const activeSummary = [
     borough !== 'All' ? borough : 'All boroughs',
     roomType !== 'All' ? roomType : 'All room types',
@@ -225,7 +262,13 @@ export function Task5SuperhostHeatmap() {
         <Legend items={LEGEND_ITEMS} color={legendColor} />
 
         <div className="task-plot-wrap" style={{ position: 'relative' }}>
-          <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Superhost spatial density heatmap">
+          <svg
+            ref={svgRef}
+            viewBox={`0 0 ${width} ${height}`}
+            role="img"
+            aria-label="Superhost spatial density heatmap"
+            style={{ cursor: transform.k > 1 ? 'grab' : 'default' }}
+          >
             {/* ── map background panel ── */}
             <rect
               x={chartMargins.left} y={chartMargins.top}
@@ -233,6 +276,9 @@ export function Task5SuperhostHeatmap() {
               height={height - chartMargins.top - chartMargins.bottom}
               rx="28" className="map-panel"
             />
+
+            {/* ── zoomable group ── */}
+            <g transform={transform.toString()}>
 
             {/* ── faint neighbourhood polygon outlines (spatial reference) ── */}
             {geoData.features.map((feature, i) => {
@@ -310,7 +356,63 @@ export function Task5SuperhostHeatmap() {
                 />
               )
             })}
+            </g>{/* end zoomable group */}
           </svg>
+
+          {/* ── zoom controls overlay ── */}
+          <div style={{
+            position: 'absolute', top: 12, right: 12,
+            display: 'flex', flexDirection: 'column', gap: 4,
+          }}>
+            {[{ label: '+', factor: 1.5 }, { label: '−', factor: 1 / 1.5 }].map(({ label, factor }) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => stepZoom(factor)}
+                style={{
+                  width: 28, height: 28,
+                  borderRadius: 8,
+                  border: '1px solid rgba(125,211,252,.4)',
+                  background: 'rgba(15,23,42,.82)',
+                  color: '#e2e8f0',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'grid',
+                  placeItems: 'center',
+                  backdropFilter: 'blur(8px)',
+                  lineHeight: 1,
+                }}
+                aria-label={label === '+' ? 'Zoom in' : 'Zoom out'}
+              >
+                {label}
+              </button>
+            ))}
+            {transform.k > 1.05 && (
+              <button
+                type="button"
+                onClick={resetZoom}
+                style={{
+                  width: 28, height: 28,
+                  borderRadius: 8,
+                  border: '1px solid rgba(251,191,36,.4)',
+                  background: 'rgba(15,23,42,.82)',
+                  color: '#fbbf24',
+                  fontSize: '0.6rem',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  display: 'grid',
+                  placeItems: 'center',
+                  backdropFilter: 'blur(8px)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                }}
+                aria-label="Reset zoom"
+              >
+                RST
+              </button>
+            )}
+          </div>
 
           {hoverCard && <HoverCard {...hoverCard} />}
         </div>
