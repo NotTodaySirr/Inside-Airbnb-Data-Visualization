@@ -1,10 +1,12 @@
 import * as d3 from 'd3'
 import { useMemo, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
+import { useGlobalFilters } from '../components/GlobalFiltersContext'
 import { useCsvData } from '../data/useCsvData'
 import type { Task1PriceRatingCorrBarRow, Task1PriceRatingCorrRow } from '../types/charts'
 import { EmptyState, HoverCard } from './chartHelpers'
 import { chartMargins, formatDecimal, formatNumber, uniqueValues, wideChart } from './chartScales'
+import { rowMatchesGlobalFilters } from './globalFilterHelpers'
 
 const url = '/data/derived/task1_price_rating_corr.csv'
 const topOptions = [10, 20, 40, 60]
@@ -52,6 +54,7 @@ function barOpacity(value: number): number {
 
 export function Task1CorrelationBars() {
   const state = useCsvData<Task1PriceRatingCorrRow>(url)
+  const globalFilters = useGlobalFilters()
   const [minSample, setMinSample] = useState(10)
   const [topCount, setTopCount] = useState(40)
   const [sortMode, setSortMode] = useState<SortMode>('strongest')
@@ -63,6 +66,7 @@ export function Task1CorrelationBars() {
     if (state.status !== 'loaded') return []
 
     const mapped = state.data
+      .filter((d) => rowMatchesGlobalFilters(d, globalFilters))
       .filter((d) => d.sample_size >= minSample)
       .filter((d) => roomType === 'All' || d.room_type === roomType)
       .filter((d) => {
@@ -79,7 +83,7 @@ export function Task1CorrelationBars() {
     })
 
     return sorted.slice(0, topCount)
-  }, [direction, minSample, roomType, sortMode, state, topCount])
+  }, [direction, globalFilters, minSample, roomType, sortMode, state, topCount])
 
   const roomTypes = state.status === 'loaded' ? uniqueValues(state.data, d => d.room_type) : []
   const sortLabel = sortModes.find(mode => mode.value === sortMode)?.label ?? 'Strongest relationship'

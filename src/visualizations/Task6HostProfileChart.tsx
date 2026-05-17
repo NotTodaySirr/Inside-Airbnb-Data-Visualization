@@ -51,7 +51,7 @@ function fmtRaw(value: number, unit: string, metricId: string): string {
 }
 
 function fmtTarget(targetValue: number, unit: string, metricId: string, targetLabel: string): string {
-  let val = ''
+  let val: string
   if (unit === 'rating') val = `≥ ${formatDecimal(targetValue)}`
   else if (unit === 'score') val = `≥ ${formatDecimal(targetValue)}`
   else if (unit === 'count') val = `≥ ${formatNumber(Math.round(targetValue))}`

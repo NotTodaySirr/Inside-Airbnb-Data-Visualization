@@ -1,11 +1,13 @@
 import * as d3 from 'd3'
 import { useMemo, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
+import { useGlobalFilters } from '../components/GlobalFiltersContext'
 import { useCsvData } from '../data/useCsvData'
 import type { Task3DailyHostGroupRow } from '../types/charts'
 import { EmptyState, HoverCard, Legend } from './chartHelpers'
 import type { HoverCardProps } from './chartHelpers'
 import { chartMargins, formatPercent, hostGroupColor, uniqueValues } from './chartScales'
+import { rowMatchesGlobalFilters } from './globalFilterHelpers'
 
 // ─── layout constants ────────────────────────────────────────────────────────
 const W = 980
@@ -55,6 +57,7 @@ export function Task3VacancyArea() {
   const summaryState = useCsvData<Task3DailyHostGroupRow>(
     '/data/derived/task3_daily_host_group_summary.csv'
   )
+  const globalFilters = useGlobalFilters()
 
   const [room, setRoom] = useState('')
   const [hiddenGroups, setHiddenGroups] = useState<string[]>([])
@@ -63,13 +66,15 @@ export function Task3VacancyArea() {
   const [hoverCard, setHoverCard] = useState<HoverCardState | null>(null)
 
   // ── derive data — always run before any early return ────────────────────
-  const allRows = (summaryState.status === 'loaded' ? summaryState.data : []).map(r => ({
-    ...r,
-    date: toDateStr(r.date),
-  }))
+  const allRows = (summaryState.status === 'loaded' ? summaryState.data : [])
+    .filter(row => rowMatchesGlobalFilters(row, globalFilters))
+    .map(r => ({
+      ...r,
+      date: toDateStr(r.date),
+    }))
 
   const rooms = uniqueValues(allRows, d => d.room_type)
-  const selectedRoom = room || rooms[0] || ''
+  const selectedRoom = room && rooms.includes(room) ? room : rooms[0] || ''
   const roomRows = allRows.filter(d => d.room_type === selectedRoom)
 
   const allDates = useMemo(

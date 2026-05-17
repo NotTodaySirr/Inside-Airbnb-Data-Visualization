@@ -1,12 +1,14 @@
 import * as d3 from 'd3'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
+import { useGlobalFilters } from '../components/GlobalFiltersContext'
 import { useCsvData } from '../data/useCsvData'
 import { useJsonData } from '../data/useJsonData'
 import type { Task5SpatialListingRow, Task5SuperhostGapRow } from '../types/charts'
 import { EmptyState, HoverCard, Legend } from './chartHelpers'
 import type { HoverCardProps } from './chartHelpers'
 import { chartMargins, wideChart } from './chartScales'
+import { rowMatchesGlobalFilters } from './globalFilterHelpers'
 
 // ─── GeoJSON types ────────────────────────────────────────────────────────────
 type NeighbourhoodFeature = GeoJSON.Feature<GeoJSON.Geometry, {
@@ -16,7 +18,6 @@ type NeighbourhoodFeature = GeoJSON.Feature<GeoJSON.Geometry, {
 type NeighbourhoodGeoJson = GeoJSON.FeatureCollection<GeoJSON.Geometry, NeighbourhoodFeature['properties']>
 
 // ─── constants ────────────────────────────────────────────────────────────────
-const ROOM_TYPES = ['All', 'Entire home/apt', 'Private room', 'Shared room', 'Hotel room']
 const SUPERHOST_COLOR = '#f59e0b'   // warm amber for density
 const CANDIDATE_COLOR = '#22d3ee'   // cyan for acquisition candidates
 const LEGEND_ITEMS = ['Superhost density', 'Acquisition candidate']
@@ -37,9 +38,8 @@ function fmtPct(v: number) { return `${(v * 100).toFixed(1)}%` }
 export function Task5SuperhostHeatmap() {
   const csvState = useCsvData<Task5SpatialListingRow>('/data/derived/task5_spatial_listings.csv')
   const geoState = useJsonData<NeighbourhoodGeoJson>('/data/neighbourhoods.geojson')
+  const globalFilters = useGlobalFilters()
 
-  const [borough, setBorough] = useState('All')
-  const [roomType, setRoomType] = useState('All')
   const [percentile, setPercentile] = useState(90)
   const [selectedNeighbourhood, setSelectedNeighbourhood] = useState<string | null>(null)
   const [hoverCard, setHoverCard] = useState<HoverCardProps | null>(null)
@@ -68,20 +68,16 @@ export function Task5SuperhostHeatmap() {
   }, [])
 
   // ── all hooks before early returns ──────────────────────────────────────────
-  const allRows = csvState.status === 'loaded' ? csvState.data : []
+  const allRows = useMemo(
+    () => csvState.status === 'loaded' ? csvState.data : [],
+    [csvState],
+  )
   const geoData = geoState.status === 'loaded' ? geoState.data : null
 
-  const boroughs = useMemo(
-    () => ['All', ...Array.from(new Set(allRows.map(d => d.borough).filter(Boolean))).sort()],
-    [allRows]
-  )
-
-  // Apply borough + room type filters
+  // Apply the dashboard-level borough + room type filters.
   const filtered = useMemo(() => allRows.filter(d => {
-    if (borough !== 'All' && d.borough !== borough) return false
-    if (roomType !== 'All' && d.room_type !== roomType) return false
-    return true
-  }), [allRows, borough, roomType])
+    return rowMatchesGlobalFilters(d, globalFilters)
+  }), [allRows, globalFilters])
 
   // Compute percentile threshold client-side
   const threshold = useMemo(() => {
@@ -185,8 +181,6 @@ export function Task5SuperhostHeatmap() {
 
   // ── helpers ─────────────────────────────────────────────────────────────────
   const resetFilters = () => {
-    setBorough('All')
-    setRoomType('All')
     setPercentile(90)
     setSelectedNeighbourhood(null)
   }
@@ -206,8 +200,8 @@ export function Task5SuperhostHeatmap() {
   }
 
   const activeSummary = [
-    borough !== 'All' ? borough : 'All boroughs',
-    roomType !== 'All' ? roomType : 'All room types',
+    globalFilters.borough !== 'All' ? globalFilters.borough : 'All boroughs',
+    globalFilters.roomType !== 'All' ? globalFilters.roomType : 'All room types',
     `P${percentile} (≥ ${threshold.toFixed(0)} reviews LTM)`,
     `${superhostPoints.length} Superhosts`,
     `${candidatePoints.length} candidates`,
@@ -216,26 +210,6 @@ export function Task5SuperhostHeatmap() {
   // ── toolbox ─────────────────────────────────────────────────────────────────
   const toolbox = (
     <>
-      <ToolboxSection title="Geography">
-        <ToolboxControl label="Borough">
-          <select
-            id="task5-borough"
-            value={borough}
-            onChange={e => { setBorough(e.target.value); setSelectedNeighbourhood(null) }}
-          >
-            {boroughs.map(b => <option key={b}>{b}</option>)}
-          </select>
-        </ToolboxControl>
-      </ToolboxSection>
-
-      <ToolboxSection title="Listing Type">
-        <ToolboxControl label="Room type">
-          <select id="task5-room-type" value={roomType} onChange={e => setRoomType(e.target.value)}>
-            {ROOM_TYPES.map(r => <option key={r}>{r}</option>)}
-          </select>
-        </ToolboxControl>
-      </ToolboxSection>
-
       <ToolboxSection title="Review Threshold">
         <ToolboxControl label={`Percentile: P${percentile} (≥ ${threshold.toFixed(0)} reviews LTM)`}>
           <input

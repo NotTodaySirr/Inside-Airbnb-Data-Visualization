@@ -18,6 +18,7 @@ export type LoadState<T> =
 
 export interface Task1PriceRatingCorrRow {
   neighbourhood_cleansed: string
+  borough?: string
   room_type: string
   pearson_r: number
   sample_size: number
@@ -40,6 +41,7 @@ export interface Task2BarSummaryRow {
   review_year: number
   month_num: number
   month_label: string
+  borough?: string
   room_type: string
   review_count: number
 }
@@ -52,6 +54,7 @@ export interface Task2ListingDetailRow {
   name: string
   room_type: string
   neighbourhood_cleansed: string
+  borough?: string
   review_count: number
   review_scores_rating: number | null
   price: number | null
@@ -60,6 +63,7 @@ export interface Task2ListingDetailRow {
 
 export interface Task3VacancyMonthHostGroupRow {
   date_month: string | Date
+  borough?: string
   host_group: string
   room_type: string
   vacancy_rate: number
@@ -69,6 +73,7 @@ export interface Task3VacancyMonthHostGroupRow {
 
 export interface Task3DailyHostGroupRow {
   date: string
+  borough?: string
   host_group: string
   room_type: string
   total_listing_days: number
@@ -84,6 +89,7 @@ export interface Task3DailyHostGroupRow {
 export interface Task3InterventionRow {
   date: string
   listing_id: string
+  borough?: string
   host_group: string
   room_type: string
   available: boolean
@@ -94,6 +100,8 @@ export interface Task3InterventionRow {
 }
 
 export interface Task4MinNightsVacancyBoxRow {
+  borough?: string
+  room_type?: string
   minimum_nights_group: string
   price_setting_group: 'High fixed price' | 'Normal/lower fixed price'
   q1: number
@@ -111,6 +119,7 @@ export interface Task4SupportCandidateRow {
   listing_id: string
   name: string
   neighbourhood_cleansed: string
+  borough?: string
   room_type: string
   minimum_nights: number
   price: number
@@ -201,4 +210,3 @@ export interface Task6HostProfileRow {
   target_value: number
   target_label: string
 }
-

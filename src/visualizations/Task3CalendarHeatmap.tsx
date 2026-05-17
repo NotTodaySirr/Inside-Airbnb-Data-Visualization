@@ -2,10 +2,12 @@ import * as d3 from 'd3'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
+import { useGlobalFilters } from '../components/GlobalFiltersContext'
 import { useCsvData } from '../data/useCsvData'
 import type { Task3DailyHostGroupRow } from '../types/charts'
 import { EmptyState } from './chartHelpers'
 import { formatPercent, uniqueValues } from './chartScales'
+import { rowMatchesGlobalFilters } from './globalFilterHelpers'
 
 // ─── constants ────────────────────────────────────────────────────────────────
 const DATE_PRESETS = [
@@ -14,8 +16,7 @@ const DATE_PRESETS = [
   { label: 'Full 365 days', days: 365 },
 ] as const
 
-const HOST_GROUPS = ['Individual host', 'Commercial host'] as const
-type HostGroup = (typeof HOST_GROUPS)[number]
+type HostGroup = 'Individual host' | 'Commercial host'
 
 const GROUP_COLORS: Record<HostGroup, { accent: string }> = {
   'Individual host': { accent: '#14b8a6' },   // teal
@@ -442,6 +443,7 @@ export function Task3CalendarHeatmap() {
   const summaryState = useCsvData<Task3DailyHostGroupRow>(
     '/data/derived/task3_daily_host_group_summary.csv'
   )
+  const globalFilters = useGlobalFilters()
 
   const [room, setRoom] = useState('')
   const [datePreset, setDatePreset] = useState<number>(365)
@@ -450,11 +452,13 @@ export function Task3CalendarHeatmap() {
   // normalise date field
   const allRows = useMemo(() => {
     if (summaryState.status !== 'loaded') return []
-    return summaryState.data.map(r => ({ ...r, date: toDateStr(r.date) }))
-  }, [summaryState])
+    return summaryState.data
+      .filter(row => rowMatchesGlobalFilters(row, globalFilters))
+      .map(r => ({ ...r, date: toDateStr(r.date) }))
+  }, [summaryState, globalFilters])
 
   const rooms = uniqueValues(allRows, d => d.room_type)
-  const selectedRoom = room || rooms[0] || ''
+  const selectedRoom = room && rooms.includes(room) ? room : rooms[0] || ''
   const roomRows = allRows.filter(d => d.room_type === selectedRoom)
   const allDates = Array.from(new Set(roomRows.map(d => d.date))).sort()
   const visibleDates = allDates.slice(0, datePreset)

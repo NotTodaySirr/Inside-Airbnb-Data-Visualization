@@ -17,12 +17,16 @@ export function DashboardShell({ charts, defaultTab = 'overview' }: Props) {
   const [summaryTarget, setSummaryTarget] = useState<HTMLDivElement | null>(null)
   const [toolboxTarget, setToolboxTarget] = useState<HTMLDivElement | null>(null)
 
-  // When switching tabs, scroll canvas back to top and clear overview selection.
+  // When switching tabs, scroll canvas back to top.
   useEffect(() => {
     const canvas = document.querySelector('.dashboard-canvas')
     if (canvas) canvas.scrollTop = 0
-    if (activeId !== 'overview') setActiveOverviewId(null)
   }, [activeId])
+
+  const handleSelectTab = (id: DashboardTabId) => {
+    setActiveId(id)
+    if (id !== 'overview') setActiveOverviewId(null)
+  }
 
   const tabs: DashboardTab[] = [
     { id: 'overview', label: 'Dashboard', subtitle: 'Overview' },
@@ -68,14 +72,14 @@ export function DashboardShell({ charts, defaultTab = 'overview' }: Props) {
               {isOverview ? (
                 <DashboardOverview
                   charts={charts}
-                  onOpenChart={setActiveId}
+                  onOpenChart={handleSelectTab}
                   activeCardId={activeOverviewId}
                   onCardClick={(id) => setActiveOverviewId((prev) => (prev === id ? null : id))}
                   toolboxTarget={toolboxTarget}
                   summaryTarget={summaryTarget}
                 />
               ) : activeChart ? (
-                <ActiveChartView chart={activeChart} taskLabel={activeChartLabel ?? ''} />
+              <ActiveChartView chart={activeChart} taskLabel={activeChartLabel ?? ''} />
               ) : null}
             </main>
 
@@ -87,7 +91,7 @@ export function DashboardShell({ charts, defaultTab = 'overview' }: Props) {
           </div>
 
           {/* ── Bottom sheet tabs ───────────────────────────────────────── */}
-          <BottomSheetTabs tabs={tabs} activeId={activeId} onSelect={setActiveId} />
+          <BottomSheetTabs tabs={tabs} activeId={activeId} onSelect={handleSelectTab} />
         </div>
       </ChartSlotsProvider>
     </GlobalFiltersProvider>

@@ -1,11 +1,13 @@
 import * as d3 from 'd3'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ChartWorkspace, ToolboxSection } from '../components/ChartLayout'
+import { useGlobalFilters } from '../components/GlobalFiltersContext'
 import { useCsvData } from '../data/useCsvData'
 import type { Task4MinNightsVacancyBoxRow, Task4SupportCandidateRow } from '../types/charts'
 import { EmptyState, HoverCard, Legend } from './chartHelpers'
 import type { HoverCardProps } from './chartHelpers'
 import { chartMargins, formatNumber, formatPercent, priceSettingColor, wideChart } from './chartScales'
+import { globalFilterLabel, rowMatchesGlobalFilters } from './globalFilterHelpers'
 
 type HoverCardState = HoverCardProps
 
@@ -15,20 +17,33 @@ const BINS = ['1-2 nights', '3-6 nights', '7-29 nights', '30+ nights'] as const
 export function Task4VacancyBoxPlot() {
   const boxState  = useCsvData<Task4MinNightsVacancyBoxRow>('/data/derived/task4_min_nights_vacancy_box.csv')
   const candState = useCsvData<Task4SupportCandidateRow>('/data/derived/task4_support_candidates.csv')
+  const globalFilters = useGlobalFilters()
   const [showCandidates, setShowCandidates] = useState(true)
   const [hoverCard, setHoverCard] = useState<HoverCardState | null>(null)
+
+  const boxes = useMemo(() => {
+    if (boxState.status !== 'loaded') return []
+    const hasScopedRows = boxState.data.some(row => row.borough != null || row.room_type != null)
+    if (!hasScopedRows) return boxState.data
+    return boxState.data.filter(row =>
+      (row.borough ?? 'All') === globalFilters.borough &&
+      (row.room_type ?? 'All') === globalFilters.roomType
+    )
+  }, [boxState, globalFilters])
+
+  const candidates: Task4SupportCandidateRow[] = useMemo(() => (
+    candState.status === 'loaded'
+      ? candState.data.filter(row => rowMatchesGlobalFilters(row, globalFilters)).slice(0, 10)
+      : []
+  ), [candState, globalFilters])
 
   if (boxState.status === 'loading' || candState.status === 'loading')
     return <div className="loading-state">Loading box plot…</div>
   if (boxState.status === 'error')
     return <EmptyState title="Could not load Task 4" message={boxState.error} />
 
-  const boxes = boxState.data
-  const candidates: Task4SupportCandidateRow[] =
-    candState.status === 'loaded' ? candState.data.slice(0, 10) : []
-
   if (!boxes.length)
-    return <EmptyState title="No box plot data" message="Run regen_task4_only.py to generate the data." />
+    return <EmptyState title="No box plot data" message="No Task 4 box rows match the current global filters." />
 
   // ── scales ────────────────────────────────────────────────────────────────
   const { width, height } = wideChart
@@ -57,7 +72,7 @@ export function Task4VacancyBoxPlot() {
     return base + jitter
   }
 
-  const activeSummary = `Single-property hosts · candidates ${showCandidates ? 'on' : 'off'}`
+  const activeSummary = `${globalFilterLabel(globalFilters)} - Single-property hosts - candidates ${showCandidates ? 'on' : 'off'}`
 
   const toolbox = (
     <>

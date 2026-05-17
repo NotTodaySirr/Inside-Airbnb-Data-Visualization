@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 from pathlib import Path
 
@@ -8,6 +9,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 LISTINGS = DATA / 'listings_cleaned.csv'
 REVIEWS = DATA / 'reviews_cleaned.csv'
 CALENDAR = DATA / 'calendar_cleaned.csv'
+GEOJSON = DATA / 'neighbourhoods.geojson'
 
 HIGH_PRICE_RATIO = 1.25
 SUPPORT_MIN_NIGHTS = 30
@@ -29,9 +31,22 @@ def pearson(x):
         return None
     return x['price_clean'].corr(x['review_scores_rating'])
 
+def load_borough_map():
+    with open(GEOJSON, encoding='utf-8') as f:
+        geo = json.load(f)
+    out = {}
+    for feat in geo.get('features', []):
+        props = feat.get('properties', {})
+        neighbourhood = props.get('neighbourhood') or props.get('neighbourhood_cleansed')
+        borough = props.get('neighbourhood_group') or props.get('neighbourhood_group_cleansed')
+        if neighbourhood and borough:
+            out[neighbourhood] = borough
+    return out
+
 print('Loading listings...')
 listings = pd.read_csv(LISTINGS, low_memory=False)
 listings['id'] = listings['id'].astype(str)
+listings['borough'] = listings['neighbourhood_cleansed'].map(load_borough_map()).fillna('Unknown')
 
 # Task 1
 print('Task 1...')
@@ -41,10 +56,11 @@ t1['review_scores_rating'] = pd.to_numeric(t1['review_scores_rating'], errors='c
 valid_price = t1['price_clean'].notna() & ~bool_series(t1['price_missing']) & ~bool_series(t1['is_price_outlier'])
 t1 = t1[valid_price & t1['review_scores_rating'].notna()]
 rows = []
-for (n, r), g in t1.groupby(['neighbourhood_cleansed', 'room_type'], dropna=True):
+for (b, n, r), g in t1.groupby(['borough', 'neighbourhood_cleansed', 'room_type'], dropna=True):
     corr = pearson(g)
     if corr is not None and pd.notna(corr):
         rows.append({
+            'borough': b,
             'neighbourhood_cleansed': n,
             'room_type': r,
             'pearson_r': corr,
@@ -52,7 +68,7 @@ for (n, r), g in t1.groupby(['neighbourhood_cleansed', 'room_type'], dropna=True
             'avg_price_clean': g['price_clean'].mean(),
             'avg_review_scores_rating': g['review_scores_rating'].mean(),
         })
-pd.DataFrame(rows).sort_values(['neighbourhood_cleansed','room_type']).to_csv(OUT / 'task1_price_rating_corr.csv', index=False)
+pd.DataFrame(rows).sort_values(['borough','neighbourhood_cleansed','room_type']).to_csv(OUT / 'task1_price_rating_corr.csv', index=False)
 
 # Task 2 — Seasonality + Listing Promotion
 print('Task 2...')
@@ -391,7 +407,6 @@ print(f'  Task 3 intervention candidates: {len(t3_actionable)} rows (capped top-
 
 # Task 5 — Superhost Spatial Density Heatmap
 print('Task 5...')
-import json
 
 # --- 5a. Derive borough from GeoJSON properties ---
 geo_path = DATA / 'neighbourhoods.geojson'

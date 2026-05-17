@@ -18,7 +18,7 @@ export function BottomSheetTabs({ tabs, activeId, onSelect }: Props) {
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     const idx = tabs.findIndex((t) => t.id === activeId)
     if (idx < 0) return
-    let nextIdx = idx
+    let nextIdx: number
     if (e.key === 'ArrowRight') nextIdx = (idx + 1) % tabs.length
     else if (e.key === 'ArrowLeft') nextIdx = (idx - 1 + tabs.length) % tabs.length
     else if (e.key === 'Home') nextIdx = 0

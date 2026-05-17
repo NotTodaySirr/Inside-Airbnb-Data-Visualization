@@ -19,6 +19,7 @@ Support candidate rule:
   AND price_setting_group == "High fixed price"
   AND vacancy_rate >= 0.80
 """
+import json
 import pandas as pd
 from pathlib import Path
 
@@ -28,6 +29,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 LISTINGS = DATA / 'listings_cleaned.csv'
 CALENDAR = DATA / 'calendar_cleaned.csv'
+GEOJSON = DATA / 'neighbourhoods.geojson'
 
 HIGH_PRICE_RATIO = 1.25
 SUPPORT_MIN_NIGHTS = 30
@@ -52,10 +54,24 @@ def min_nights_group(v):
     return '30+ nights'
 
 
+def load_borough_map():
+    with open(GEOJSON, encoding='utf-8') as f:
+        geo = json.load(f)
+    out = {}
+    for feat in geo.get('features', []):
+        props = feat.get('properties', {})
+        neighbourhood = props.get('neighbourhood') or props.get('neighbourhood_cleansed')
+        borough = props.get('neighbourhood_group') or props.get('neighbourhood_group_cleansed')
+        if neighbourhood and borough:
+            out[neighbourhood] = borough
+    return out
+
+
 # ── Load listings & filter to single-property hosts with valid price ────────
 print('Loading listings...')
 listings = pd.read_csv(LISTINGS, low_memory=False)
 listings['id'] = listings['id'].astype(str)
+listings['borough'] = listings['neighbourhood_cleansed'].map(load_borough_map()).fillna('Unknown')
 listings['price_clean'] = pd.to_numeric(listings['price'], errors='coerce')
 listings['minimum_nights_num'] = pd.to_numeric(listings['minimum_nights'], errors='coerce')
 listings['host_listings_count_num'] = pd.to_numeric(
@@ -118,41 +134,56 @@ t4 = t4.merge(vacancy, left_on='id', right_on='listing_id', how='inner')
 t4 = t4.dropna(subset=['vacancy_rate', 'minimum_nights_group', 'price_setting_group'])
 print(f'  Listings with vacancy data: {len(t4):,}')
 
-# ── Box-plot rows: per (minimum_nights_group, price_setting_group) ──────────
+# ── Box-plot rows, scoped for global borough + room-type filters ────────────
 box_rows = []
-for (mn, pg), g in t4.groupby(['minimum_nights_group', 'price_setting_group']):
-    if len(g) == 0:
-        continue
-    q1, med, q3 = g['vacancy_rate'].quantile([0.25, 0.5, 0.75])
-    iqr = q3 - q1
-    low  = max(0.0, q1 - 1.5 * iqr)
-    high = min(1.0, q3 + 1.5 * iqr)
-    box_rows.append({
-        'minimum_nights_group': mn,
-        'price_setting_group':  pg,
-        'q1':            round(float(q1),  6),
-        'median':        round(float(med), 6),
-        'q3':            round(float(q3),  6),
-        'whisker_low':   round(float(low), 6),
-        'whisker_high':  round(float(high),6),
-        'sample_size':   int(len(g)),
-    })
+
+def add_box_rows(scope, borough, room_type):
+    rows_start = len(box_rows)
+    for (mn, pg), g in scope.groupby(['minimum_nights_group', 'price_setting_group']):
+        if len(g) == 0:
+            continue
+        q1, med, q3 = g['vacancy_rate'].quantile([0.25, 0.5, 0.75])
+        iqr = q3 - q1
+        low = max(0.0, q1 - 1.5 * iqr)
+        high = min(1.0, q3 + 1.5 * iqr)
+        box_rows.append({
+            'borough': borough,
+            'room_type': room_type,
+            'minimum_nights_group': mn,
+            'price_setting_group': pg,
+            'q1': round(float(q1), 6),
+            'median': round(float(med), 6),
+            'q3': round(float(q3), 6),
+            'whisker_low': round(float(low), 6),
+            'whisker_high': round(float(high), 6),
+            'sample_size': int(len(g)),
+        })
+
+    # Baseline = median vacancy of (1-2 nights, Normal/lower fixed price)
+    scoped_rows = box_rows[rows_start:]
+    baseline_rows = [
+        row for row in scoped_rows
+        if row['minimum_nights_group'] == '1-2 nights'
+        and row['price_setting_group'] == 'Normal/lower fixed price'
+    ]
+    baseline = baseline_rows[0]['median'] if baseline_rows else float('nan')
+    for row in scoped_rows:
+        row['baseline_median_vacancy'] = round(baseline, 6) if pd.notna(baseline) else None
+        row['vacancy_lift_pp'] = round((row['median'] - baseline) * 100, 2) if pd.notna(baseline) else None
+
+borough_values = ['All'] + sorted(v for v in t4['borough'].dropna().unique() if v != 'Unknown')
+room_values = ['All'] + sorted(v for v in t4['room_type'].dropna().unique())
+for borough in borough_values:
+    borough_scope = t4 if borough == 'All' else t4[t4['borough'] == borough]
+    for room_type in room_values:
+        scope = borough_scope if room_type == 'All' else borough_scope[borough_scope['room_type'] == room_type]
+        if not scope.empty:
+            add_box_rows(scope, borough, room_type)
 
 box_df = pd.DataFrame(box_rows)
-
-# Baseline = median vacancy of (1-2 nights, Normal/lower fixed price)
-baseline_row = box_df[
-    (box_df['minimum_nights_group'] == '1-2 nights')
-    & (box_df['price_setting_group'] == 'Normal/lower fixed price')
-]
-baseline = float(baseline_row['median'].iloc[0]) if not baseline_row.empty else float('nan')
-box_df['baseline_median_vacancy'] = round(baseline, 6) if pd.notna(baseline) else None
-box_df['vacancy_lift_pp'] = (box_df['median'] - baseline) * 100
-box_df['vacancy_lift_pp'] = box_df['vacancy_lift_pp'].round(2)
-
-box_df = box_df.sort_values(['minimum_nights_group', 'price_setting_group'])
+box_df = box_df.sort_values(['borough', 'room_type', 'minimum_nights_group', 'price_setting_group'])
 box_df.to_csv(OUT / 'task4_min_nights_vacancy_box.csv', index=False)
-print(f'  Box rows: {len(box_df)} (baseline median vacancy: {baseline:.4f})')
+print(f'  Box rows: {len(box_df)}')
 
 # ── Support candidates ──────────────────────────────────────────────────────
 cand_mask = (
@@ -186,6 +217,7 @@ export_cols = [
     'id',
     'name',
     'neighbourhood_cleansed',
+    'borough',
     'room_type',
     'minimum_nights_num',
     'price_clean',

@@ -1,10 +1,12 @@
 import * as d3 from 'd3'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { ChartWorkspace, ToolboxControl, ToolboxSection } from '../components/ChartLayout'
+import { useGlobalFilters } from '../components/GlobalFiltersContext'
 import { useCsvData } from '../data/useCsvData'
 import type { Task2BarSummaryRow, Task2ListingDetailRow } from '../types/charts'
 import { EmptyState, HoverCard, Legend } from './chartHelpers'
 import { chartMargins, formatNumber, roomTypeColor, uniqueValues, wideChart } from './chartScales'
+import { rowMatchesGlobalFilters } from './globalFilterHelpers'
 
 const MONTH_NUMS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 const MONTH_LABELS: Record<number, string> = {
@@ -36,10 +38,11 @@ function formatRating(v: number | null): string {
 
 export function Task2StackedReviews() {
   const barState = useCsvData<Task2BarSummaryRow>('/data/derived/task2_bar_summary.csv')
+  const globalFilters = useGlobalFilters()
 
   const [hiddenRoomTypes, setHiddenRoomTypes] = useState<string[]>([])
   const [selectedYear, setSelectedYear] = useState<string>('2024')
-  const [selectedMonth, setSelectedMonth] = useState<number | null>(null)
+  const [selectedMonthOverride, setSelectedMonth] = useState<number | null>(null)
   const [hoverCard, setHoverCard] = useState<HoverCardState | null>(null)
 
   // Lazy-load detail file
@@ -60,23 +63,15 @@ export function Task2StackedReviews() {
       .catch(() => setDetailStatus('error'))
   }, [detailStatus])
 
-  // Auto-select peak month when year changes
-  useEffect(() => {
-    if (barState.status !== 'loaded') return
-    const rows = barState.data
-    const yearRows = selectedYear === 'all'
-      ? rows
-      : rows.filter(r => String(r.review_year) === selectedYear)
-    // Aggregate by month_num
-    const byMonth = d3.rollup(yearRows, v => d3.sum(v, d => d.review_count), d => d.month_num)
-    const peakMonth = [...byMonth.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? 7
-    setSelectedMonth(peakMonth)
-  }, [selectedYear, barState.status])
+  const allRows = useMemo(() => (
+    barState.status === 'loaded'
+      ? barState.data.filter(row => rowMatchesGlobalFilters(row, globalFilters))
+      : []
+  ), [barState, globalFilters])
 
   if (barState.status === 'loading') return <div className="loading-state">Loading monthly reviews...</div>
   if (barState.status === 'error') return <EmptyState title="Could not load Task 2" message={barState.error} />
 
-  const allRows = barState.data
   const rooms = uniqueValues(allRows, d => d.room_type)
   const visibleRooms = rooms.filter(r => !hiddenRoomTypes.includes(r))
 
@@ -87,6 +82,9 @@ export function Task2StackedReviews() {
   const yearRows = selectedYear === 'all'
     ? allRows
     : allRows.filter(r => String(r.review_year) === selectedYear)
+  const peakMonth = [...d3.rollup(yearRows, v => d3.sum(v, d => d.review_count), d => d.month_num).entries()]
+    .sort((a, b) => b[1] - a[1])[0]?.[0] ?? 7
+  const selectedMonth = selectedMonthOverride ?? peakMonth
 
   // Aggregate to month_num x room_type for stacked bar
   const byMonthRoom = new Map<string, number>()
@@ -117,7 +115,8 @@ export function Task2StackedReviews() {
   const panelRows = detailStatus === 'loaded'
     ? detailData.filter(r =>
         r.month_num === selectedMonth &&
-        (selectedYear === 'all' || String(r.review_year) === selectedYear)
+        (selectedYear === 'all' || String(r.review_year) === selectedYear) &&
+        rowMatchesGlobalFilters(r, globalFilters)
       )
     : []
 
@@ -159,6 +158,7 @@ export function Task2StackedReviews() {
   const resetFilters = () => {
     setHiddenRoomTypes([])
     setSelectedYear('2024')
+    setSelectedMonth(null)
   }
 
   const toolbox = (
@@ -179,7 +179,10 @@ export function Task2StackedReviews() {
           <select
             id="task2-year-filter"
             value={selectedYear}
-            onChange={e => setSelectedYear(e.target.value)}
+            onChange={e => {
+              setSelectedYear(e.target.value)
+              setSelectedMonth(null)
+            }}
           >
             <option value="all">All years</option>
             {years.map(y => (
