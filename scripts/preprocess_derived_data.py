@@ -9,6 +9,10 @@ LISTINGS = DATA / 'listings_cleaned.csv'
 REVIEWS = DATA / 'reviews_cleaned.csv'
 CALENDAR = DATA / 'calendar_cleaned.csv'
 
+HIGH_PRICE_RATIO = 1.25
+SUPPORT_MIN_NIGHTS = 30
+SUPPORT_VACANCY_FLOOR = 0.80
+
 def bool_series(s):
     return s.astype(str).str.lower().isin(['true', 't', '1', 'yes'])
 
@@ -140,11 +144,50 @@ t2_legacy.to_csv(OUT / 'task2_review_month_room_type.csv', index=False)
 # Tasks 3/4 calendar aggregation in chunks
 print('Tasks 3/4 calendar chunks...')
 
-# Task 4 meta: keep 'Multi-listing host' label so Task4VacancyBoxPlot is unaffected
-listing_meta = listings[['id','calculated_host_listings_count','minimum_nights']].copy()
-listing_meta['host_group'] = pd.to_numeric(listing_meta['calculated_host_listings_count'], errors='coerce').fillna(0).apply(lambda x: 'Individual host' if x == 1 else 'Multi-listing host')
-listing_meta['minimum_nights_group'] = pd.to_numeric(listing_meta['minimum_nights'], errors='coerce').apply(min_nights_group)
-meta = listing_meta.set_index('id')[['host_group','minimum_nights_group']]
+# Legacy monthly host-group meta used by task3_vacancy_month_host_group.csv
+listing_meta_month = listings[['id','calculated_host_listings_count']].copy()
+listing_meta_month['host_group'] = pd.to_numeric(listing_meta_month['calculated_host_listings_count'], errors='coerce').fillna(0).apply(lambda x: 'Individual host' if x == 1 else 'Multi-listing host')
+month_meta = listing_meta_month.set_index('id')[['host_group']]
+
+# Task 4 meta: single-property hosts, grouped by price rigidity.
+task4_cols = [
+    'id',
+    'calculated_host_listings_count',
+    'minimum_nights',
+    'price',
+    'price_missing',
+    'is_price_outlier',
+    'room_type',
+    'neighbourhood_cleansed',
+]
+if 'name' in listings.columns:
+    task4_cols.append('name')
+
+task4_meta = listings[task4_cols].copy()
+task4_meta['price_clean'] = pd.to_numeric(task4_meta['price'], errors='coerce')
+task4_meta['minimum_nights_num'] = pd.to_numeric(task4_meta['minimum_nights'], errors='coerce')
+task4_meta['host_listings_count_num'] = pd.to_numeric(task4_meta['calculated_host_listings_count'], errors='coerce')
+task4_valid_price = (
+    task4_meta['price_clean'].notna()
+    & ~bool_series(task4_meta['price_missing'])
+    & ~bool_series(task4_meta['is_price_outlier'])
+)
+task4_single_host = task4_meta['host_listings_count_num'] == 1
+task4_meta = task4_meta[
+    task4_valid_price
+    & task4_single_host
+    & task4_meta['minimum_nights_num'].notna()
+].copy()
+task4_meta['minimum_nights_group'] = task4_meta['minimum_nights_num'].apply(min_nights_group)
+
+peer_median = task4_meta.groupby('room_type')['price_clean'].median().rename('peer_median_price')
+task4_meta = task4_meta.merge(peer_median, on='room_type', how='left')
+task4_meta['price_gap_pct'] = (task4_meta['price_clean'] - task4_meta['peer_median_price']) / task4_meta['peer_median_price']
+task4_meta['price_setting_group'] = (
+    (task4_meta['price_clean'] >= HIGH_PRICE_RATIO * task4_meta['peer_median_price'])
+    .map({True: 'High fixed price', False: 'Normal/lower fixed price'})
+)
+task4_box_meta = task4_meta.set_index('id')[['minimum_nights_group','price_setting_group']]
 
 # Task 3 meta: use 'Commercial host' label as specified in the refactor plan
 listing_meta_t3 = listings[['id','calculated_host_listings_count']].copy()
@@ -159,13 +202,18 @@ for chunk in pd.read_csv(CALENDAR, usecols=['listing_id','date','available','pri
     chunk['listing_id'] = chunk['listing_id'].astype(str)
     chunk['available_num'] = bool_series(chunk['available']).astype(int)
 
-    # --- Task 4 aggregation (unchanged logic) ---
-    chunk_t4 = chunk.copy()
-    chunk_t4['date_month'] = pd.to_datetime(chunk_t4['date'], errors='coerce').dt.to_period('M').astype(str)
-    chunk_t4 = chunk_t4.join(meta, on='listing_id')
-    chunk_t4 = chunk_t4.dropna(subset=['host_group'])
-    month_parts.append(chunk_t4.groupby(['date_month','host_group','room_type'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
-    listing_parts.append(chunk_t4.groupby(['listing_id','host_group','minimum_nights_group'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
+    # --- Legacy monthly host-group aggregation ---
+    chunk_month = chunk.copy()
+    chunk_month['date_month'] = pd.to_datetime(chunk_month['date'], errors='coerce').dt.to_period('M').astype(str)
+    chunk_month = chunk_month.join(month_meta, on='listing_id')
+    chunk_month = chunk_month.dropna(subset=['host_group'])
+    month_parts.append(chunk_month.groupby(['date_month','host_group','room_type'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
+
+    # --- Task 4 price-rigidity aggregation ---
+    chunk_t4 = chunk[['listing_id','available_num']].copy()
+    chunk_t4 = chunk_t4.join(task4_box_meta, on='listing_id')
+    chunk_t4 = chunk_t4.dropna(subset=['minimum_nights_group','price_setting_group'])
+    listing_parts.append(chunk_t4.groupby(['listing_id','minimum_nights_group','price_setting_group'], dropna=True).agg(available_days=('available_num','sum'), total_days=('available_num','size')).reset_index())
 
     # --- Task 3 daily aggregation (new) ---
     chunk_t3 = chunk[['listing_id','date','available_num','price_used','room_type']].copy()
@@ -174,22 +222,91 @@ for chunk in pd.read_csv(CALENDAR, usecols=['listing_id','date','available','pri
     chunk_t3 = chunk_t3.dropna(subset=['host_group'])
     t3_daily_parts.append(chunk_t3)
 
-# --- Task 4 outputs (unchanged) ---
+# --- Task 4 outputs ---
 month = pd.concat(month_parts).groupby(['date_month','host_group','room_type'], as_index=False).sum()
 month['vacancy_rate'] = month['available_days'] / month['total_days']
 month[['date_month','host_group','room_type','vacancy_rate','available_days','total_days']].to_csv(OUT / 'task3_vacancy_month_host_group.csv', index=False)
-listing_v = pd.concat(listing_parts).groupby(['listing_id','host_group','minimum_nights_group'], as_index=False).sum()
+listing_v = pd.concat(listing_parts).groupby(['listing_id','minimum_nights_group','price_setting_group'], as_index=False).sum()
 listing_v['vacancy_rate'] = listing_v['available_days'] / listing_v['total_days']
 box_rows, out_rows = [], []
-for (mn, hg), g in listing_v.dropna(subset=['minimum_nights_group']).groupby(['minimum_nights_group','host_group']):
+for (mn, pg), g in listing_v.dropna(subset=['minimum_nights_group','price_setting_group']).groupby(['minimum_nights_group','price_setting_group']):
     q1, med, q3 = g['vacancy_rate'].quantile([.25,.5,.75])
     iqr = q3 - q1
     low, high = max(0, q1 - 1.5*iqr), min(1, q3 + 1.5*iqr)
-    box_rows.append({'minimum_nights_group': mn, 'host_group': hg, 'q1': q1, 'median': med, 'q3': q3, 'whisker_low': low, 'whisker_high': high, 'sample_size': len(g)})
-    outs = g[(g['vacancy_rate'] < low) | (g['vacancy_rate'] > high)][['minimum_nights_group','host_group','listing_id','vacancy_rate']]
+    box_rows.append({'minimum_nights_group': mn, 'price_setting_group': pg, 'q1': q1, 'median': med, 'q3': q3, 'whisker_low': low, 'whisker_high': high, 'sample_size': len(g)})
+    outs = g[(g['vacancy_rate'] < low) | (g['vacancy_rate'] > high)][['minimum_nights_group','price_setting_group','listing_id','vacancy_rate']]
     out_rows.append(outs)
-pd.DataFrame(box_rows).to_csv(OUT / 'task4_min_nights_vacancy_box.csv', index=False)
-pd.concat(out_rows, ignore_index=True).to_csv(OUT / 'task4_min_nights_vacancy_outliers.csv', index=False)
+box_df = pd.DataFrame(box_rows)
+baseline_row = box_df[
+    (box_df['minimum_nights_group'] == '1-2 nights')
+    & (box_df['price_setting_group'] == 'Normal/lower fixed price')
+]
+baseline = float(baseline_row['median'].iloc[0]) if not baseline_row.empty else float('nan')
+box_df['baseline_median_vacancy'] = round(baseline, 6) if pd.notna(baseline) else None
+box_df['vacancy_lift_pp'] = ((box_df['median'] - baseline) * 100).round(2)
+box_df.to_csv(OUT / 'task4_min_nights_vacancy_box.csv', index=False)
+if out_rows:
+    pd.concat(out_rows, ignore_index=True).to_csv(OUT / 'task4_min_nights_vacancy_outliers.csv', index=False)
+else:
+    pd.DataFrame(columns=['minimum_nights_group','price_setting_group','listing_id','vacancy_rate']).to_csv(OUT / 'task4_min_nights_vacancy_outliers.csv', index=False)
+
+task4_detail = listing_v.merge(
+    task4_meta,
+    left_on='listing_id',
+    right_on='id',
+    how='left',
+    suffixes=('', '_meta'),
+)
+cand_mask = (
+    (task4_detail['minimum_nights_num'] >= SUPPORT_MIN_NIGHTS)
+    & (task4_detail['price_setting_group'] == 'High fixed price')
+    & (task4_detail['vacancy_rate'] >= SUPPORT_VACANCY_FLOOR)
+)
+cands = task4_detail[cand_mask].copy()
+if 'name' not in cands.columns:
+    cands['name'] = 'Listing ' + cands['listing_id'].astype(str)
+else:
+    cands['name'] = cands['name'].fillna('Listing ' + cands['listing_id'].astype(str))
+cands['support_reason'] = (
+    'Strict ' + cands['minimum_nights_num'].astype(int).astype(str)
+    + '+ night minimum AND price '
+    + (cands['price_gap_pct'] * 100).round(0).astype(int).astype(str)
+    + '% above peer median; '
+    + (cands['vacancy_rate'] * 100).round(0).astype(int).astype(str)
+    + '% vacant.'
+)
+cands = cands.sort_values(
+    ['vacancy_rate','price_gap_pct','minimum_nights_num'],
+    ascending=[False, False, False],
+).reset_index(drop=True)
+cands['support_priority_rank'] = cands.index + 1
+cand_cols = [
+    'support_priority_rank',
+    'listing_id',
+    'name',
+    'neighbourhood_cleansed',
+    'room_type',
+    'minimum_nights_num',
+    'price_clean',
+    'peer_median_price',
+    'price_gap_pct',
+    'available_days',
+    'total_days',
+    'vacancy_rate',
+    'support_reason',
+]
+cand_out = cands[cand_cols].rename(columns={
+    'minimum_nights_num': 'minimum_nights',
+    'price_clean': 'price',
+})
+cand_out['minimum_nights'] = cand_out['minimum_nights'].astype(int)
+cand_out['price'] = cand_out['price'].round(2)
+cand_out['peer_median_price'] = cand_out['peer_median_price'].round(2)
+cand_out['price_gap_pct'] = cand_out['price_gap_pct'].round(4)
+cand_out['vacancy_rate'] = cand_out['vacancy_rate'].round(4)
+cand_out['available_days'] = cand_out['available_days'].astype(int)
+cand_out['total_days'] = cand_out['total_days'].astype(int)
+cand_out.to_csv(OUT / 'task4_support_candidates.csv', index=False)
 
 # --- Task 3 new outputs ---
 print('Task 3 daily aggregation...')

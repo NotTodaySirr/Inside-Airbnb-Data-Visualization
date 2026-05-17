@@ -85,7 +85,10 @@ export function Task4VacancyBoxPlot() {
       }
     >
       <div className="task-chart-shell">
-        <Legend items={[...PRICE_GROUPS]} color={priceSettingColor} />
+        <Legend
+          items={[...PRICE_GROUPS, 'Support candidates']}
+          color={(item) => item === 'Support candidates' ? '#fbbf24' : priceSettingColor(item)}
+        />
 
         <div className="task-plot-wrap" style={{ position: 'relative' }}>
           <svg
